@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsoftware
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
+	<model_layer>
+		<!-- 学生实验记录表 -->
+		<object name="studentRecord" table="t_student_record"
+			primary="id" unique="" order="">
+			<property name="id" type="Long" length="10" initial=""
+				field="id" />
+			<property name="studentId" type="Long" length="10"
+				initial="" field="student_id" />
+			<!-- <property name="demand" type="String" length="500"
+				field="demand" />
+			<property name="target" type="String" length="500"
+				field="target" />
+			<property name="content" type="String" length="500"
+				field="content" /> -->
+			<property name="studentName" type="String" length="50"
+				field="" />
+			<property name="scheduleId" type="Long" length="10"
+				field="schedule_id" />
+			<property name="scheduleName" type="String" length="50"
+				field="" />
+			<property name="result" type="String" length="200"
+				field="result" />
+			<property name="comment" type="String" length="200"
+				field="comment" />
+			<property name="grade" type="Long" length="10" field="grade" />
+			<property name="submit" type="Long" length="10"
+				field="submit" />
+
+			<property name="fileId" type="Long" length="10"
+				field="file_id" />
+			<property name="fileName" type="String" length="50" field="" />
+			<property name="createTime" type="Date" length=""
+				validate="" field="create_time" />
+			<property name="createBy" type="Long" length="20"
+				validate="" field="create_by" />
+			<property name="updateTime" type="Date" length=""
+				validate="" field="update_time" />
+			<property name="updateBy" type="Long" length="20"
+				validate="" field="update_by" />
+			<property name="updateCount" type="Long" length="11"
+				validate="" field="update_count" />
+			<property name="experimentName" type="String" length="50"
+				field="" />
+			<property name="teacherName" type="String" length="50"
+				field="" />
+		</object>
+	</model_layer>
+</tsoftware>

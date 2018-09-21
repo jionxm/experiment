@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsoftware xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
+	<model_layer>
+		<!-- 案例资源分配表 -->
+		<object name="ExperimentOperate" table="t_experiment_operate"
+			primary="id" unique="" order="">
+			<property name="id" type="Long" length="10" initial=""
+				field="id" />
+			<property name="operateId" type="Long" length="10"
+				initial="" field="operate_id" />
+			<property name="egId" type="Long" length="10"
+				initial="" field="eg_id" />
+			<property name="name" type="String" length="20" initial=""
+				field="" />
+			<property name="type" type="String" length="20" initial=""
+				field="" />
+			<property name="distribution" type="String" length="200"
+				field="" />
+		</object>
+	</model_layer>
+</tsoftware>

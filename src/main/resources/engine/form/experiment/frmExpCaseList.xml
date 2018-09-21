@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsoftware
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
+	<ui_layer>
+		<ui name="frmExpCaseList" title="实验任务管理/实验案例列表">
+			<panel name="pToolbar" title="工具条" object="" type="Toolbar">
+				<control name="btnSubmit" title="查询" property=""
+					type="Button" edit="" required="" format="" width="" height=""
+					column="" />
+				<control name="btnAdd" title="创建实验案例" property=""
+					type="Button" edit="" required="" format="" width="" height=""
+					column="" />
+			</panel>
+			<panel name="pCondition" title="查询条件" object="experimentEg"
+				type="Group">
+				<control name="lk_name" title="实验案例名" property="name"
+					type="TextBox" edit="Y" required="N" format="" width="1" height="1"
+					column="4" />
+			</panel>
+			<panel name="pTable" title="查询结果" object="experimentEg"
+				type="Grid" page="">
+				<control name="id" title="数据编号" property="id" type="Hidden"
+					edit="" required="" format="" width="80" height="" column="" />
+				<control name="name" title="案例名称" property="name"
+					type="DataLink" edit="" required="" format="" width="300" height=""
+					column="" />
+				<control name="picId" title="附件编号" property="picId"
+					type="Hidden" edit="Y" required="N" format="" width="" height=""
+					column="" />
+				<control name="picName" title="缩略图" property="picName"
+					type="DataLink" edit="" required="" format="" width="300" height=""
+					column="" />
+				<control name="serverNum" title="服务器数量" property="serverNum"
+					type="TextBox" edit="" required="" format="" width="80" height=""
+					column="" />
+				<control name="createByName" title="创建人"
+					property="createByName" type="TextBox" edit="" required=""
+					format="" width="80" height="" column="" />
+				<control name="createTime" title="创建时间"
+					property="createTime" type="TextBox" edit="" required="" format=""
+					width="150" height="" column="" />
+				<control name="ctlEdit" title="编辑" property="" type="Link"
+					edit="" required="" format="" width="80" height="" column="" />
+				<control name="ctlDel" title="删除" property="" type="Link"
+					edit="" required="" format="" width="80" height="" column="" />
+			</panel>
+			<!-- 编辑 -->
+			<flow trigger="pTable.ctlEdit" event="OnClick" filter="">
+				<procedure name="getId" logic="EncodeId" ifyes="jspopup"
+					ifno="">
+					<param name="In" value="pTable.id"></param>
+				</procedure>
+				<procedure name="jspopup" logic="Popup" ifyes="queryTable"
+					ifno="">
+					<param name="Title" value="编辑实验案例"></param>
+					<param name="To" value="frmExpCaseEdit"></param>
+					<param name="Mode" value="Edit"></param>
+					<param name="Window" value="Xlarge"></param>
+				</procedure>
+				<procedure name="queryTable" logic="Query" ifyes=""
+					ifno="">
+					<param name="In" value="pCondition"></param>
+					<param name="Out" value="pTable"></param>
+					<param name="Sql" value="experiment/QryExpCase"></param>
+				</procedure>
+			</flow>
+			<flow trigger="pTable.fileName" event="OnClick" filter="">
+				<procedure name="jspopup" logic="PreviewFile" ifyes=""
+					ifno="">
+					<param name="In" value="pTable.fileId"></param>
+				</procedure>
+			</flow>
+			<flow trigger="pTable.picName" event="OnClick" filter="">
+				<procedure name="jspopup" logic="PreviewFile" ifyes=""
+					ifno="">
+					<param name="In" value="pTable.picId"></param>
+				</procedure>
+			</flow>
+			<!-- 初始化 -->
+			<flow trigger="" event="OnLoad" filter="">
+				<procedure name="jClear" logic="Clear" ifyes="jQuery"
+					ifno="" sync="Y">
+					<param name="Out" value="pCondition"></param>
+				</procedure>
+				<procedure name="jQuery" logic="Query" ifyes="" ifno="">
+					<param name="In" value="pCondition"></param>
+					<param name="Out" value="pTable"></param>
+					<param name="Sql" value="experiment/QryExpCase"></param>
+				</procedure>
+			</flow>
+			<flow trigger="pTable.ctlDel" event="OnClick" filter="">
+				<procedure name="j0" server="" logic="ConfirmMsg"
+					ifyes="del" ifno="">
+					<param name="Title" value="删除实验案例"></param>
+					<param name="Msg" value="确认删除当前实验案例吗?"></param>
+				</procedure>
+				<procedure name="del" logic="Delete" ifyes="queryTable"
+					ifno="">
+					<param name="In" value="pTable" />
+					<param name="Constraints" value="t_experiment_schedule.eg_id|存在关联数据:课程绑定信息;" />
+					<param name="Cascade"
+						value="t_experiment_distribution.eg_id;t_experiment_software.eg_id;"></param>
+					<param name="Msg" value="'已删除'" />
+				</procedure>
+				<procedure name="queryTable" logic="Query" ifyes=""
+					ifno="">
+					<param name="In" value="pCondition"></param>
+					<param name="Out" value="pTable"></param>
+					<param name="Sql" value="experiment/QryExpCase"></param>
+				</procedure>
+			</flow>
+			<!-- 查询 -->
+			<flow trigger="pToolbar.btnSubmit" event="OnClick" filter="">
+				<procedure name="jsquery" logic="Query" ifyes="" ifno="">
+					<param name="In" value="pCondition" />
+					<param name="Out" value="pTable" />
+					<param name="Sql" value="experiment/QryExpCase" />
+				</procedure>
+			</flow>
+			<!-- 添加新类型 -->
+			<flow trigger="pToolbar.btnAdd" event="OnClick" filter="">
+				<procedure name="jspopup" logic="Popup" ifyes="queryTable"
+					ifno="">
+					<param name="Title" value="创建实验案例"></param>
+					<param name="To" value="frmExpCaseEdit"></param>
+					<param name="Mode" value="Add"></param>
+					<param name="Window" value="Xlarge"></param>
+				</procedure>
+				<procedure name="queryTable" logic="Query" ifyes=""
+					ifno="">
+					<param name="In" value="pCondition"></param>
+					<param name="Out" value="pTable"></param>
+					<param name="Sql" value="experiment/QryExpCase"></param>
+				</procedure>
+			</flow>
+			<flow trigger="pTable.name" event="OnClick" filter="">
+				<procedure name="getId" logic="EncodeId"
+					ifyes="Transition" ifno="">
+					<param name="In" value="pTable.id"></param>
+				</procedure>
+				<procedure name="Transition" logic="Transition" ifyes=""
+					ifno="">
+					<param name="To" value="frmExpCaseDetail"></param>
+					<param name="Mode" value="Edit"></param>
+				</procedure>
+			</flow>
+			<layout>
+				<region location="North" scale="">
+					<subregion panel="pToolbar" location="North" scale="" />
+				</region>
+				<region location="Center" scale="">
+					<subregion panel="pCondition" location="North" scale="" />
+					<subregion panel="pTable" location="Center" scale="" />
+				</region>
+			</layout>
+		</ui>
+	</ui_layer>
+</tsoftware>

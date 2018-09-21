@@ -1,0 +1,130 @@
+/*
+    实验列表
+*/
+.class-box {
+    width: 100%;
+    margin-top: 50px;
+    background: #ffffff;
+    position: relative;
+    border-radius: 8px;
+    padding: 40px 32px;
+}
+
+.class-box .tips {
+    width: 18px;
+    height: 18px;
+    background: #008fea;
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    border-radius: 100px;
+}
+
+.class-box h3 {
+    font-size: 24px;
+    color: #333333;
+}
+
+.class-box h5 {
+    font-size: 14px;
+    color: #666;
+    font-weight: normal;
+    margin: 18px auto 48px;
+}
+
+.text-list {
+    width: 100%;
+}
+
+.text-list li {
+    width: calc(50% - 22.5px);
+    float: left;
+    margin-bottom: 32px;
+    height: 177px;
+    border: 1px solid #b5b5b5;
+    border-radius: 8px;
+    position: relative;
+    padding-left: 196px;
+}
+
+.text-list li:hover {
+    height: 175px;
+    border: none;
+    box-shadow: #008fea 0 0 10px;
+}
+
+.text-list li:nth-child(2n-1) {
+    margin-right: 45px;
+}
+
+.text-list li img {
+    width: 175px;
+    height: 175px;
+    border-radius: 8px;
+    position: absolute;
+    top: -0;
+    left: 0;
+}
+
+.text-list li .text-content {
+    padding: 16px 20px 24px 0;
+}
+
+.text-list li .text-top {
+    height: 77px;
+    border-bottom: 2px solid #eee;
+    position: relative;
+}
+
+.text-list li .text-title {
+    max-width: 200px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+    
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.text-list li .text-time {
+    margin-top: 18px;
+}
+
+.text-list li .text-opera {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.text-list li .text-button {
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+.text-list li .text-bottom {
+    height: 34px;
+    margin-top: 24px;
+    position: relative;
+}
+
+.text-list li .text-people {
+    height: 34px;
+    line-height: 34px;
+    color: #008fea;
+}
+
+.text-list li .text-go-experiment {
+    height: 34px;
+    line-height: 34px;
+    padding: 0 28px;
+    background: #f2af0d;
+    color: #ffffff;
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+}

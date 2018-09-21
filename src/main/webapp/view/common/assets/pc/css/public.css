@@ -1,0 +1,135 @@
+body {
+	background: #eee;
+	font-size: 14px;
+	color: #666;
+}
+
+.clearfix {
+	zoom: 1
+}
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+img {
+	width: 100%;
+	font-size: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	padding: 0;
+	margin: 0;
+	border: none;
+	outline: none
+}
+
+.button-default {
+	color: #008fea;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #008fea;
+}
+
+.button-default:hover, .button-default:active, .button-default:focus {
+	color: #fff;
+	background: #008fea;
+}
+
+.button-yellow {
+	color: #fff;
+	background: #f2af0d;
+	border-radius: 30px;
+}
+
+.button-blue {
+	color: #fff;
+	background: #008fea;
+	border-radius: 30px;
+}
+
+.cur_point {
+    cursor: pointer;
+}
+
+.container {
+	max-width: 1200;
+	margin: 0 auto;	
+}
+
+.big-container {
+	padding: 0 60px 60px;
+}
+
+.mr12 {
+	margin-right: 12px;
+}
+
+.dis_n {
+	display: none;
+}
+
+
+/*
+	header公共样式
+*/
+
+header {
+	width: 100%;
+	height: 70px;
+	background: #06070a;
+	position: relative;
+}
+
+header .logo {
+	width: 70px;
+	height: 35px;
+	background: url(../img/logo-exp.png) no-repeat center center;
+	background-size: 100%;
+	position: absolute;
+	left: 35px;
+	top: 12px;
+}
+
+header .experiment-title {
+	height: 70px;
+	line-height: 70px;
+	font-size: 16px;
+	color: #fff;
+	position: absolute;
+	left: 125px;
+	top: 0;
+}
+
+header nav {
+	max-width: 960px;
+	margin: 0 auto;
+	height: 70px;
+}
+
+header nav li {
+	float: left;
+	height: 70px;
+	line-height: 64px;
+	color: #fff;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 0 20px;
+	border-bottom: 6px solid #008fea;
+}

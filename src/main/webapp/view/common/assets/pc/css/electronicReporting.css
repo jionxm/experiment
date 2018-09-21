@@ -1,0 +1,159 @@
+/*
+    实验报告-在线编写
+*/
+.electronicReporting {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px 25px 50px;
+}
+
+.segment-content {
+    margin: 34px 0;
+}
+
+.segment-content li { 
+    float: left;
+    margin-right: 10px;
+}
+
+.segment-content li a { 
+    display: block;
+    border-radius: 30px;
+    padding: 10px 24px;
+    color: #008fea;
+}
+
+.segment-content li a.selected { 
+    background: #008fea;
+    color: #fff;
+}
+
+.header-title-1 {
+    font-weight: bold;
+    font-size: 16px;
+    color: #008fea;
+    margin-bottom: 16px;
+}
+
+.header-title-2 {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.header-title-3 {
+    color: #333;
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+
+.experiment-evaluate {
+    width: 100%;
+    height: 235px;
+    padding: 20px 30px;
+    border: 1px solid #bebebe;
+    border-radius: 10px;
+}
+
+.experiment-uploadfile-button {
+    width: 105px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 30px;
+    text-align: center;
+    background: #19b397;
+    position: relative;
+    margin-bottom: 32px;
+}
+
+.experiment-uploadfile-text {
+    color: #fff;
+    font-size: 16px;
+}
+
+.input-uploadfile-button {
+    opacity: 0;
+    width: 105px;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: #fff;
+    color: #fff;
+}
+
+.experiment-resource-list {
+    width: 100%;
+}
+
+.experiment-resource-list li {
+    width: 100%;
+    height: 26px;
+    line-height: 26px;
+    margin-bottom: 18px;
+}
+
+.experiment-resource-list li .experiment-resource-download {
+    float: left;
+}
+
+.experiment-resource-list li .experiment-resource-download a {
+    float: left;
+    color: #333;
+}
+
+.experiment-resource-list li .experiment-delete-resource {
+    float: left;
+    width: 26px;
+    height: 26px;
+    background: url(../img/icon_delete_resource.png) no-repeat center center;
+    background-size: 22px;
+    margin-left: 42px;
+}
+
+.experiment-opera {
+    width: 100%;
+    height: 56px;
+    margin-top: 96px;
+    position: relative;
+}
+
+.experiment-opera button {
+    width: 138px;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    background: #0095eb;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+
+.experiment-opera button.btn-submit {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.experiment-opera button.btn-save {
+    position: absolute;
+    top: 0;
+    right: 180px;
+}
+
+/*
+    成绩
+*/
+.experiment-count {
+    width: 100%;
+    height: 200px;
+    background: url(../img/bg_experiment_num.png) no-repeat center center;
+    padding-top: 100px;
+    background-size: 350px; 
+    margin: 80px auto;
+    color: #008fea;
+    font-size: 80px;
+    font-weight: bold;
+    text-align: center;
+}

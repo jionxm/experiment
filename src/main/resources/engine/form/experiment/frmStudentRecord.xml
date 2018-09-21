@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsoftware
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
+	<ui_layer>
+		<ui name="frmStudentRecord" title="学生实验记录">
+			<panel name="pHidden" object="studentRecord" type="Hidden">
+				<control name="eq_id" title="id" property="id" type="Hidden"
+					edit="Y" required="" format="" width="" height="" column="" />
+			</panel>
+			<panel name="pForm" title="新增学生实验记录" object="studentRecord"
+				type="Group">
+				<control name="id" title="id" property="id" type="Hidden"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="studentId" title="学生id" property="studentId"
+					type="Hidden" edit="Y" required="" format="" width="1" height="1"
+					column="" />
+				<control name="studentName" title="学生名字"
+					property="studentName" type="PopupBox" edit="Y" required="Y"
+					format="" width="1" height="1" column="" />
+				<control name="fileName" title="实验结果文件" property="fileName"
+					type="FileBox" edit="Y" required="Y" format="" width="1" height="1"
+					column="2" />
+				<control name="eq_scheduleId" title="实验课程编号"
+					property="scheduleId" type="Hidden" edit="Y" required="N" format=""
+					width="" height="" column="" />
+				<control name="scheduleName" title="实验课程名称"
+					property="scheduleName" type="Hidden" edit="Y" required="N"
+					format="" width="1" height="1" column="2" />
+				<control name="result" title="实验结果 " property="result"
+					type="TextBox" edit="Y" required="Y" format="" width="1" height="3"
+					column="1" />
+				<control name="fileId" title="实验结果文件编号" property="fileId"
+					type="Hidden" edit="" required="" format="" width="1" height=""
+					column="" />
+				<!-- <control name="demand" title="实验目的和需求" property="demand"
+					type="TextBox" edit="Y" required="N" format="" width="2" height="3"
+					column="2" />
+				<control name="target" title="实验目标" property="target"
+					type="TextBox" edit="Y" required="N" format="" width="2" height="3"
+					column="2" />
+				<control name="content" title="实验内容步骤" property="content"
+					type="TextBox" edit="Y" required="" format="" width="2" height="3"
+					column="2" /> -->
+				<control name="submit" title="提交状态" property="submit"
+					type="Hidden" edit="Y" required="N" initial="1" format="" width=""
+					height="" column="" />
+				<control name="createBy" title="创建人Id" property="createBy"
+					type="Hidden" edit="Y" required="N" target="session.userInfo.empId"
+					format="" width="" height="" column="" />
+				<control name="updateBy" title="修改人Id" property="updateBy"
+					type="Hidden" edit="Y" required="N" target="session.userInfo.empId"
+					format="" width="" height="" column="" />
+				<control name="createTime" title="创建日期"
+					property="createTime" type="Hidden" edit="Y" required="N"
+					target="editMode=='Add'?CurrentTime():nil" format="" width=""
+					height="" column="" />
+				<control name="updateTime" title="修改日期"
+					property="updateTime" type="Hidden" edit="Y" required="N"
+					target="CurrentTime()" format="" width="" height="" column="" />
+				<control name="updateCount" title="修改版本"
+					property="updateCount" type="Hidden" edit="Y" required="N"
+					target="editMode=='Add'?'0':nil" format="" width="1" height="1"
+					column="" />
+			</panel>
+			<panel name="pButton" title="工具按钮" object="" type="Toolbar">
+				<control name="save" title="确认" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="2" />
+				<control name="cancel" title="取消" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="2" />
+			</panel>
+			<!-- 初始化 -->
+			<flow trigger="" event="OnLoad" filter="">
+				<procedure name="jClear" logic="Clear" ifyes="jBranch"
+					ifno="" sync="Y">
+					<param name="Out" value="pForm"></param>
+				</procedure>
+				<procedure name="jBranch" server="" logic="Branch"
+					ifyes="jDecodeId1" ifno="jDecodeId">
+					<param name="In"
+						value="getStorage('frmStudentRecord_EditMode')=='Edit'"></param>
+				</procedure>
+				<procedure name="jDecodeId" server="" logic="DecodeId"
+					ifyes="" ifno="">
+					<param name="Out" value="pForm.eq_scheduleId" />
+				</procedure>
+				<procedure name="jDecodeId1" server="" logic="DecodeId"
+					ifyes="qid" ifno="">
+					<param name="Out" value="pHidden.eq_id" />
+				</procedure>
+				<procedure name="qid" logic="QueryById" ifyes="" ifno="">
+					<param name="In" value="pHidden" />
+					<param name="Out" value="pForm" />
+					<param name="Sql" value="experiment/QryStuRecord" />
+				</procedure>
+			</flow>
+			<!-- 附件上传 -->
+			<flow trigger="pForm.fileName" event="OnClick" filter="">
+				<procedure name="fileUpload" server="" logic="Upload"
+					ifyes="" ifno="">
+					<param name="Size" value="9999999"></param>
+					<param name="Type"
+						value="jpg,txt,mp4,md,pdf,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xlsx,xls,ppt"></param>
+					<param name="Bucket" value="public"></param>
+					<param name="Out" value="pForm.fileId"></param>
+				</procedure>
+			</flow>
+			<flow trigger="pForm.scheduleName" event="OnClick" filter="">
+				<procedure name="jSearch" logic="Find" ifyes="" ifno="">
+					<param name="In" value="pForm" />
+					<param name="Sql" value="Schedule" />
+					<param name="Out" value="pForm" />
+					<param name="Title" value="实验课程选择" />
+					<param name="Options" value="$RESET,重置" />
+					<param name="Columns"
+						value="id,实验课程编号,eq_scheduleId|name,实验课程名称,scheduleName" />
+					<param name="Window" value="Medium" />
+				</procedure>
+			</flow>
+			<flow trigger="pForm.studentName" event="OnClick" filter="">
+				<procedure name="jSearch" logic="Find" ifyes="" ifno="">
+					<param name="In" value="pForm" />
+					<param name="Sql" value="Student" />
+					<param name="Out" value="pForm" />
+					<param name="Title" value="学生选择" />
+					<param name="Options" value="$RESET,重置" />
+					<param name="Columns"
+						value="id,学生编号,studentId|name,学生姓名,studentName" />
+					<param name="Window" value="Medium" />
+				</procedure>
+			</flow>
+			<flow trigger="pButton.save" event="OnClick" filter="">
+				<procedure name="jssave" logic="Save" ifyes="jsclose"
+					ifno="">
+					<param name="In" value="pForm"></param>
+					<param name="Msg" value="'实验报告提交成功！'"></param>
+				</procedure>
+				<procedure name="jsclose" server="" logic="Close" ifyes=""
+					ifno="">
+					<param name="Refresh" value="true"></param>
+				</procedure>
+			</flow>
+			<flow trigger="pButton.cancel" event="OnClick" filter="">
+				<procedure name="jsclose" server="" logic="Close" ifyes=""
+					ifno="">
+					<param name="Refresh" value="true"></param>
+				</procedure>
+			</flow>
+			<!-- 布局 -->
+			<layout>
+				<region location="South" scale="">
+					<subregion panel="pButton" location="South" scale="" />
+				</region>
+				<region location="Center" scale="">
+					<subregion panel="pForm" location="Center" scale="" />
+				</region>
+			</layout>
+		</ui>
+	</ui_layer>
+</tsoftware>

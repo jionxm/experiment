@@ -1,0 +1,492 @@
+.left-content {
+    width: 346px;
+    margin-right: 34px;
+    float: left;
+    position: relative;
+}
+
+.icon-close-left {
+    width: 14px;
+    height: 54px;
+    position: absolute;
+    top: 300px;
+    right: -14px;
+    background:url(../img/icon_experiment_close.png) no-repeat 100% 0;
+}
+
+.segment-header{
+    height: 42px;
+}
+
+.segment-select-title {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 20px;
+    float: left;
+    background: #f2af0d;
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+}
+
+.segment-select-title.actived {
+    background: #fff;
+    color: #008fea;
+}
+
+.segment-select-title:first-child {
+    border-top-left-radius: 10px;
+}
+
+.segment-select-title:last-child {
+    border-top-right-radius: 10px;
+}
+
+.segment-content {
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    height: auto;
+    background-color: #fff;
+}
+
+.segment-content .experiment-instruction {
+    overflow-y: scroll;
+    overflow-x: visible;
+    padding: 20px 10px 20px 20px;
+}
+
+.header-title-1 {
+    font-weight: normal;
+    font-size: 18px;
+    color: #008fea;
+    margin-bottom: 16px;
+}
+
+.header-title-2 {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.header-title-3 {
+    color: #333;
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+
+/*
+    浜岀骇鍒囨崲
+*/
+.segment-second-header {
+    height: 36px;
+    margin-bottom: 42px;
+}
+
+.segment-second-title {
+    width: 100px;
+    height: 36px;
+    line-height: 36px;
+    color: #008fea;
+    text-align: center;
+    border-radius: 24px;
+    float: left;
+}
+.segment-second-title.actived {
+    background: #008fea;
+    color: #fff;
+}
+
+/*
+    涓婁紶鏂囦欢-鎻愪氦-淇濆瓨
+*/
+
+.experiment-evaluate {
+    width: 100%;
+    height: 235px;
+    padding: 20px 30px;
+    border: 1px solid #bebebe;
+    border-radius: 10px;
+}
+
+.experiment-uploadfile-button {
+    width: 102px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 30px;
+    text-align: center;
+    background: #19b397;
+    position: relative;
+    margin-bottom: 32px;
+}
+
+.experiment-uploadfile-text {
+    color: #fff;
+    font-size: 16px;
+}
+
+.input-uploadfile-button {
+    opacity: 0;
+    width: 102px;
+    height: 36px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: #fff;
+    color: #fff;
+}
+
+.experiment-resource-list {
+    width: 100%;
+}
+
+.experiment-resource-list li {
+    width: 100%;
+    height: 26px;
+    line-height: 26px;
+    margin-bottom: 18px;
+}
+
+.experiment-resource-list li .experiment-resource-download {
+    float: left;
+}
+
+.experiment-resource-list li .experiment-resource-download a {
+    float: left;
+    color: #333;
+}
+
+.experiment-resource-list li .experiment-delete-resource {
+    float: left;
+    width: 26px;
+    height: 26px;
+    background: url(../img/icon_delete_resource.png) no-repeat center center;
+    background-size: 22px;
+    margin-left: 42px;
+}
+
+.experiment-opera {
+    width: 100%;
+    height: 36px;
+    margin-top: 56px;
+    position: relative;
+}
+
+.experiment-opera button {
+    float: left;
+    width: 102px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background: #0095eb;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 20px;
+}
+
+.experiment-opera button.btn-save {
+    margin-right: 30px;
+}
+
+
+/**
+    鍙充晶鏍峰紡
+*/
+.right-content {
+    width: calc(100% - 380px);
+    float: left;
+    position: relative;
+}
+
+.icon-show-left {
+    display: none;
+    width: 14px;
+    height: 54px;
+    position: absolute;
+    top: 300px;
+    left: -15px;
+    background: url(../img/icon_experiment_close.png) no-repeat left top;
+    transform: rotate(180deg);
+}
+
+.environment-top {
+    width: 100%;
+    height: 27px;
+    line-height: 27px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.environment-top .environment-head {
+    font-size: 18px;
+    color: #008fea;
+}
+
+.environment-top .countdown {
+    color: #f20d0d;
+    margin-right: 20px;
+}
+
+.environment-top .stop-experiment {
+    display: block;
+    width: 115px;
+    height: 27px;
+    line-height: 27px;
+    padding-left: 40px;
+    color: #fff;
+    background: #363636 url(../img/icon_stop_experiment.png) no-repeat 15px center;
+    background-size: 15px;
+}
+
+.environment-content {
+    display: none;
+    position: relative;
+}
+
+.experiment-run {
+    width: 100%;
+    height: 100%;
+    background: #000000 url(../img/bg_exertiment_ready.png) no-repeat center center;
+    background-size: cover; 
+}
+
+.experiment-run .icon-run {
+    width: 100%;
+    height: 100%;
+    background: url(../img/icon_run_experiment.png) no-repeat center center;
+    background-size: 160px;
+}
+
+
+/* 绗簩绉嶅疄楠�-灏忔爣棰� */
+.environment-content-tab{
+    position: absolute;
+    top: -42px;
+    left: 0;
+}
+
+.environment-content-tab-title {
+    float: left;
+    width: 135px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    background: #ffffff;
+    color: #333;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    position: relative;
+}
+
+.environment-content-tab-title.selected {
+    background: #333;
+    color: #fff;
+}
+
+.environment-content-tab-title .icon-close {
+    display: block;
+    position: absolute;
+    top: 13px;
+    right: 12px;
+    width: 16px;
+    height: 16px;
+    background: url(../img/icon_close_btn.png) no-repeat center center;
+    background-size: 16px;
+}
+
+.environment-content-tab-title.posi1 {
+    position: relative;
+    left: 0;
+    z-index: 0;
+}
+
+.environment-content-tab-title.posi2 {
+    position: relative;
+    left: -30px;
+    z-index: -1;
+}
+
+.environment-content-tab-title.posi3 {
+    position: relative;
+    left: -60px;
+    z-index: -2;
+}
+
+/*铏氭嫙鏈�*/
+.virtual-item{
+    width: 100%;
+    background: #333;
+    height:791;
+}
+
+
+/* 铏氭嫙鏈�--寮圭獥 */
+.layout {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: (0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.experiment-over-prompt {
+    display: none;
+    width: 400px;
+    padding: 40px 0;
+    background: #ffffff;
+    position: fixed;
+    top: 200px;
+    left: 50%;
+    margin-left: -150px;
+    z-index: 101;
+    border-radius: 10px;
+}
+
+.experiment-over-prompt-bg {
+    width: 380px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.experiment-over-prompt .prompt {
+    font-size: 16px;
+    line-height: 24px;
+    color: #333;
+    text-align: center;
+}
+
+.experiment-over-btnsure {
+    display: block;
+    width: 180px;
+    height: 56px;
+    line-height: 56px;
+    margin: 60px auto 0;
+    text-align: center;
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+}
+.icon-close-experiment-over {
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: url(../img/icon_prompt_close_btn.png) no-repeat center center;
+    background-size: 30px;
+}
+
+.experiment-close-btn {
+    display: block;
+    width: 112px;
+    height: 42px;
+    line-height: 42px;
+    margin: 40px auto 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* .dis_n {
+    display: none;
+}
+.fs16 {
+    font-size: 16px;
+}
+
+.right-content{
+    position:relative;
+    margin-top: 12px;
+}
+
+
+.experiment-over {
+    display: none;
+    width: 300px;
+    background: #ffffff;
+    position: fixed;
+    top: 200px;
+    left: 50%;
+    margin-left: -150px;
+    z-index: 101;
+}
+
+.environment-content {
+    display: none;
+    position: relative;
+}
+
+
+/*
+    宸︿晶鍒囨崲灏弔ab
+*/
+/* .segment-left-header {
+    position: absolute;
+    left: 0;
+    top: 30px;
+}
+.segment-left-title {
+    width: 20px;
+    height: 100px;
+    padding-top: 15px;
+    background: #c8cfd6;
+    color: #949494;
+    font-size: 12px;
+    text-align: center;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+}
+.segment-left-title.selected {
+    background: #08c2fe;
+    color: #fff;
+}
+/* 鏂板姞icon */
+/* .editor-refresh {
+    z-index: 5;
+    position: absolute;
+    top: 10px;
+    left: 173px;
+    width: 32px;
+    height: 32px;
+    background: url(../image/icon_editor_refresh.png) no-repeat center center;
+}
+.editor-play{
+    z-index: 5;
+    position: absolute;
+    top: 10px;
+    left: 224px;
+    width: 32px;
+    height: 32px;
+    background: url(../image/icon_editor_play.png) no-repeat center center;
+}
+.editor-prompt {
+    z-index: 5;
+    position: absolute;
+    top: 10px;
+    left: 275px;
+    width: 32px;
+    height: 32px;
+    background: url(../image/icon_editor_prompt.png) no-repeat center center;
+} */ 
+/*缁撴灉椤�*/
+/* .environment-result {
+    z-index: 5;
+    position: absolute;
+    bottom: 30px;
+    right: 0;
+    padding: 10px;
+    border: 1px solid #00b4ed;
+    border-right: none;
+    background: #fff;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+} */
+

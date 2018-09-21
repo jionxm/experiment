@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsoftware xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
+	<ui_layer>
+		<ui name="frmStuRecordScore" title="学生实验记录">
+		    <panel name="pHidden" object="studentRecord"  type="Hidden">
+		      <control name="eq_id" title="id" property="id" type="Hidden" edit="Y" required="" format="" width="" height="" column=""/>
+		    </panel>
+			<panel name="pForm" title="学生实验记录打分" object="studentRecord" type="Group">
+				<control name="id" title="编号" property="id" type="Hidden" edit="" required="" format="" width="" height="" column="" />
+				<control name="grade" title="实验成绩 " property="grade" type="TextBox" edit="Y" required="Y" format="" width="1" height="1" column="1" />
+				<control name="comment" title="实验评价 " property="comment" type="TextBox" edit="Y" required="Y" format="" width="1" height="3" column="1" />
+				<control name="submit" title="提交状态" property="submit" type="Hidden" edit="Y" required="N" 
+						 target="1" format="" width="" height="" column=""  />
+			</panel>
+			<panel name="pButton" title="工具按钮" object="" type="Toolbar">
+				<control name="save" title="确认" property="" type="Button" edit="" required="" format="" width="" height="" column="2"/>
+				<control name="cancel" title="取消" property="" type="Button" edit="" required="" format="" width="" height="" column="2"/>
+			</panel>
+			<!-- 初始化 -->
+			<flow trigger="" event="OnLoad" filter="">
+				<procedure name="jClear"  logic="Clear" ifyes="jDecodeId" ifno="" sync="Y">
+			       <param name="Out" value="pForm"></param>
+			    </procedure>
+			    <procedure name="jDecodeId" server="" logic="DecodeId" ifyes="qid" ifno="">
+			        <param name="Out" value="pHidden.eq_id" />
+			    </procedure>
+			    <procedure name="qid"  logic="QueryById" ifyes="" ifno="">
+			        <param name="In" value="pHidden" />
+			        <param name="Out" value="pForm" />
+			        <param name="Sql" value="experiment/QryStuRecord" />
+			    </procedure>
+			</flow>
+			
+			<!-- 附件上传 -->
+			<flow trigger="pForm.fileName" event="OnClick" filter="">
+				<procedure name="fileUpload" server="" logic="Upload"
+					ifyes="" ifno="">
+					<param name="Size" value="9999999"></param>
+					<param name="Type" value="jpg,txt,mp4,md,pdf,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xlsx,xls,ppt"></param>
+					<param name="Bucket" value="public"></param>
+					<param name="Out" value="pForm.fileId"></param>
+				</procedure>
+			</flow>
+			
+		    <flow trigger="pButton.save" event="OnClick" filter="" >
+		      <procedure name="jssave"  logic="Save" ifyes="jsclose" ifno="">
+		        <param name="In" value="pForm"></param>
+		        <param name="Msg" value="'评分成功'"></param>
+		      </procedure>
+		      <procedure name="jsclose" server="" logic="Close" ifyes="" ifno="">
+		        <param name="Refresh" value="true"></param>
+		      </procedure>
+		    </flow>
+		    <flow trigger="pButton.cancel" event="OnClick" filter="" >
+		      <procedure name="jsclose" server="" logic="Close" ifyes="" ifno="">
+		        <param name="Refresh" value="true"></param>
+		      </procedure>
+		    </flow>
+			<!-- 布局 -->
+		    <layout>
+		      <region location ="South" scale="">
+		        <subregion panel="pButton" location="South" scale="" />
+		      </region>
+		      <region location ="Center" scale="">
+		        <subregion panel="pForm" location="Center" scale="" />
+		      </region>
+		    </layout>
+		</ui>
+	</ui_layer>
+</tsoftware>

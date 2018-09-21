@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsoftware
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
+	<ui_layer>
+		<ui name="frmExpCaseEdit" title="新增实验案例">
+			<panel name="hiddenPanel" title="hidden" object="experimentEg"
+				type="Hidden">
+				<control name="eq_egId" title="编号" property="id"
+					type="Hidden" edit="" required="" format="" width="" height=""
+					column="" />
+			</panel>
+			<panel name="pForm" title="新增实验案例" object="experimentEg"
+				type="Group">
+				<control name="id" title="编号" property="id" type="Hidden"
+					edit="Y" required="" format="" width="1" height="1" column="2" />
+				<control name="name" title="案例名称" property="name"
+					type="TextBox" edit="Y" required="Y" format="" width="1" height="1"
+					column="" />
+				<control name="picName" title="缩略图" property="picName"
+					type="FileBox" edit="Y" required="Y" format="" width="1" height="1"
+					column="" />
+				<control name="serverNum" title="服务器数量" property="serverNum"
+					type="TextBox" edit="Y" required="" format="" width="1" height=""
+					column="4"/>
+				<control name="demand" title="实验概述" property="demand"
+					type="TextBox" edit="Y" required="N" format="" width="1" height="5"
+					column="" />
+				<control name="reportDemand" title="实验需求(报告)"
+					property="reportDemand" type="TextBox" edit="Y" required="N"
+					format="" width="1" height="5" column="2" />
+				<control name="target" title="实验目标" property="target"
+					type="TextBox" edit="Y" required="N" format="" width="1" height="5"
+					column="" />
+				<control name="reportTarget" title="实验目标(报告)"
+					property="reportTarget" type="TextBox" edit="Y" required="N"
+					format="" width="1" height="5" column="2" />
+				<control name="content" title="学前建议" property="content"
+					type="TextBox" edit="Y" required="" format="" width="1" height="5"
+					column="" />
+				<control name="reportContent" title="实验步骤(报告)"
+					property="reportContent" type="TextBox" edit="Y" required=""
+					format="" width="1" height="5" column="2" />
+				<control name="picId" title="附件编号" property="picId"
+					type="Hidden" edit="Y" required="N" format="" width="" height=""
+					column="" />
+				<control name="createTime" title="创建时间"
+					property="createTime" type="Hidden" edit="N" required="N" format=""
+					width="1" height="1" column="1"
+					target="editMode=='Add'?CurrentTime():nil" />
+				<control name="createBy" title="创建人" property="createBy"
+					type="Hidden" edit="Y" required="N"
+					target="editMode=='Add'?session.userInfo.empId:nil" format=""
+					width="1" height="1" column="" />
+				<control name="updateTime" title="最后修改时间"
+					property="updateTime" type="Hidden" edit="N" required="N" format=""
+					width="1" height="1" column="1" target="CurrentTime()" />
+				<control name="updateBy" title="最后修改人" property="updateBy"
+					type="Hidden" edit="Y" required="N" target="session.userInfo.empId"
+					format="" width="1" height="1" column="" />
+				<control name="updateCount" title="修改版本"
+					property="updateCount" type="Hidden" edit="Y" required="N"
+					target="editMode=='Add'?'0':nil" format="" width="1" height="1"
+					column="" />
+
+			</panel>
+			<panel name="meetDetail" title="软件基础信息" object="expSoftware"
+				type="Grid" multiple="">
+				<control name="ctlAdd" title="新增" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="ctlDel" title="删除" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="id" title="id" property="id" type="Hidden"
+					edit="Y" required="" format="" width="" height="" column="" />
+				<control name="name" title="软件环境选择" property="name"
+					type="PopupBox" edit="Y" required="" format="" width="150"
+					height="" column="" />
+				<control name="version" title="版本号" property="version"
+					type="TextBox" edit="N" required="" format="" width="150" height=""
+					column="" />
+				<control name="gitPath" title="下载地址" property="gitPath"
+					type="TextBox" edit="N" required="" format="" width="300" height=""
+					column="" />
+				<control name="softwareId" title="id" property="softwareId"
+					type="Hidden" edit="N" required="N" format="" width="" height=""
+					column="" />
+				<control name="egId" title="experimentId" property="egId"
+					type="Hidden" edit="N" required="N" format="" width="" height=""
+					column="" />
+			</panel>
+			<panel name="meetDis" title="资源分配规划" object="ExperimentDis"
+				type="Grid" multiple="">
+				<control name="ctlAdd" title="新增" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="ctlDel" title="删除" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="id" title="id" property="id" type="Hidden"
+					edit="Y" required="" format="" width="" height="" column="" />
+				<control name="decision" title="参数" property="decision"
+					type="PopupBox" edit="Y" required="Y" format="" width="150"
+					height="" column="" />
+				<control name="type" title="类型" property="type"
+					type="TextBox" edit="N" required="" format="" width="150" height=""
+					column="" />
+				<control name="distribution" title="描述"
+					property="distribution" type="TextBox" edit="N" required=""
+					format="" width="300" height="" column="" />
+				<control name="distributionId" title="id"
+					property="distributionId" type="Hidden" edit="N" required="N"
+					format="" width="" height="" column="" />
+				<control name="egId" title="experimentId" property="egId"
+					type="Hidden" edit="N" required="N" format="" width="" height=""
+					column="" />
+			</panel>
+			<panel name="meetOperate" title="操作环境"
+				object="ExperimentOperate" type="Grid" multiple="">
+				<control name="ctlAdd" title="新增" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="ctlDel" title="删除" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="id" title="id" property="id" type="Hidden"
+					edit="Y" required="" format="" width="" height="" column="" />
+				<control name="name" title="案例操作环境名称" property="name"
+					type="PopupBox" edit="Y" required="Y" format="" width="150"
+					height="" column="" />
+				<control name="type" title="类型" property="type"
+					type="TextBox" edit="N" required="Y" format="" width="150"
+					height="" column="" />
+				<control name="distribution" title="描述"
+					property="distribution" type="TextBox" edit="N" required="Y"
+					format="" width="300" height="" column="" />
+				<control name="egId" title="experimentId" property="egId"
+					type="Hidden" edit="N" required="N" format="" width="" height=""
+					column="" />
+				<control name="operateId" title="operateId"
+					property="operateId" type="Hidden" edit="N" required="N" format=""
+					width="" height="" column="" />
+			</panel>
+			<panel name="meetFile" title="附件上传" object="experimentFile"
+				type="Grid" multiple="">
+				<control name="ctlAdd" title="新增" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="ctlDel" title="删除" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="id" title="id" property="id" type="Hidden"
+					edit="Y" required="" format="" width="" height="" column="" />
+				<control name="fileId" title="案例操作环境名称" property="fileId"
+					type="Hidden" edit="Y" required="" format="" width="150" height=""
+					column="" />
+				<control name="fileName" title="文件名" property="fileName"
+					type="FileBox" edit="Y" required="" format="" width="300"
+					height="" column="" />
+				<control name="egId" title="experimentId" property="egId"
+					type="Hidden" edit="N" required="N" format="" width="" height=""
+					column="" />
+			</panel>
+			<panel name="pButton" title="pnlDown" object="" type="Grid">
+				<control name="ctlSave" title="提交" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="ctlCancel" title="取消" property=""
+					type="Button" edit="" required="" format="" width="" height=""
+					column="" />
+			</panel>
+
+			<flow trigger="meetFile.fileName" event="OnClick" filter="">
+				<procedure name="fileUpload" server="" logic="Upload"
+					ifyes="" ifno="">
+					<param name="Size" value="9999999"></param>
+					<param name="Type"
+						value="jpg,txt,mp4,md,pdf,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xlsx,xls,ppt"></param>
+					<param name="Bucket" value="public"></param>
+					<param name="Out" value="meetFile.fileId"></param>
+				</procedure>
+			</flow>
+			<!-- 附件上传 -->
+			<flow trigger="pForm.picName" event="OnClick" filter="">
+				<procedure name="fileUpload" server="" logic="Upload"
+					ifyes="" ifno="">
+					<param name="Size" value="9999999"></param>
+					<param name="Type"
+						value="jpg,txt,mp4,md,pdf,jpeg,gif,png,bmp"></param>
+					<param name="Bucket" value="public"></param>
+					<param name="Out" value="pForm.picId"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetFile.ctlAdd" event="OnClick" filter="">
+				<procedure name="addRow" server="" logic="AddRow" ifyes=""
+					ifno="">
+					<param name="Out" value="meetFile"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetFile.ctlDel" event="OnClick" filter="">
+				<procedure name="removeRow" server="" logic="RemoveRow"
+					ifyes="" ifno="">
+					<param name="In" value="meetFile"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetDis.ctlAdd" event="OnClick" filter="">
+				<procedure name="addRow" server="" logic="AddRow" ifyes=""
+					ifno="">
+					<param name="Out" value="meetDis"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetDis.ctlDel" event="OnClick" filter="">
+				<procedure name="removeRow" server="" logic="RemoveRow"
+					ifyes="" ifno="">
+					<param name="In" value="meetDis"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetDetail.ctlAdd" event="OnClick" filter="">
+				<procedure name="addRow" server="" logic="AddRow" ifyes=""
+					ifno="">
+					<param name="Out" value="meetDetail"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetOperate.ctlAdd" event="OnClick" filter="">
+				<procedure name="addRow" server="" logic="AddRow" ifyes=""
+					ifno="">
+					<param name="Out" value="meetOperate"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetOperate.ctlDel" event="OnClick" filter="">
+				<procedure name="removeRow" server="" logic="RemoveRow"
+					ifyes="" ifno="">
+					<param name="In" value="meetOperate"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetDetail.ctlDel" event="OnClick" filter="">
+				<procedure name="removeRow" server="" logic="RemoveRow"
+					ifyes="" ifno="">
+					<param name="In" value="meetDetail"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetOperate.name" event="OnClick" filter="">
+				<procedure name="find" logic="Find" ifyes="" ifno="">
+					<param name="Out" value="meetOperate"></param>
+					<param name="Sql" value="OpEnv"></param>
+					<param name="Title" value="选择操作环境"></param>
+					<param name="Columns"
+						value="id,操作环境编号,operateId|name,操作环境名称,name|type,类型,type|distribution,描述,distribution"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetDetail.name" event="OnClick" filter="">
+				<procedure name="find" logic="Find" ifyes="" ifno="">
+					<param name="Out" value="meetDetail"></param>
+					<param name="Sql" value="SoftwareCase"></param>
+					<param name="Title" value="选择软件环境"></param>
+					<param name="Columns"
+						value="id,软件ID,softwareId|name,软件名,name|version,版本号,version|gitPath,下载地址,gitPath"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetDis.decision" event="OnClick" filter="">
+				<procedure name="find" logic="Find" ifyes="" ifno="">
+					<param name="Out" value="meetDis"></param>
+					<param name="Sql" value="DistributionCase"></param>
+					<param name="Title" value="选择运行资源"></param>
+					<param name="Columns"
+						value="id,资源编号,distributionId|type,类型,type|decision,参数,decision|distribution,描述,distribution"></param>
+				</procedure>
+			</flow>
+			<!-- 初始化 -->
+			<flow trigger="" event="OnLoad" filter="">
+				<procedure name="btnClear" logic="Clear" ifyes="jBranch"
+					ifno="">
+					<param name="Out" value="pForm"></param>
+				</procedure>
+				<procedure name="jBranch" server="" logic="Branch"
+					ifyes="jDecodeId" ifno="">
+					<param name="In"
+						value="getStorage('frmExpCaseEdit_EditMode')=='Edit'"></param>
+				</procedure>
+				<procedure name="jDecodeId" server="" logic="DecodeId"
+					ifyes="qid" ifno="">
+					<param name="Out" value="hiddenPanel.eq_egId" />
+				</procedure>
+				<procedure name="qid" logic="QueryById" ifyes="query"
+					ifno="">
+					<param name="In" value="hiddenPanel"></param>
+					<param name="Out" value="pForm" />
+					<param name="Sql" value="experiment/QryExpCase" />
+				</procedure>
+				<procedure name="query" logic="Query" ifyes="query1"
+					ifno="">
+					<param name="In" value="hiddenPanel"></param>
+					<param name="Out" value="meetDetail"></param>
+					<param name="Sql" value="experiment/QryExpSoftware"></param>
+				</procedure>
+				<procedure name="query1" logic="Query" ifyes="query2"
+					ifno="">
+					<param name="In" value="hiddenPanel"></param>
+					<param name="Out" value="meetDis"></param>
+					<param name="Sql" value="experiment/QryExpDis"></param>
+				</procedure>
+				<procedure name="query2" logic="Query" ifyes="query3"
+					ifno="">
+					<param name="In" value="hiddenPanel"></param>
+					<param name="Out" value="meetOperate"></param>
+					<param name="Sql" value="experiment/QryOperateEnvironment"></param>
+				</procedure>
+				<procedure name="query3" logic="Query" ifyes="" ifno="">
+					<param name="In" value="hiddenPanel"></param>
+					<param name="Out" value="meetFile"></param>
+					<param name="Sql" value="experiment/QryExpFile"></param>
+				</procedure>
+			</flow>
+			<!-- 保存 -->
+			<flow trigger="pButton.ctlSave" event="OnClick" filter="">
+				<procedure name="jssave" logic="Save" ifyes="jsclose"
+					ifno="">
+					<param name="In"
+						value="pForm,meetDetail.egId,meetDis.egId,meetFile.egId,meetOperate.egId"></param>
+					<param name="Msg" value="'信息已被保存'"></param>
+				</procedure>
+				<procedure name="jsclose" server="" logic="Close" ifyes=""
+					ifno="">
+					<param name="Refresh" value="true"></param>
+				</procedure>
+			</flow>
+
+			<!-- 取消 -->
+			<flow trigger="pButton.ctlCancel" event="OnClick" filter="">
+				<procedure name="jsclose" server="" logic="Close" ifyes=""
+					ifno="">
+					<param name="Refresh" value="false"></param>
+				</procedure>
+			</flow>
+
+
+			<layout>
+				<region location="South" scale="">
+					<subregion panel="pButton" location="South" scale="" />
+				</region>
+				<region location="Center" scale="">
+					<subregion panel="pForm" location="North" scale="" />
+					<subregion panel="meetDetail" location="Center" scale="" />
+					<subregion panel="meetDis" location="Center" scale="" />
+					<subregion panel="meetOperate" location="Center" scale="" />
+					<subregion panel="meetFile" location="Center" scale="" />
+					<subregion panel="hiddenPanel" location="Center" scale="" />
+				</region>
+
+			</layout>
+		</ui>
+	</ui_layer>
+</tsoftware>

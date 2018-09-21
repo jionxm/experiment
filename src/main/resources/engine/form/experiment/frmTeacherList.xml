@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsoftware  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+			xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
+<ui_layer>
+  <ui name="frmTeacherList" title="实验案例管理管理/教师信息管理">
+	<panel name="pToolbar" title="工具条" object="" type="Toolbar">
+		<control name="btnSubmit" title="查询" property="" type="Button" edit="" required="" format="" width="" height="" column=""/>
+		<control name="btnAdd" title="添加教师信息" property="" type="Button" edit="" required="" format="" width="" height="" column=""/>
+	</panel>
+	
+	<panel name="pCondition" title="查询条件" object="teacher" type="Group">
+		<control name="lk_id" title="教师编号" property="id" type="TextBox" edit="Y" required="N" format="" width="1" height="1" column=""/>
+		<control name="lk_name" title="教师姓名" property="name" type="TextBox" edit="Y" required="N" format="" width="1" height="1" column="4"/>
+	</panel>	
+	
+	<panel name="pTable" title="查询结果" object="teacher" type="Grid" page="">
+		<control name="id" title="教师编号" property="id" type="TextBox" edit="" required="" format="" width="80" height="" column=""/>
+		<control name="name" title="教师姓名" property="name" type="TextBox" edit="" required="" format="" width="150" height="" column=""/>
+		<control name="createTime" title="创建时间" property="createTime" type="TextBox" edit="" required="" format="" width="200" height="" column=""/>
+		<control name="ctlEdit" title="编辑" property="" type="Link" edit="" required="" format="" width="80" height="" column=""/>
+		<control name="ctlDel" title="删除" property="" type="Link" edit="" required="" format="" width="80" height="" column=""/>
+	</panel>
+	
+	
+    <!-- 初始化 -->
+	<flow trigger="" event="OnLoad" filter="">
+      <procedure name="jClear"  logic="Clear" ifyes="jQuery" ifno="" sync="Y">
+         <param name="Out" value="pCondition"></param>
+      </procedure>    
+      <procedure name="jQuery"  logic="Query" ifyes="" ifno="">
+         <param name="In" value="pCondition"></param>
+        <param name="Out" value="pTable"></param>
+        <param name="Sql" value="experiment/QryTeacher"></param>
+      </procedure>   
+    </flow>
+     
+	<!-- 提交 -->
+	<flow trigger="pToolbar.btnSubmit" event="OnClick" filter="">
+		<procedure name="jsquery" logic="Query" ifyes="" ifno="">
+			<param name="In" value="pCondition" />
+			<param name="Out" value="pTable" />
+			<param name="Sql" value="experiment/QryTeacher" />
+		</procedure>
+	</flow>
+	<!--  编辑 -->
+     <flow trigger="pTable.ctlEdit" event="OnClick" filter="">
+      <procedure name="jEncodeid" server="" logic="EncodeId" ifyes="jPopup" ifno="">
+        <param name="In" value="pTable.id"></param>
+      </procedure>
+      <procedure name="jPopup" logic="Popup" ifyes="jquery" ifno="">
+      	<param name="Title" value="编辑教师信息"></param>
+        <param name="To" value="frmTeacherEdit" />
+        <param name="Mode" value="Edit" />
+         <param name="Window" value="Small" />
+      </procedure>
+      <procedure name="jquery"  logic="Query" ifyes="" ifno="" >
+      	<param name="In" value="pCondition"></param>
+        <param name="Out" value="pTable"></param>
+        <param name="Sql" value="experiment/QryTeacher"></param>
+      </procedure>
+    </flow>
+    <!-- 添加新代码  --> 
+    <flow trigger="pToolbar.btnAdd" event="OnClick" filter="">
+      <procedure name="jspopup" logic="Popup" ifyes="queryTable" ifno="">
+      	<param name="Title" value="创建教师信息"></param>
+        <param name="To" value="frmTeacherEdit"></param>
+        <param name="Mode" value="Add"></param>
+        <param name="Window" value="Small"></param>
+      </procedure>
+      <procedure name="queryTable"  logic="Query" ifyes="" ifno="">
+        <param name="In" value="pCondition"></param>
+        <param name="Out" value="pTable"></param>
+        <param name="Sql" value="experiment/QryTeacher"></param>
+      </procedure>      
+    </flow>
+    
+    <!-- 删除--> 
+     <flow trigger="pTable.ctlDel" event="OnClick">
+      <procedure name="j0" server="" logic="ConfirmMsg" ifyes="j1" ifno="">
+       <param name="Title" value="测试删除"></param>
+       <param name="Msg" value="确认删除该条教师信息吗?"></param>
+      </procedure>
+      <procedure name="j1"  logic="Delete" ifyes="j2" ifno="">
+        <param name="In" value="pTable" />
+        <param name="Msg" value="该条教师信息已删除" />
+      </procedure>
+      <procedure name="j2"  logic="Query" ifyes="" ifno="">
+        <param name="In" value="pCondition"></param>
+        <param name="Out" value="pTable"></param>
+        <param name="Sql" value="experiment/QryTeacher"></param>
+      </procedure>              
+    </flow>  
+       
+
+        	
+  <layout>
+  	<region location ="North" scale="">
+        <subregion panel="pToolbar" location ="North" scale=""/>
+      </region>
+	  <region location ="Center" scale="">
+		<subregion panel="pCondition" location="North" scale=""/>
+		<subregion panel="pTable" location="Center" scale=""/>
+      </region>
+    </layout>
+  </ui>    
+</ui_layer>
+</tsoftware>
