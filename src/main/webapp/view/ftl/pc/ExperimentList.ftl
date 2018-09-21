@@ -80,9 +80,9 @@
 					</#list>                    
                 </ul>
             </div>
-		</#if>
+		
         </div>
-
+		</#if>
 
     </body>
 </html>
