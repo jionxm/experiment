@@ -1,4 +1,4 @@
-<html lang="en">
+﻿<html lang="en">
 
     <head>
 		<#assign ctx = request.contextPath />
@@ -17,7 +17,7 @@
         <header>
             <div class="logo"></div>
             <nav>
-                <li>学习中心</li>
+                <li>实验中心</li>
             </nav>
         </header>
 
