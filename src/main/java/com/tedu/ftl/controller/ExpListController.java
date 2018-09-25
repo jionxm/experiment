@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -252,10 +253,17 @@ public class ExpListController {
 				String studentId = String.valueOf(SessionUtils.getUserInfo().getUserId());
 				model.addAttribute("studentId", studentId);
 				List<Map<String, Object>> expScheduleList = getParams("experiment/QrySchedule", "eq_id", expId);
-				model.addAttribute("expScheduleList", expScheduleList);
 				for (int i = 0; i < expScheduleList.size(); i++) {
 					egId = String.valueOf(expScheduleList.get(i).get("egId"));
+					for (Entry<String, Object> entry : expScheduleList.get(i).entrySet()) { 
+//						  System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue()); 
+						  String replacebr=String.valueOf(entry.getValue());
+						  replacebr=replacebr.replace("\r\n", "<br>");
+						  expScheduleList.get(i).put(entry.getKey(), replacebr);
+						  System.err.println(expScheduleList.get(i));
+						}
 				}
+				model.addAttribute("expScheduleList", expScheduleList);
 				List<Map<String, Object>> expSoftwareList = getParams("experiment/QryExpSoftware", "eq_egId", egId);
 				model.addAttribute("expSoftwareList", expSoftwareList);
 				List<Map<String, Object>> expOperateList = getParams("experiment/QryOperateEnvironment", "eq_egId",

@@ -22,7 +22,7 @@
         </header>
 
         <div class="container" style="margin-bottom: 60px;">
-
+			<#if aiList>
             <div class="class-box">
                 <div class="tips"></div>
                 <h3>实验在线课程</h3>
@@ -51,8 +51,8 @@
                 </ul>
 
             </div>
-
-
+			</#if>
+			<#if aiList>
             <div class="class-box">
                 <div class="tips"></div>
                 <h3>实验在线课程</h3>
@@ -80,9 +80,9 @@
 					</#list>                    
                 </ul>
             </div>
-
+		
         </div>
-
+		</#if>
 
     </body>
 </html>
