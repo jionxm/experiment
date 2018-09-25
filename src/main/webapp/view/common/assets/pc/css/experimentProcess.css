@@ -195,6 +195,7 @@
     width: calc(100% - 380px);
     float: left;
     position: relative;
+    height: 791px;
 }
 
 .icon-show-left {
