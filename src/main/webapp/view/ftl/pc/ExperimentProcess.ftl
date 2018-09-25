@@ -61,19 +61,27 @@
 
                         <div class="segment-second-body">
                             <div class="segment-second-content" id="littleTabContent1">
-                                <div class="header-title-2">实验的目的及要求</div>
+                                <#if m.reportTarget>
+                                <div class="header-title-2">实验需求</div>
                                 <div class="header-title-3">${m.reportTarget}</div>
+                                </#if>
                 
+                                <#if expSoftwareList>
                                 <div class="header-title-2">软硬件及环境</div>
                                 <#list expSoftwareList as software>
                                         <p class="experiment-info">${software.name}</p>
                                 </#list>
+                				</#if>
                 
+                                <#if m.reportTarget>
                                 <div class="header-title-2">实验目标</div>
                                 <div class="header-title-3">${m.reportTarget}</div>
+                                </#if>
                 
-                                <div class="header-title-2">实验内容与步骤</div>
+                                <#if m.reportContent>
+                                <div class="header-title-2">实验步骤</div>
                                 <div class="header-title-3">${m.reportContent}</div>
+                                </#if>
                             </div>
                             <div class="segment-second-content dis_n" id="littleTabContent2">
                                 <div>
@@ -116,8 +124,8 @@
 
             <div class="environment-top">
                 <span class="environment-head fl">实验环境</span>
-                <a href="${ctx}/experiment-list" class="stop-experiment fr">结束实验</a>
-                <div class="countdown fr" id="btnExperimentOver">倒计时：<span id="experimentOverTime">${expScheduleList[0].countDown}</span></div>
+                <a href="javascript:volid(0);" class="stop-experiment fr" id="overTest">结束实验</a>
+                <div class="countdown fr" id="btnExperimentOver">倒计时：<span id="experimentOverTime">${expScheduleList[0].countDown1}</span></div>
             </div>
 			
             <div class="environment-content" id="experimentContent" style="display: block">
@@ -129,8 +137,8 @@
             <div class="icon-show-left" id="showLeftContent"></div>
             <div class="environment-top">
                 <span class="environment-head fl">实验环境</span>
-                <a href="${ctx}/experiment-list" class="stop-experiment fr">结束实验</a>
-                <div class="countdown fr" id="btnExperimentOver">倒计时：<span id="experimentOverTime">${expScheduleList[0].countDown}</span></div>
+                <a href="javascript:volid(0);" class="stop-experiment fr" id="overTest">结束实验</a>
+                <div class="countdown fr" id="btnExperimentOver">倒计时：<span id="experimentOverTime">${expScheduleList[0].countDown1}</span></div>
             </div>
             <div class="experiment-run" id="runExperimentContent">
                 	<div class="icon-run" id="iconRunExperiment"></div>
@@ -149,9 +157,9 @@
                     	</div>
                 </div>
                 <div class="virtual-container" id="environmentTabContainer">
-                    	<div class="virtual-item" style="display: block;">1</div>
-                    	<div class="virtual-item" style="display: none;">2</div>
-                    	<div class="virtual-item" style="display: none;">3</div>
+                    	<div class="virtual-item" style="display: block;"></div>
+                    	<div class="virtual-item" style="display: none;"></div>
+                    	<div class="virtual-item" style="display: none;"></div>
                 </div>
            	</div>
         </div>
@@ -171,6 +179,16 @@
             <div class="icon-close-experiment-over" id="closetimeBox"></div>
             <div class="prompt">实验时间还剩五分钟!</div>
             <button class="experiment-over-btnsure button-yellow" id="timeBtn">确 定</button>
+        </div>
+        <!-- 结束实验确认 -->
+        <div class="experiment-over-prompt" id="overTestMsg">
+            <div class="experiment-over-prompt-bg"></div>
+            <div class="icon-close-experiment-over" id="overTestCloseBtn"></div>
+            <div class="prompt">确定结束吗</div>
+            <div style="height: 54px;">
+                <button class="experiment-close-btn button-yellow fl" id="overTestYesBtn" style="margin-left: 50px">确定</button>
+                <button class="experiment-close-btn button-blue fr" id="overTestNoBtn" style="margin-right: 50px">取消</button>
+            </div>
         </div>
         <!-- 开启虚拟机-弹窗  -->
         <div class="experiment-over-prompt" id="experimentVirtualBox">
@@ -295,6 +313,11 @@
                 $("#layoutBox").show();
                 $("#experimentPromptBox").show();
             })
+            //结束实验
+            $("#overTest").click(function(){
+            	$("#layoutBox").show();
+                $("#overTestMsg").show();
+            })
             //关闭时间弹窗
             $("#timeBtn").click(function(){
                 $("#layoutBox").hide();
@@ -307,8 +330,11 @@
             })
             //关闭虚拟机弹窗-显示虚拟机
             $("#experimentPromptBtn").click(function(){
+            	countTime();
                 $("#layoutBox").hide();
                 $("#experimentPromptBox").hide();
+                var overTest = document.getElementById("overTest");
+                overTest.style.display = "block";
                 $("#runExperimentContent").hide();
                 $("#experimentContent").show();
             })
@@ -316,8 +342,7 @@
             $("#closeExperimentPromptBox").click(function(){
                 $("#layoutBox").hide();
                 $("#experimentPromptBox").hide();
-            })
-
+            })			
             //关闭虚拟机-显示重启或关闭弹窗
             $("#environmentTabID .icon-close").click(function(){
                 console.log(123);
@@ -334,8 +359,34 @@
                 $("#layoutBox").hide();
                 $("#experimentVirtualBox").hide();
             })
-            countTime();
+            //确定按钮--结束实验
+            $("#overTestYesBtn").click(function(){
+            	window.location.href="${ctx}/experiment-list";
+            })
+            //取消按钮--结束实验
+            $("#overTestNoBtn").click(function(){
+                $("#layoutBox").hide();
+                $("#overTestMsg").hide();
+            })
+            //关闭结束实验确认弹窗
+            $("#overTestCloseBtn").click(function(){
+                $("#layoutBox").hide();
+                $("#overTestMsg").hide();
+            })
+          //显示实验总倒计时时间
+            var allTime = "${expScheduleList[0].countDown1}"*60*60*1000;
+            console.log(allTime);
             
+            if(allTime >= 0){
+               d = Math.floor(allTime/1000/60/60/24);
+               h = Math.floor(allTime/1000/60/60%24);
+               m = Math.floor(allTime/1000/60%60);
+               s = Math.floor(allTime/1000%60);
+               $("#experimentOverTime").html(d + "天" + h + "小时" + m + "分钟" + s + "秒");
+           	}else {
+               $("#experimentOverTime").html("00 : 00 : 00");
+            }
+           
         })
 
         
@@ -501,35 +552,37 @@ function readImg(file) {
 		
 	}
 }
-		/* 倒计时 **/
-function countTime(){
-   var date = new Date();
-   var now = date.getTime();
-   var countDown = "${expScheduleList[0].countDown}";
-   console.log(countDown);
-   var endDate = new Date(countDown);
-   console.log('endDate:'+endDate);
-   var after = endDate.getTime() - now;
-  var d, h, m, s;
-   if(Math.floor(after/1000) == 30000){
-	   
-		$("#stopTimeBox").show();
-	}
-   if(after >= 0){
-      d = Math.floor(after/1000/60/60/24);
-      h = Math.floor(after/1000/60/60%24);
-      m = Math.floor(after/1000/60%60);
-      s = Math.floor(after/1000%60);
-      $("#experimentOverTime").html(d + "天" + h + "小时" + m + "分钟" + s + "秒");
 
-      setTimeout(countTime, 1000);
-      }else {
-          $("#experimentOverTime").html("00 : 00 : 00");          
-       }
-   	  if(Math.floor(after/1000) ==0){
-	   	 window.location.href="${ctx}/experiment-list";
-   		}
- }
+var restTime = "${expScheduleList[0].countDown1}"*60*60*1000;
+/* 倒计时 **/
+function countTime(){
+	console.log(restTime);
+        
+	var d, h, m, s;
+	
+	if(Math.floor(restTime/1000) == 300){
+		$("#stopTimeBox").show();
+		console.log("时间弹框");
+	}
+	
+	if(Math.floor(restTime/1000) == 0){
+		window.location.href="${ctx}/experiment-list";
+	}
+
+	if(restTime >= 0){
+		d = Math.floor(restTime/1000/60/60/24);
+		h = Math.floor(restTime/1000/60/60%24);
+		m = Math.floor(restTime/1000/60%60);
+		s = Math.floor(restTime/1000%60);
+		$("#experimentOverTime").html(d + "天" + h + "小时" + m + "分钟" + s + "秒");
+
+		setTimeout(countTime, 1000);
+		restTime = restTime-1000;
+	}else {
+  		$("#experimentOverTime").html("00 : 00 : 00");
+	}
+	
+}
 	   
     </script>
     
