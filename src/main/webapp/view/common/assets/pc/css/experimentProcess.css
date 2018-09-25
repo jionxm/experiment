@@ -227,7 +227,7 @@
 }
 
 .environment-top .stop-experiment {
-    display: block;
+    display: none;
     width: 115px;
     height: 27px;
     line-height: 27px;
@@ -245,7 +245,7 @@
 .experiment-run {
     width: 100%;
     height: 100%;
-    background: #000000 url(../img/bg_exertiment_ready.png) no-repeat center center;
+    background: #000000 ;
     background-size: cover; 
 }
 

@@ -61,27 +61,19 @@
 
                         <div class="segment-second-body">
                             <div class="segment-second-content" id="littleTabContent1">
-                                <#if m.reportTarget>
-                                <div class="header-title-2">实验需求</div>
+                                <div class="header-title-2">实验的目的及要求</div>
                                 <div class="header-title-3">${m.reportTarget}</div>
-                                </#if>
-                				
-                				<#if expSoftwareList>
+                
                                 <div class="header-title-2">软硬件及环境</div>
                                 <#list expSoftwareList as software>
                                         <p class="experiment-info">${software.name}</p>
                                 </#list>
-                				</#if>
-                				
-                				<#if m.reportTarget>
+                
                                 <div class="header-title-2">实验目标</div>
                                 <div class="header-title-3">${m.reportTarget}</div>
-                                </#if>
-                				
-                				<#if m.reportContent>
-                                <div class="header-title-2">实验步骤</div>
+                
+                                <div class="header-title-2">实验内容与步骤</div>
                                 <div class="header-title-3">${m.reportContent}</div>
-                                </#if>
                             </div>
                             <div class="segment-second-content dis_n" id="littleTabContent2">
                                 <div>

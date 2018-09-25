@@ -23,6 +23,7 @@ SELECT
 	eg.report_target as reportTarget,
 	eg.report_content as reportContent,
 	l.count_down as countDown,
+	l.count_down as countDown1,
 	empt.name as teacherName,
 	l.begin_address as beginAddress,
 	l.end_address as endAddress,
