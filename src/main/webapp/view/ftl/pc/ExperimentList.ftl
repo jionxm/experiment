@@ -17,7 +17,7 @@
         <header>
             <div class="logo"></div>
             <nav>
-                <li>学习中心</li>
+                <li>实验中心</li>
             </nav>
         </header>
 
@@ -26,7 +26,7 @@
             <div class="class-box">
                 <div class="tips"></div>
                 <h3>实验在线课程</h3>
-                <h5>参与人数：10人</h5>
+                <h5></h5>
 
                 <ul class="text-list clearfix">
 					<#list aiList as ai>
@@ -35,7 +35,7 @@
                         <div class="text-content">
                             <div class="text-top">
                                 <div class="text-title">${ai.name}</div>
-                                <div class="text-time">上课时间: ${ai.createTime}-${ai.endTime}</div>
+                                <div class="text-time">截止时间: ${ai.endTime}</div>
                                 <div class="text-opera">
                                     <a href="${ctx}/electronic-reporting-page?exp=${ai.id}" target="_blank"class="button-default text-button mr12">报告</a>
                                     <a href="${ctx}/evaluation-achievement?exp=${ai.id}"target="_blank" class="button-default text-button">成绩</a>
@@ -43,7 +43,7 @@
                             </div>
                             <div class="text-bottom">
                                 <div class="text-people">老师: ${ai.teacherName}</div>
-                                <a <#if ai.status=="0">href="${ctx}/experiment-process?exp=${ai.id}" <#else>href="javascript:volid(0);"</#if>target="_blank"class="text-go-experiment">去实验 ></a>
+                                <a <#if ai.status=="1">href="${ctx}/experiment-process?exp=${ai.id}" <#else>href="javascript:volid(0);"  style="background-color:#C0C0C0"</#if>target="_blank"class="text-go-experiment">去实验 ></a>
                             </div> 
                         </div>
                     </li>
@@ -56,7 +56,7 @@
             <div class="class-box">
                 <div class="tips"></div>
                 <h3>实验在线课程</h3>
-                <h5>参与人数：10人</h5>
+                <h5></h5>
 
                 <ul class="text-list clearfix">
 					<#list otherList as other>
@@ -65,7 +65,7 @@
                         <div class="text-content">
                             <div class="text-top">
                                 <div class="text-title">${other.name}</div>
-                                <div class="text-time">上课时间: ${other.createTime}-${other.endTime}</div>
+                                <div class="text-time">截止时间: ${other.endTime}</div>
                                 <div class="text-opera">
                                     <a href="${ctx}/electronic-reporting-page?exp=${other.id}" class="button-default text-button mr12">报告</a>
                                     <a href="${ctx}/evaluation-achievement?exp=${other.id}" class="button-default text-button">成绩</a>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="text-bottom">
                                 <div class="text-people">老师：${other.teacherName}</div>
-                                <a <#if ai.status=="0">href="${ctx}/experiment-process?exp=${other.id}"<#else>href="javascript:volid(0);"</#if> class="text-go-experiment">去实验 ></a>
+                                <a <#if other.status=="1">href="${ctx}/experiment-process?exp=${other.id}"<#else>href="javascript:volid(0);" style="background-color:#C0C0C0"</#if> target="_blank"class="text-go-experiment">去实验 ></a>
                             </div> 
                         </div>
                     </li>
