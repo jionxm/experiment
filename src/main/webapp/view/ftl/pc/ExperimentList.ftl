@@ -43,7 +43,7 @@
                             </div>
                             <div class="text-bottom">
                                 <div class="text-people">老师: ${ai.teacherName}</div>
-                                <a <#if ai.status=="1">href="${ctx}/experiment-process?exp=${ai.id}" <#else>href="javascript:volid(0);"</#if>target="_blank"class="text-go-experiment">去实验 ></a>
+                                <a <#if ai.status=="1">href="${ctx}/experiment-process?exp=${ai.id}" <#else>href="javascript:volid(0);"  style="background-color:#C0C0C0"</#if>target="_blank"class="text-go-experiment">去实验 ></a>
                             </div> 
                         </div>
                     </li>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="text-bottom">
                                 <div class="text-people">老师：${other.teacherName}</div>
-                                <a <#if other.status=="1">href="${ctx}/experiment-process?exp=${other.id}"<#else>href="javascript:volid(0);"</#if> target="_blank"class="text-go-experiment">去实验 ></a>
+                                <a <#if other.status=="1">href="${ctx}/experiment-process?exp=${other.id}"<#else>href="javascript:volid(0);" style="background-color:#C0C0C0"</#if> target="_blank"class="text-go-experiment">去实验 ></a>
                             </div> 
                         </div>
                     </li>
