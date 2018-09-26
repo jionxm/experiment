@@ -87,11 +87,14 @@
       </procedure>              
     </flow>
 	<flow trigger="pTable.delete" event="OnClick" filter="">
-      <procedure name="del"  logic="Delete" ifyes="queryTable" ifno="">
-        <param name="In" value="pTable" />
-        <param name="Msg" value="'已删除'" />
-        <param name="Constraints" value="t_user_role.user_id|存在关联数据:用户角色信息;" />
-      </procedure>  
+      <procedure name="del"  logic="ConfirmMsg" ifyes="deltd" ifno="">
+        <param name="Msg" value="是否确认删除?" />
+      </procedure> 
+      	<procedure name="deltd" logic="Delete" ifyes="queryTable" ifno="">
+			<param name="In" value="pTable" />
+			<param name="Constraints" value="t_user_role.user_id|存在关联数据:用户角色信息;" />
+			<param name="Msg" value="'已删除'" />
+		</procedure> 
       <procedure name="queryTable"  logic="Query" ifyes="" ifno="">
         <param name="In" value="pCondition"></param>
         <param name="Out" value="pTable"></param>
