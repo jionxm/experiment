@@ -86,7 +86,7 @@
                             <div class="segment-second-content dis_n" id="littleTabContent2">
                                 <div>
                                     <div class="header-title-2">实验结果</div>
-                                    <textarea class="header-title-3 experiment-evaluate"<#if (studentRecord.grade)?if_exists>disabled="disabled" </#if> placeholder="请输入你的实验结果" id="result">${(studentRecord.result)!''}</textarea>
+                                    <textarea class="header-title-3 experiment-evaluate" id="result" <#if (studentRecord.grade)?if_exists>disabled="disabled" </#if> placeholder="请输入你的实验结果">${(studentRecord.result)!''}</textarea>
                                 </div>
 
                                 <div>
@@ -119,11 +119,11 @@
             </div>
         </div>
 	<#if expOperateList[0].name =="Juypter">
-        <div class="right-content" id="rightContent">
+        <div class="right-content" id="rightContent" style="height: 598px;">
             <div class="icon-show-left" id="showLeftContent"></div>
 
             <div class="environment-top">
-                <span class="environment-head fl">实验环境</span>
+                <span class="environment-head fl" id="environmentHead">实验环境</span>
                 <a href="javascript:volid(0);" class="stop-experiment fr" id="overTest">结束实验</a>
                 <div class="countdown fr" id="btnExperimentOver">倒计时：<span id="experimentOverTime">${expScheduleList[0].countDown1}</span></div>
             </div>
@@ -190,6 +190,12 @@
                 <button class="experiment-close-btn button-blue fr" id="overTestNoBtn" style="margin-right: 50px">取消</button>
             </div>
         </div>
+        <!-- 时间结束确认 -->
+        <div class="experiment-over-prompt" id="overTimeBox">
+            <div class="experiment-over-prompt-bg"></div>
+            <div class="prompt">本次实验已结束</div>
+            <button class="experiment-over-btnsure button-yellow" id="overTimeBtn">确 定</button>
+        </div>
         <!-- 开启虚拟机-弹窗  -->
         <div class="experiment-over-prompt" id="experimentVirtualBox">
             <div class="experiment-over-prompt-bg"></div>
@@ -239,8 +245,10 @@
                     guac.sendMouseState(mouseState);
                 };
 
-                // 以下是对键盘的处理，无特殊情况不可更改
-                var keyboard = new Guacamole.Keyboard(document);
+                
+                	
+                 // 以下是对键盘的处理，无特殊情况不可更改
+                 var keyboard = new Guacamole.Keyboard(document);
 
                 keyboard.onkeydown = function (keysym) {
                     guac.sendKeyEvent(1, keysym);
@@ -248,7 +256,7 @@
 
                 keyboard.onkeyup = function (keysym) {
                     guac.sendKeyEvent(0, keysym);
-                };
+               	} 
 
                 console.log('initial virtual end:' + index);
             })
@@ -361,6 +369,10 @@
             })
             //确定按钮--结束实验
             $("#overTestYesBtn").click(function(){
+            	window.location.href="${ctx}/experiment-list";
+            })
+            //确定按钮--离开实验
+            $("#overTimeBtn").click(function(){
             	window.location.href="${ctx}/experiment-list";
             })
             //取消按钮--结束实验
@@ -566,7 +578,8 @@ function countTime(){
 	}
 	
 	if(Math.floor(restTime/1000) == 0){
-		window.location.href="${ctx}/experiment-list";
+		$("#overTimeBox").show();
+		//window.location.href="${ctx}/experiment-list";
 	}
 
 	if(restTime >= 0){
