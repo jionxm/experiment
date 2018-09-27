@@ -17,6 +17,20 @@
         
         <header>
             <div class="logo"></div>
+            <div class="user-box">
+                <div class="user-info clearfix">
+                    <img class="user-head src-head" src="${ctx}/view/common/assets/pc/image/icon_user_head.jpg">
+                    <span class="user-nick">贾文佳</span>
+                </div>
+                <ul class="nav-user clearfix">
+                    <li>
+                        <a href="#">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="#">安全退出</a>
+                    </li>
+                </ul>
+            </div>
         </header>
 
         <div class="big-container">
@@ -239,4 +253,14 @@ function readImg(file) {
 	
 	
 </script>
+<script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
+        <script>
+            $(function(){
+                $(".user-box").hover(function(){
+                    $(".nav-user").show();
+                }, function(){
+                    $(".nav-user").hide();
+                })
+            })
+        </script>
 </html>

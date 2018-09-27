@@ -18,6 +18,20 @@
     <header>
         <div class="logo"></div>
         <div class="experiment-title">${expScheduleList[0].name}</div>
+        <div class="user-box">
+                <div class="user-info clearfix">
+                    <img class="user-head src-head" src="${ctx}/view/common/assets/pc/image/icon_user_head.jpg">
+                    <span class="user-nick">贾文佳</span>
+                </div>
+                <ul class="nav-user clearfix">
+                    <li>
+                        <a href="#">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="#">安全退出</a>
+                    </li>
+                </ul>
+            </div>
     </header>
 
     <div class="big-container clearfix" style="margin-top: 20px; padding-bottom: 0">
@@ -407,6 +421,11 @@
             console.log(iframeHeight);
             $("#tabContent1").css("height", iframeHeight-160);
             $("#tabContent2").css("height", iframeHeight-160);
+            $(".virtual-item").css("height", iframeHeight-160);
+            $("#rightContent").css("height", iframeHeight-160);
+
+            
+            $("#experimentContent").css("height", iframeHeight-160);
             $("#jupyterIframe").css("height", iframeHeight-160);
         }
 $('#save').click(function(){
@@ -598,7 +617,16 @@ function countTime(){
 }
 	   
     </script>
-    
+    <script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
+        <script>
+            $(function(){
+                $(".user-box").hover(function(){
+                    $(".nav-user").show();
+                }, function(){
+                    $(".nav-user").hide();
+                })
+            })
+        </script>
 </body>
 
 </html>

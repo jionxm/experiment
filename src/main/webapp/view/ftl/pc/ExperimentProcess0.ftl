@@ -5,218 +5,239 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <title>实验过程</title>
-    <#include "pc/common/base.ftl">
-    <link href="${ctx}/view/common/assets/pc/css/main.1672e1c4.css" rel="stylesheet" type="text/css">
+    <title>实验过程--编辑器</title>
+    <link href="${ctx}/view/common/assets/pc/css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="${ctx}/view/common/assets/pc/css/public.css" rel="stylesheet" type="text/css">
     <link href="${ctx}/view/common/assets/pc/css/experimentProcess.css" rel="stylesheet" type="text/css">
- 	<script src="${ctx}/view/common/js/ajaxfileupload.js?${date}"></script>
- 	 <script type="text/javascript" src="${ctx}/view/common/assets/pc/js/guacamole-common-0.9.14-all.min.js" ></script>
- <style>
-        .electronicReporting-uploadfile-btn {
-            position: relative;
-        }
-        .input-uploadfile-button {
-            opacity: 0;
-            width: 132px;
-            height: 29px;
-            position: absolute;
-            left: 0;
-            right: 0;
-            background: #fff;
-            color: #fff;
-        }
-    </style>
+	<#include "pc/common/base.ftl">
+	<script src="${ctx}/view/common/js/ajaxfileupload.js?${date}"></script>
+	<script src="${ctx}/view/common/assets/pc/js/guacamole-common-0.9.14-all.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 </head>
 
 <body>
-    <div class="App">
-        <div class="App-header clearfix">
-            <img  src="${ctx}/view/common/assets/pc/img/icon_logo.png" style="width: 93px;position: relative;top: 6px;"></img>
-            <span class="App-header-title">AI实验操作系统</span>
-        </div>
-        <div class="container_process clearfix" style="width: 100%; padding: 0 20px; max-width: 100%;">
-            <div class="left-content" id="leftContent">
-                <div class="icon-close-left" id="closeLeftContent"></div>
-                <div class="Segment">
-                    <div class="Segment-header clearfix">
-                        <div class="Segment-selected Segment-select-first cur_point" id="tabTitle1">
-                            <span class="Segment-selected-title">实验指导书</span>
+    <header>
+        <div class="logo"></div>
+        <div class="experiment-title">${expScheduleList[0].name}</div>
+        <button id="b01" type="button">改变内容</button>
+    </header>
+
+    <div class="big-container clearfix" style="margin-top: 20px; padding-bottom: 0">
+        <div class="left-content" id="leftContent">
+            <div class="icon-close-left" id="closeLeftContent"></div>
+
+            <div>
+                <div class="segment-header clearfix">
+                    <div class="segment-select-title cur_point actived" id="tabTitle1">实验指导书</div>
+                    <div class="segment-select-title cur_point" id="tabTitle2"> 实验报告在线编写</div>
+                </div>
+                <div class="segment-content">
+					<#list expScheduleList as m> 
+                    <div class="experiment-instruction" id="tabContent1">
+                        <div>
+                            <div class="header-title-1">实验概述</div>
+                            <div class="header-title-3">${m.demand}</div>
                         </div>
-                        <div class="Segment-select Segment-select-end cur_point" id="tabTitle2">
-                            <span class="Segment-select-title">实验报告在线编写</span>
+                        <div style="margin-top: 20px;">
+                            <div class="header-title-1">实验目标</div>
+                            <div class="header-title-3">${m.target}</div>
                         </div>
-                    </div>
-                    <div class="Segment-content">
-                        <div class="experiment-instruction" id="tabContent1" style="overflow-y: scroll; overflow-x: visible;" >
-                        <#list expScheduleList as m> 
-                            <div>
-                                <h1 class="second-title">实验概述</h1>
-                                <p class="experiment-info">${m.demand} </p>
-                            </div>
-                            <div style="margin-top: 20px;">
-                                <h1 class="second-title">实验目标</h1>
-                                <p class="experiment-info">${m.target}</p>
-                            </div>
-                            <div style="margin-top: 30px;">
-                                <h1 class="second-title">实验内容与步骤</h1>
-                                <p class="experiment-info">${m.content}</p>
-                            </div>
-                            </#list>
-                            <div>
-                                <h1 class="second-title">附件列表</h1>
+                        <div style="margin-top: 20px;">
+                            <div class="header-title-1">学前建议</div>
+                            <div class="header-title-3">${m.content}</div>
+                        </div>
+                         <div>
+                                <h1 class="header-title-1">附件列表</h1>
                                 <#list expFileList as file>
                                         <a style="cursor:pointer;" href="${ctx}/localDownload?fileId=${file.fileId?c}"><p class="experiment-info">${file.fileName}</p></a>
                                  </#list>
-                            </div>
-                        </div>
-                        <div class="experiment-instruction dis_n" id="tabContent2" style="padding-left: 35px; overflow-y: scroll; overflow-x: visible;">
+                           </div>
+                    </div>
 
-                            <div class="segment-left-header">
-                                <div class="segment-left-title selected cur_point" id="littleTabTitle1">实<br>验<br>内<br>容</div>
-                                <div class="segment-left-title cur_point" id="littleTabTitle2">实<br>验<br>结<br>果</div>
-                            </div>
-                            <div class="segment-left-body">
-                            	
-                                <div class="segment-left-content" id="littleTabContent1">
-                                	<#list expCase as m>
-                                    <div>
-                                        <h1 class="second-title"> ${m.name}</h1>
-                                        <p class="experiment-info">实验名称：${m.egName} 学生名称  <#list studentRecord as stu> ${stu.studentName} </#list></p>
-                                        <p class="experiment-info">指导教师：${m.teacherName}实验日期 ${m.updateTime}</p>
-                                    </div>
-        							</#list>
-        							<#list expScheduleList as m>
-                                    <div>
-                                        <h1 class="second-title">实验内容</h1>
-                                        <h1 class="second-title" style="font-size:14px;">实验的目的及要求</h1>
-                                        <p class="experiment-info"> ${m.reportDemand}</p>
-                                        <h1 class="second-title" style="font-size:14px;">软硬件及环境</h1>
-                                        <#list expSoftwareList as software>
+                    <div class="experiment-instruction dis_n" id="tabContent2">
+
+                        <div class="segment-second-header">
+                            <div class="segment-second-title actived cur_point" id="littleTabTitle1">实验内容</div>
+                            <div class="segment-second-title cur_point" id="littleTabTitle2">实验结果</div>
+                        </div>
+
+                        <div class="segment-second-body">
+                            <div class="segment-second-content" id="littleTabContent1">
+                                <#if m.reportTarget>
+                                <div class="header-title-2">实验需求</div>
+                                <div class="header-title-3">${m.reportTarget}</div>
+                                </#if>
+                
+                                <#if expSoftwareList>
+                                <div class="header-title-2">软硬件及环境</div>
+                                <#list expSoftwareList as software>
                                         <p class="experiment-info">${software.name}</p>
-                                        </#list>
-                                    </div>
-                                    <div>
-                                        <h1 class="second-title" style="font-size:14px;">实验目标</h1>
-                                        <p class="experiment-info">${m.reportTarget} </p>
-                                    </div>
-        
-                                    <div>
-                                        <h1 class="second-title" style="font-size:14px;">实验内容与步骤</h1>
-                                        <p class="experiment-info">${m.reportContent} </p>
-                                    </div>
-                                    </#list>
-                                </div>
-                               <div class="segment-left-content dis_n" id="littleTabContent2">
-                                    <div>
-                                        <h1 class="second-title">实验结果</h1>
-                                        <textarea style="width: 100%; height: 200px; margin-top: 20px;"<#if (studentRecord.grade)?if_exists>disabled="disabled" </#if>placeholder="请输入你的实验结果" id="result">${(studentRecord.result)!''}</textarea>
-                                    	<#if !(studentRecord.grade)?if_exists><button class="default-button btn-save-experiment" id="save">保存</button><button class="default-button btn-submit-experiment" id="submit">提 交</button></#if>
-                                    </div>
-                                    
-                                    <div class="electronicReporting-uploadfile-container clearfix">
-										<input id="fileId" value="${(studentRecord.fileId?c)!''}" type="hidden"/>
-										<div class="electronicReporting-uploadfile-container-item">
-											<div class="headerline-title-2"id="download"style="cursor:pointer;">点击文件名下载</div>
-											</div>
-											<#if !(studentRecord.grade)?if_exists>
-											<div class="electronicReporting-uploadfile-btn">
-												<input class="input-uploadfile-button" type="file" accept="image/*" mutiple="mutiple" capture="exp" id="exp" onchange="readImg(this)" name="exp"/>
-												<span class="electronicReporting-uploadfile-btn-text">选择文件</span>
-											</div>
-											</#if>
-										</div>
-										  <div>
-                                			<span class="electronicReporting-uploadfile-btn-text1"id="fileName"style="cursor:pointer;">${(studentRecord.fileName)!''}</span>
-                            			  </div>
-										
-									</div>
-									
+                                </#list>
+                				</#if>
+                
+                                <#if m.reportTarget>
+                                <div class="header-title-2">实验目标</div>
+                                <div class="header-title-3">${m.reportTarget}</div>
+                                </#if>
+                
+                                <#if m.reportContent>
+                                <div class="header-title-2">实验步骤</div>
+                                <div class="header-title-3">${m.reportContent}</div>
+                                </#if>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="right-content" id="rightContent">
-                <div class="icon-show-left" id="showLeftContent"></div>
-                <div class="environment-top">
-                    <h2 class="environment-title fl">实验环境</h2>
-                    <div style="cursor: pointer;" class="countdown fr" id="btnExperimentOver">倒计时：<span class="fs16"  id="experimentOverTime">${expScheduleList[0].countDown}</span></div>
-                    <a href="${ctx}/experiment-list" style="display: block; padding-left: 35px" class="stop-experiment fl">结束实验</a>
-                </div>
-                <#if expOperateList[0].name =="Juypter">
-                <div class="experiment-run" id="iconRunExperiment"></div>
-                <div class="environment-content" id="experimentContent">
-                	<iframe width="100%" style="border:1px solid #368ae3" id="jupyterIframe"src="http://117.50.17.174:8000/hub/login?username=jia"></iframe>
-                	<div class="environment-result dis_n" id="experimentResult">
-                        <h1 class="second-title">实验结果</h1>
-                        <img style="margin-top: 10px" src="${ctx}/view/common/assets/pc/img/bg_experiment_result.png"/>
-                    </div>
-                </div>
-        	   <div class="layout" id="layoutBox"></div>
-        	   <div class="experiment-over-prompt" id="experimentOverBox">
-            	    <div class="icon-close-experiment-over" id="closeExperimentOverBox"></div>
-            		<div class="prompt">您的实验<span style="color: #ff5d31; font-size: 12px"> 5 </span>分钟后结束<br>请及时保存提交实验报告</div>
-            		<div class="experiment-over-btnsure default-button" id="experimentOverBtn">确 定<span class="arrow-bottom"></span></button>
-        	   </div>
-        	   <#else>
-        	   <div class="experiment-run" id="iconRunExperiment2"></div>
-                <div class="environment-content" id="experimentContent">
-                    <div class="environment-content-tab" id="environmentTabID">
-                        <div class="environment-content-tab-title  cur_point posi1 selected">
-                            <span class="icon-close"></span>
-                            虚拟机1
-                        </div>
-                        <div class="environment-content-tab-title  cur_point posi1">
-                            <span class="icon-close"></span>
-                            虚拟机2
-                            <span class="no-read"></span>
-                        </div>
-                        <div class="environment-content-tab-title cur_point posi1">
-                            <span class="icon-close"></span>
-                            虚拟机3
-                            <span class="no-read"></span>
-                        </div>
-                    </div>
-                    <div class="virtual-container" id="environmentTabContainer">
-                        <div class="virtual-item " style="display: block;">
+                            <div class="segment-second-content dis_n" id="littleTabContent2">
+                                <div>
+                                    <div class="header-title-2">实验结果</div>
+                                    <textarea class="header-title-3 experiment-evaluate"<#if (studentRecord.grade)?if_exists>disabled="disabled" </#if> placeholder="请输入你的实验结果" id="result">${(studentRecord.result)!''}</textarea>
+                                </div>
 
+                                <div>
+                                	<input id="fileId" value="${(studentRecord.fileId?c)!''}" type="hidden"/>
+                                	<#if !(studentRecord.grade)?if_exists>
+                                    <div class="experiment-uploadfile-button">
+                                        <input class="input-uploadfile-button" type="file" accept="image/*" mutiple="mutiple" capture="exp" id="exp" onchange="readImg(this)" name="exp"/>
+                                        <span class="experiment-uploadfile-text">选择文件</span>
+                                    </div>
+                                    </#if>
+                                    <ul class="experiment-resource-list">
+                                        <li>
+                                            <div class="experiment-resource-download"><a href="${ctx}/localDownload?fileId=${(studentRecord.fileId?c)!''}"id="fileName">${studentRecord.fileName}</a></div>
+                                            <!--<div class="experiment-delete-resource"id="delete"></div>-->
+                                        </li>
+                                    </ul>
+                                </div>
+                				<#if !(studentRecord.grade)?if_exists>
+                                <div class="experiment-opera">
+                                    <button class="btn-save"id="save">保存</button>
+                                    <button class="btn-submit"id="submit">提交</button>
+                                </div>
+                                </#if>
+                            </div>
+                            </#list>
                         </div>
-                        <div class="virtual-item" style="display: none;">
 
-                        </div>
-                        <div class="virtual-item" style="display: none;">
-
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+	<#if expOperateList[0].name =="Juypter">
+        <div class="right-content" id="rightContent">
+            <div class="icon-show-left" id="showLeftContent"></div>
 
+            <div class="environment-top">
+                <span class="environment-head fl">实验环境</span>
+                <a href="javascript:volid(0);" class="stop-experiment fr" id="overTest">结束实验</a>
+                <div class="countdown fr" id="btnExperimentOver">倒计时：<span id="experimentOverTime">${expScheduleList[0].countDown1}</span></div>
+            </div>
+			
+            <div class="environment-content" id="experimentContent" style="display: block">
+                <iframe width="100%" height="590" style="border: 1px solid #368ae3" id="jupyterIframe" src="http://117.50.17.174:8000/hub/login?username=jia"></iframe>
+            </div>
+         </div>
+     <#else>
+         <div class="right-content" id="rightContent">
+            <div class="icon-show-left" id="showLeftContent"></div>
+            <div class="environment-top">
+                <span class="environment-head fl">实验环境</span>
+                <a href="javascript:volid(0);" class="stop-experiment fr" id="overTest">结束实验</a>
+                <div class="countdown fr" id="btnExperimentOver">倒计时：<span id="experimentOverTime">${expScheduleList[0].countDown1}</span></div>
+            </div>
+            <div class="experiment-run" id="runExperimentContent">
+                	<div class="icon-run" id="iconRunExperiment"></div>
+            </div>
+
+            <div class="environment-content" id="experimentContent">
+                <div class="environment-content-tab" id="environmentTabID">
+                    	<div class="environment-content-tab-title  cur_point posi1 selected">
+                        	<span class="icon-close"></span>虚拟机1
+                    	</div>
+                    	<div class="environment-content-tab-title  cur_point posi1">
+                        	<span class="icon-close"></span>虚拟机2
+                    	</div>
+                   		<div class="environment-content-tab-title cur_point posi1">
+                        	<span class="icon-close"></span>虚拟机3
+                    	</div>
+                </div>
+                <div class="virtual-container" id="environmentTabContainer">
+                    	<div class="virtual-item" style="display: block;"></div>
+                </div>
+           	</div>
+        </div>
+            
         <div class="layout" id="layoutBox"></div>
+
+        <!-- 开启虚拟机-弹窗  -->
         <div class="experiment-over-prompt" id="experimentPromptBox">
+            <div class="experiment-over-prompt-bg"></div>
             <div class="icon-close-experiment-over" id="closeExperimentPromptBox"></div>
             <div class="prompt">本次实验即将开启3个虚拟机</div>
-            <button class="experiment-over-btnsure default-button" id="experimentPromptBtn">确 定<span class="arrow-bottom"></span></button>
+            <button class="experiment-over-btnsure button-yellow" id="experimentPromptBtn">确 定</button>
+        </div>
+		<!-- 倒计时时间弹框  -->
+        <div class="experiment-over-prompt" id="stopTimeBox">
+            <div class="experiment-over-prompt-bg"></div>
+            <div class="icon-close-experiment-over" id="closetimeBox"></div>
+            <div class="prompt">实验时间还剩五分钟!</div>
+            <button class="experiment-over-btnsure button-yellow" id="timeBtn">确 定</button>
+        </div>
+        <!-- 时间结束确认 -->
+        <div class="experiment-over-prompt" id="overTimeBox">
+            <div class="experiment-over-prompt-bg"></div>
+            <div class="prompt">本次实验已结束</div>
+            <button class="experiment-over-btnsure button-yellow" id="overTimeBtn">确 定</button>
+        </div>
+        <!-- 结束实验确认 -->
+        <div class="experiment-over-prompt" id="overTestMsg">
+            <div class="experiment-over-prompt-bg"></div>
+            <div class="icon-close-experiment-over" id="overTestCloseBtn"></div>
+            <div class="prompt">确定结束吗</div>
+            <div style="height: 54px;">
+                <button class="experiment-close-btn button-yellow fl" id="overTestYesBtn" style="margin-left: 50px">确定</button>
+                <button class="experiment-close-btn button-blue fr" id="overTestNoBtn" style="margin-right: 50px">取消</button>
+            </div>
+        </div>
+        <!-- 开启虚拟机-弹窗  -->
+        <div class="experiment-over-prompt" id="experimentVirtualBox">
+            <div class="experiment-over-prompt-bg"></div>
+            <div class="icon-close-experiment-over" id="closeExperimentVirtualBox"></div>
+            <div class="prompt">请选择</div>
+            <div style="height: 54px;">
+                <button class="experiment-close-btn button-yellow fl" id="closeVirtualBtn" style="margin-left: 50px">关闭</button>
+                <button class="experiment-close-btn button-blue fr" id="restartVirtualBtn" style="margin-right: 50px">重启</button>
+            </div>
         </div>
         </#if>
     </div>
     <script>
-    	 var tabindexid = 0;
-        $(function(){
-        	
-        	var iframeHeight = window.innerHeight;
-        	console.log(iframeHeight);
-            $("#tabContent1").css("height", iframeHeight-160);
-            $("#tabContent2").css("height", iframeHeight-160);
-            $("#jupyterIframe").css("height", iframeHeight-160);
-        
-            /*初始化虚拟机 现在的功能是根据现有页面的 virtual-item的个数进行创建，实际情况，根据后端传回来的数据，进行虚拟键创建和tab的展示。*/
-            $("#environmentTabContainer").children().each(function(index,display){
+    	//虚拟机
+    	var detector
+    	function check(){
+    		if(key){
+    		$.get("http://104.223.1.65:50063/domain/check?key="+key[0],function(data,status){
+        	    alert("Data: " + data + "\nStatus: " + status);
+        	    data123=data;
+        	    if(data.data[0][0].length==36){
+        	    	uuid=data.data[0]
+        	    	clearInterval(detector)
+        	    	openvir()
+        	    }
+        	  });
+    		}else{clearInterval(detector)}
+    	}
+    	
+    	function openvir(){
+    		$.each(uuid,function(index,value){
+        		$("#environmentTabContainer").append('"<div class="virtual-item" style="display: none;"></div>"')
+            });  
+    		
+    		$("#environmentTabContainer").children().each(function(index,display){
                 console.log('initial virtual start:' + index);
             
                 //这里填写实现了隧道的servlet的访问地址。也就是服务端隧道的访问地址。
                 var guac = new Guacamole.Client(
-                    new Guacamole.HTTPTunnel("http://10.7.11.35:8080/my-guacamole/tunnel" + index)
+                    //new Guacamole.HTTPTunnel("tunnel")
+                    new Guacamole.HTTPTunnel("http://104.223.1.65:50063/console/tunnel/"+uuid[index],true)
+                    //new Guacamole.HTTPTunnel("http://10.7.11.35:8080/my-guacamole/tunnel"+index)
                 );
 
                 // 将显示虚拟机的节点添加到页面上
@@ -238,7 +259,7 @@
                 // 以下是对鼠标的配置，无特殊情况不可更改
                 var mouse = new Guacamole.Mouse(guac.getDisplay().getElement());
 
-                mouse.onmousedown =
+                mouse.onmousedown = 
                 mouse.onmouseup   =
                 mouse.onmousemove = function(mouseState) {
                     guac.sendMouseState(mouseState);
@@ -248,29 +269,62 @@
                 var keyboard = new Guacamole.Keyboard(document);
 
                 keyboard.onkeydown = function (keysym) {
-                    console.log("onKeyDown:" + index);
-                    if(index === tabindexid){
-                        guac.sendKeyEvent(1, keysym);
-                    }
-
-
+                    guac.sendKeyEvent(1, keysym);
                 };
 
                 keyboard.onkeyup = function (keysym) {
-                    console.log("onkeyup:" + index);
-                    if(index === tabindexid){
-                        guac.sendKeyEvent(0, keysym);
-                    }
-
+                    guac.sendKeyEvent(0, keysym);
                 };
 
                 console.log('initial virtual end:' + index);
-            })
+            }) 
+    	}
+    	
+    	
+    	var key=[];
+    	var uuid=[];
+    	var data123=null;
+        $(function(){
+        	$("#b01").click(function(){
+        		  $.ajax({
+        			  type:'post', 
+        			  url:"http://104.223.1.65:50063/domain/undefine/all",
+        			  data:'{"serverInformationList":[{"emulator":"/usr/bin/qemu-system-x86_64","domainStoragePoolSrc":"/home/deepmind/libvirt-images/","hostname":"172.164.10.32","port":"16509","username":"deepmind","password":"deepmind","maxDomains":25,"maxMemory":16,"minDomains":0}]}',
+        			  dataType:"json", 
+                      contentType : 'application/json;charset=UTF-8',
+                      success: function(data){ 
+                      	alert(data)
+                      } 
+        			  });
+        		 
+        		  });
+        	
+        	
+        	$.ajax({ 
+                type:'post', 
+                url: "http://104.223.1.65:50063/domain/data", 
+                data: '{"user":{"uid":2},"serverInformationList":[{"emulator":"/usr/bin/qemu-system-x86_64","domainStoragePoolSrc":"/home/deepmind/libvirt-images/","hostname":"172.164.10.32","port":"16509","username":"deepmind","password":"deepmind","maxDomains":25,"maxMemory":16,"minDomains":0}],"experimentInformationList":[{"mirror":"base-centos-7.qcow2","mirrorUsername":"root","mirrorPassword":"root","cpu":1,"memory":512,"hardDisk":10}]}', 
+                dataType:"json", 
+                async:false, 
+                contentType : 'application/json;charset=UTF-8',
+                success: function(res){ 
+                	key=res.data
+                } 
+            }); 
+        	
+        	detector=setInterval('check()',5000);
+        	
+        	 /* $.each(uuid,function(index,value){
+        		$("#environmentTabContainer").append('"<div class="virtual-item" style="display: none;"></div>"')
+            });   */
+        	
+        //<>虚拟机
+        	
+			 
 
             /*虚拟机的选项卡*/
             $("#environmentTabID").children().each(function(index,value){
                 $(value).click(function(){
-                    tabindexid = index;
                     $(this).siblings().removeClass("selected");
                     $(this).addClass("selected");
                     
@@ -281,98 +335,147 @@
                 })
 
             });
-    	$('#fileName').click(function(){
-		var fileId=$('#fileId').val();
-		 window.location.href="${ctx}/localDownload?fileId="+fileId;
-		})
-    	$('#download').click(function(){
-		var fileId=$('#fileId').val();
-		 window.location.href="${ctx}/localDownload?fileId="+fileId;
-		})
-            /*左侧tab切换*/
-        $("#tabTitle1").click(function(){
-                $(this).next().removeClass("Segment-selected").addClass("Segment-select");
-                $(this).removeClass("Segment-select").addClass("Segment-selected");
-                $(this).next().children().removeClass("Segment-selected-title").addClass("Segment-select-title");
-                $(this).children().removeClass("Segment-select-title").addClass("Segment-selected-title");
+            getHeight();
+            /*左侧大tab切换*/
+            $("#tabTitle1").click(function(){
+                $(this).next().removeClass("actived");
+                $(this).addClass("actived");
                 $("#tabContent1").show();
                 $("#tabContent2").hide();
             })
-       $("#tabTitle2").click(function(){
-                $(this).prev().removeClass("Segment-selected").addClass("Segment-select");
-                $(this).removeClass("Segment-select").addClass("Segment-selected");
-                $(this).prev().children().removeClass("Segment-selected-title").addClass("Segment-select-title");
-                $(this).children().removeClass("Segment-select-title").addClass("Segment-selected-title");
+            $("#tabTitle2").click(function(){
+                $(this).prev().removeClass("actived");
+                $(this).addClass("actived");
                 $("#tabContent2").show();
                 $("#tabContent1").hide();
             })
+
             /*左侧小切换*/
-       $("#littleTabTitle1").click(function(){
-                $(this).next().removeClass("selected");
-                $(this).addClass("selected");
+            $("#littleTabTitle1").click(function(){
+                $(this).next().removeClass("actived");
+                $(this).addClass("actived");
                 $("#littleTabContent1").show();
                 $("#littleTabContent2").hide();
-        })
-        $("#littleTabTitle2").click(function(){
-                $(this).prev().removeClass("selected");
-                $(this).addClass("selected");
+            })
+            $("#littleTabTitle2").click(function(){
+                $(this).prev().removeClass("actived");
+                $(this).addClass("actived");
                 $("#littleTabContent2").show();
                 $("#littleTabContent1").hide();
-        })
+            })
 
-            
-
-        $("#closeLeftContent").click(function(){
-                $("#leftContent").hide(500);
-                $("#showLeftContent").show();
-                $("#rightContent").animate({'width': '100%'}, 1000);
-        })
-
-        $("#editorFullScreen").click(function(){
+            //左侧隐藏
+            $("#closeLeftContent").click(function(){
                 $("#leftContent").hide(500);
                 $("#showLeftContent").show();
                 $("#rightContent").animate({'width': '100%'}, 1000);
             })
 
-        $("#showLeftContent").click(function(){
+            //显示左侧
+            $("#showLeftContent").click(function(){
                 $("#leftContent").show(500);
                 $("#showLeftContent").hide();
-                $("#rightContent").animate({'width': 'calc(100% - 322px)'}, 1000);
-        })
-			 //运行按钮
-        $("#iconRunExperiment2").click(function(){
+                $("#rightContent").animate({'width': 'calc(100% - 380px)'}, 1000);
+            })
+			//运行按钮
+            $("#iconRunExperiment").click(function(){
                 $("#layoutBox").show();
                 $("#experimentPromptBox").show();
-        })
-              //关闭弹窗
-        $("#experimentPromptBtn").click(function(){
+            })
+            //结束实验
+            $("#overTest").click(function(){
+            	$("#layoutBox").show();
+                $("#overTestMsg").show();
+            })
+            //关闭时间弹窗
+            $("#timeBtn").click(function(){
+                $("#layoutBox").hide();
+                $("#stopTimeBox").hide();
+            })
+            //关闭时间弹窗
+            $("#closetimeBox").click(function(){
+                $("#layoutBox").hide();
+                $("#stopTimeBox").hide();
+            })
+            //关闭虚拟机弹窗-显示虚拟机
+            $("#experimentPromptBtn").click(function(){
+            	countTime();
                 $("#layoutBox").hide();
                 $("#experimentPromptBox").hide();
-                $("#iconRunExperiment2").hide();
+                var overTest = document.getElementById("overTest");
+                overTest.style.display = "block";
+                $("#runExperimentContent").hide();
                 $("#experimentContent").show();
-                 countTime();
-        })
-            //结束实验
-        $("#btnExperimentOver").click(function(){
+            })
+            //关闭虚拟机弹窗
+            $("#closeExperimentPromptBox").click(function(){
+                $("#layoutBox").hide();
+                $("#experimentPromptBox").hide();
+            })			
+            //关闭虚拟机-显示重启或关闭弹窗
+            $("#environmentTabID .icon-close").click(function(){
+                console.log(123);
                 $("#layoutBox").show();
-                $("#experimentOverBox").show();
-        })
-        $("#experimentOverBtn").click(function(){
+                $("#experimentVirtualBox").show();
+            })
+            //关闭-显示重启或关闭弹窗
+            $("#closeExperimentVirtualBox").click(function(){
                 $("#layoutBox").hide();
-                $("#experimentOverBox").hide();
-        })
-        $("#closeExperimentOverBox").click(function(){
+                $("#experimentVirtualBox").hide();
+            })
+            //确定按钮--离开实验
+            $("#overTimeBtn").click(function(){
+            	window.location.href="${ctx}/experiment-list";
+            })
+            //关闭按钮--关闭虚拟机
+            $("#closeVirtualBtn").click(function(){
                 $("#layoutBox").hide();
-                $("#experimentOverBox").hide();
-       })
+                $("#experimentVirtualBox").hide();
+            })
+            //确定按钮--结束实验
+            $("#overTestYesBtn").click(function(){
+            	window.location.href="${ctx}/experiment-list";
+            })
+            //取消按钮--结束实验
+            $("#overTestNoBtn").click(function(){
+                $("#layoutBox").hide();
+                $("#overTestMsg").hide();
+            })
+            //关闭结束实验确认弹窗
+            $("#overTestCloseBtn").click(function(){
+                $("#layoutBox").hide();
+                $("#overTestMsg").hide();
+            })
+          //显示实验总倒计时时间
+            var allTime = "${expScheduleList[0].countDown1}"*60*60*1000;
+            console.log(allTime);
+            
+            if(allTime >= 0){
+               d = Math.floor(allTime/1000/60/60/24);
+               h = Math.floor(allTime/1000/60/60%24);
+               m = Math.floor(allTime/1000/60%60);
+               s = Math.floor(allTime/1000%60);
+               $("#experimentOverTime").html(d + "天" + h + "小时" + m + "分钟" + s + "秒");
+           	}else {
+               $("#experimentOverTime").html("00 : 00 : 00");
+            }
+           
+        })
 
-       $("#iconRunExperiment").click(function(){
-                $("#iconRunExperiment").hide();
-                $("#experimentContent").show();
-                countTime();
-       })
-   })
-       $('#save').click(function(){
+        
+        function getHeight(){
+            var iframeHeight = window.innerHeight;
+            console.log(iframeHeight);
+            $("#tabContent1").css("height", iframeHeight-160);
+            $("#tabContent2").css("height", iframeHeight-160);
+            $(".virtual-item").css("height", iframeHeight-160);
+            $("#rightContent").css("height", iframeHeight-160);
+
+            
+            $("#experimentContent").css("height", iframeHeight-160);
+            $("#jupyterIframe").css("height", iframeHeight-160);
+        }
+$('#save').click(function(){
 		var id='${(studentRecord.id?c)!''}';
 	    var Mode;
 	    if(id==null||id=='undefine'||id==''){
@@ -410,7 +513,7 @@
     	   
 	   			
 	})
-		$('#submit').click(function(){
+$('#submit').click(function(){
 		var id='${(studentRecord.id?c)!''}';
 	    var Mode;
 	    if(id==null||id=='undefine'||id==''){
@@ -435,7 +538,7 @@
 						studentName: studentId,
 						eq_scheduleId: eq_scheduleId,
 						result: stuResult,
-						fileId: fileId,
+						fileId:fileId,
 						submit: submit
 
 	    			 }, function(data) {
@@ -447,7 +550,8 @@
     	    });
 	  
 	})
-	function settime(fileid,token){
+function settime(fileid,token){
+	console.log(token);
 	$.ajaxFileUpload({  
 	    url:'${ctx}/localUpload?token='+token,  
 	    data:{accessType:"public",allowFile:"jpg,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xls",maxSize:"9999999",uploadUrl:""},
@@ -479,7 +583,8 @@ function uploadFile(file){
 	$.ajax({
 	      type: 'GET',
 	      url:  API_PROXY + '/ui/' + uiName + '/app',
-	      success: function(data) {;
+	      success: function(data) {
+	      	console.log(data);
 	        if (data && data.token && data.token.items) {
 	          var token = data.token.items[tokenKey];
 	          if (token) {
@@ -496,24 +601,25 @@ function uploadFile(file){
 	console.log(token);
 }
  var date = new Date();
-        var seperator1 = "-";
-        var month = date.getMonth() + 1;
-        var strDate = date.getDate();
-      if (month >= 1 && month <= 9) {
+ var seperator1 = "-";
+ var month = date.getMonth() + 1;
+ var strDate = date.getDate();
+ if (month >= 1 && month <= 9) {
          month = "0" + month;
-      }
-     if (strDate >= 0 && strDate <= 9) {
+  }
+ if (strDate >= 0 && strDate <= 9) {
          strDate = "0" + strDate;
-      }
-     var h=date.getHours();       //获取当前小时数(0-23)
-     var m=date.getMinutes();     //获取当前分钟数(0-59)
-     var s=date.getSeconds();     //获取当前秒数
+ }
+ var h=date.getHours();       //获取当前小时数(0-23)
+ var m=date.getMinutes();     //获取当前分钟数(0-59)
+ var s=date.getSeconds();     //获取当前秒数
        //提价时间
-     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +" "+ h + ":" + m + ":" + s; 
+ var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +" "+ h + ":" + m + ":" + s; 
  
-	console.log(currentdate);
+ console.log(currentdate);
 
 function readImg(file) {
+	debugger
 	if(file.files && file.files[0]) {
 		var reader = new FileReader();
 		reader.onload = function(evt) {
@@ -524,29 +630,40 @@ function readImg(file) {
 		
 	}
 }
-/* 倒计时 **/
-            function countTime(){
-                var date = new Date();
-                var now = date.getTime();
-                var countDown = "${expScheduleList[0].countDown}";
-                console.log(countDown);
-                var endDate = new Date(countDown);
-                console.log('endDate:'+endDate);
-                var after = endDate.getTime() - now;
-                
-                var d, h, m, s;
-                if(after >= 0){
-                    d = Math.floor(after/1000/60/60/24);
-                    h = Math.floor(after/1000/60/60%24);
-                    m = Math.floor(after/1000/60%60);
-                    s = Math.floor(after/1000%60);
-                    $("#experimentOverTime").html(d + "天" + h + "小时" + m + "分钟" + s + "秒");
 
-                    setTimeout(countTime, 1000);
-                }else {
-                    $("#experimentOverTime").html("00 : 00 : 00");
-                }
-            }
+var restTime = "${expScheduleList[0].countDown1}"*60*60*1000;
+/* 倒计时 **/
+function countTime(){
+	console.log(restTime);
+        
+	var d, h, m, s;
+	
+	if(Math.floor(restTime/1000) == 300){
+		$("#stopTimeBox").show();
+		console.log("时间弹框");
+	}
+	
+	if(Math.floor(restTime/1000) == 0){
+		$("#overTimeBox").show();
+	}
+
+	if(restTime >= 0){
+		d = Math.floor(restTime/1000/60/60/24);
+		h = Math.floor(restTime/1000/60/60%24);
+		m = Math.floor(restTime/1000/60%60);
+		s = Math.floor(restTime/1000%60);
+		$("#experimentOverTime").html(d + "天" + h + "小时" + m + "分钟" + s + "秒");
+
+		setTimeout(countTime, 1000);
+		restTime = restTime-1000;
+	}else {
+  		$("#experimentOverTime").html("00 : 00 : 00");
+	}
+	
+}
+	   
     </script>
-	</body>
+    
+</body>
+
 </html>
