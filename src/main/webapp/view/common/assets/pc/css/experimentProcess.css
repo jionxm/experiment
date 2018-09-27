@@ -11,7 +11,7 @@
     position: absolute;
     top: 300px;
     right: -14px;
-    background:url(../img/icon_experiment_close.png) no-repeat 100% 0;
+    background:url(../image/icon_experiment_close.png) no-repeat 100% 0;
 }
 
 .segment-header{
@@ -19,12 +19,13 @@
 }
 
 .segment-select-title {
+    width: 50%;
     height: 42px;
     line-height: 42px;
     padding: 0 20px;
     float: left;
     background: #f2af0d;
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
     text-align: center;
 }
@@ -75,7 +76,7 @@
 }
 
 /*
-    浜岀骇鍒囨崲
+    二级切换
 */
 .segment-second-header {
     height: 36px;
@@ -85,11 +86,13 @@
 .segment-second-title {
     width: 100px;
     height: 36px;
-    line-height: 36px;
+    line-height: 34px;
     color: #008fea;
     text-align: center;
     border-radius: 24px;
     float: left;
+    border: 1px solid #008fea;
+    margin-right: 20px;
 }
 .segment-second-title.actived {
     background: #008fea;
@@ -97,7 +100,7 @@
 }
 
 /*
-    涓婁紶鏂囦欢-鎻愪氦-淇濆瓨
+    上传文件-提交-保存
 */
 
 .experiment-evaluate {
@@ -159,7 +162,7 @@
     float: left;
     width: 26px;
     height: 26px;
-    background: url(../img/icon_delete_resource.png) no-repeat center center;
+    background: url(../image/icon_delete_resource.png) no-repeat center center;
     background-size: 22px;
     margin-left: 42px;
 }
@@ -189,13 +192,12 @@
 
 
 /**
-    鍙充晶鏍峰紡
+    右侧样式
 */
 .right-content {
     width: calc(100% - 380px);
     float: left;
     position: relative;
-    height: 791px;
 }
 
 .icon-show-left {
@@ -205,7 +207,7 @@
     position: absolute;
     top: 300px;
     left: -15px;
-    background: url(../img/icon_experiment_close.png) no-repeat left top;
+    background: url(../image/icon_experiment_close.png) no-repeat left top;
     transform: rotate(180deg);
 }
 
@@ -228,13 +230,13 @@
 }
 
 .environment-top .stop-experiment {
-    display: none;
+    display: block;
     width: 115px;
     height: 27px;
     line-height: 27px;
     padding-left: 40px;
     color: #fff;
-    background: #363636 url(../img/icon_stop_experiment.png) no-repeat 15px center;
+    background: #363636 url(../image/icon_stop_experiment.png) no-repeat 15px center;
     background-size: 15px;
 }
 
@@ -246,19 +248,19 @@
 .experiment-run {
     width: 100%;
     height: 100%;
-    background: #000000 ;
+    background: #333;
     background-size: cover; 
 }
 
 .experiment-run .icon-run {
     width: 100%;
     height: 100%;
-    background: url(../img/icon_run_experiment.png) no-repeat center center;
+    background: url(../image/icon_run_experiment.png) no-repeat center center;
     background-size: 160px;
 }
 
 
-/* 绗簩绉嶅疄楠�-灏忔爣棰� */
+/* 第二种实验-小标题 */
 .environment-content-tab{
     position: absolute;
     top: -42px;
@@ -290,7 +292,7 @@
     right: 12px;
     width: 16px;
     height: 16px;
-    background: url(../img/icon_close_btn.png) no-repeat center center;
+    background: url(../image/icon_close_btn.png) no-repeat center center;
     background-size: 16px;
 }
 
@@ -312,15 +314,14 @@
     z-index: -2;
 }
 
-/*铏氭嫙鏈�*/
+/*虚拟机*/
 .virtual-item{
     width: 100%;
     background: #333;
-    height:791;
 }
 
 
-/* 铏氭嫙鏈�--寮圭獥 */
+/* 虚拟机--弹窗 */
 .layout {
     display: none;
     width: 100%;
@@ -381,7 +382,7 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
-    background: url(../img/icon_prompt_close_btn.png) no-repeat center center;
+    background: url(../image/icon_prompt_close_btn.png) no-repeat center center;
     background-size: 30px;
 }
 
@@ -396,98 +397,31 @@
     font-weight: bold;
 }
 
-/* .dis_n {
-    display: none;
-}
-.fs16 {
-    font-size: 16px;
-}
-
-.right-content{
-    position:relative;
-    margin-top: 12px;
-}
-
-
-.experiment-over {
-    display: none;
-    width: 300px;
-    background: #ffffff;
-    position: fixed;
-    top: 200px;
-    left: 50%;
-    margin-left: -150px;
-    z-index: 101;
-}
-
-.environment-content {
-    display: none;
-    position: relative;
-}
-
-
-/*
-    宸︿晶鍒囨崲灏弔ab
-*/
-/* .segment-left-header {
-    position: absolute;
-    left: 0;
-    top: 30px;
-}
-.segment-left-title {
-    width: 20px;
-    height: 100px;
-    padding-top: 15px;
-    background: #c8cfd6;
-    color: #949494;
-    font-size: 12px;
-    text-align: center;
-    border-top-right-radius: 24px;
-    border-bottom-right-radius: 24px;
-}
-.segment-left-title.selected {
-    background: #08c2fe;
-    color: #fff;
-}
-/* 鏂板姞icon */
-/* .editor-refresh {
-    z-index: 5;
-    position: absolute;
-    top: 10px;
-    left: 173px;
-    width: 32px;
-    height: 32px;
-    background: url(../image/icon_editor_refresh.png) no-repeat center center;
-}
-.editor-play{
-    z-index: 5;
-    position: absolute;
-    top: 10px;
-    left: 224px;
-    width: 32px;
-    height: 32px;
-    background: url(../image/icon_editor_play.png) no-repeat center center;
-}
-.editor-prompt {
-    z-index: 5;
-    position: absolute;
-    top: 10px;
-    left: 275px;
-    width: 32px;
-    height: 32px;
-    background: url(../image/icon_editor_prompt.png) no-repeat center center;
-} */ 
-/*缁撴灉椤�*/
-/* .environment-result {
-    z-index: 5;
-    position: absolute;
-    bottom: 30px;
-    right: 0;
-    padding: 10px;
-    border: 1px solid #00b4ed;
-    border-right: none;
+.other-loading {
+    width: 100%;
+    height: 100%;
     background: #fff;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-} */
+    position: absolute;
+    z-index: 2;
+}
 
+.other-loading .loading-bg {
+    width: 100%;
+    height: 300px;
+    background: url(../image/bg_loading.png) no-repeat center center;
+    background-size: 260px;
+}
+
+.other-loading .no-net-bg {
+    width: 100%;
+    height: 300px;
+    background: url(../image/bg_no_net.png) no-repeat center center;
+    background-size: 260px;
+}
+
+.other-loading .text {
+    color: #999;
+    font-size: 16px;
+    margin-top: 32px;
+    text-align: center;
+}
