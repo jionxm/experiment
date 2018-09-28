@@ -213,7 +213,7 @@
     	var detector
     	function check(){
     		if(key){
-    		$.get("http://104.223.1.65:50063/domain/check?key="+key[0],function(data,status){
+    		$.get("http://172.164.10.81:8080/domain/check?key="+key[0],function(data,status){
         	    alert("Data: " + data + "\nStatus: " + status);
         	    data123=data;
         	    if(data.data[0][0].length==36){
@@ -236,7 +236,7 @@
                 //这里填写实现了隧道的servlet的访问地址。也就是服务端隧道的访问地址。
                 var guac = new Guacamole.Client(
                     //new Guacamole.HTTPTunnel("tunnel")
-                    new Guacamole.HTTPTunnel("http://104.223.1.65:50063/console/tunnel/"+uuid[index],true)
+                    new Guacamole.HTTPTunnel("http://172.164.10.81:8080/console/tunnel/"+uuid[index],true)
                     //new Guacamole.HTTPTunnel("http://10.7.11.35:8080/my-guacamole/tunnel"+index)
                 );
 
@@ -288,7 +288,7 @@
         	$("#b01").click(function(){
         		  $.ajax({
         			  type:'post', 
-        			  url:"http://104.223.1.65:50063/domain/undefine/all",
+        			  url:"http://172.164.10.81:8080/domain/undefine/all",
         			  data:'{"serverInformationList":[{"emulator":"/usr/bin/qemu-system-x86_64","domainStoragePoolSrc":"/home/deepmind/libvirt-images/","hostname":"172.164.10.32","port":"16509","username":"deepmind","password":"deepmind","maxDomains":25,"maxMemory":16,"minDomains":0}]}',
         			  dataType:"json", 
                       contentType : 'application/json;charset=UTF-8',
@@ -302,7 +302,7 @@
         	
         	$.ajax({ 
                 type:'post', 
-                url: "http://104.223.1.65:50063/domain/data", 
+                url: "http://172.164.10.81:8080/domain/data", 
                 data: '{"user":{"uid":2},"serverInformationList":[{"emulator":"/usr/bin/qemu-system-x86_64","domainStoragePoolSrc":"/home/deepmind/libvirt-images/","hostname":"172.164.10.32","port":"16509","username":"deepmind","password":"deepmind","maxDomains":25,"maxMemory":16,"minDomains":0}],"experimentInformationList":[{"mirror":"base-centos-7.qcow2","mirrorUsername":"root","mirrorPassword":"root","cpu":1,"memory":512,"hardDisk":10}]}', 
                 dataType:"json", 
                 async:false, 
