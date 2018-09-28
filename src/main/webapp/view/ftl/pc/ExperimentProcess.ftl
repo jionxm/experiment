@@ -146,6 +146,24 @@
                 <iframe width="100%" height="590" style="border: 1px solid #368ae3" id="jupyterIframe" src="http://117.50.17.174:8000/hub/login?username=jia"></iframe>
             </div>
          </div>
+         
+         <!-- 结束实验确认 -->
+        <div class="experiment-over-prompt" id="overTestMsg">
+            <div class="experiment-over-prompt-bg"></div>
+            <div class="icon-close-experiment-over" id="overTestCloseBtn"></div>
+            <div class="prompt">确定结束吗</div>
+            <div style="height: 54px;">
+                <button class="experiment-close-btn button-yellow fl" id="overTestYesBtn" style="margin-left: 50px">确定</button>
+                <button class="experiment-close-btn button-blue fr" id="overTestNoBtn" style="margin-right: 50px">取消</button>
+            </div>
+        </div>
+        <!-- 时间结束确认 -->
+        <div class="experiment-over-prompt"  id="overTimeBox">
+            <div class="experiment-over-prompt-bg"></div>
+            <div class="prompt">本次实验已结束</div>
+            <button class="experiment-over-btnsure button-yellow" id="overTimeBtn">确 定</button>
+        </div>
+        
      <#else>
          <div class="right-content" id="rightContent">
             <div class="icon-show-left" id="showLeftContent"></div>
@@ -205,7 +223,7 @@
             </div>
         </div>
         <!-- 时间结束确认 -->
-        <div class="experiment-over-prompt" id="overTimeBox">
+        <div class="experiment-over-prompt"  id="overTimeBox">
             <div class="experiment-over-prompt-bg"></div>
             <div class="prompt">本次实验已结束</div>
             <button class="experiment-over-btnsure button-yellow" id="overTimeBtn">确 定</button>
