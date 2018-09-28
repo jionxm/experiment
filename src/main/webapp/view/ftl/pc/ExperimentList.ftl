@@ -39,64 +39,72 @@
 			<#if aiList>
             <div class="class-box">
                 <div class="tips"></div>
-                <h3>实验在线课程</h3>
+                <#list aiList as ai>
+                <#if ai.courseName>
+                <h3>${ai.courseName }</h3>
                 <h5></h5>
 
                 <ul class="text-list clearfix">
-					<#list aiList as ai>
+					<#list aiList2 as ai2>
+					<#if ai2.courseName==ai.courseName>
                     <li>
-                        <img class="text-image" src="${ctx}/localDownload?fileId=${ai.picId?c}">
+                        <img class="text-image" src="${ctx}/localDownload?fileId=${ai2.picId?c}">
                         <div class="text-content">
                             <div class="text-top">
-                                <div class="text-title">${ai.name}</div>
-                                <div class="text-time">截止时间: ${ai.endTime}</div>
+                                <div class="text-title">${ai2.name}</div>
+                                <div class="text-time">截止时间: ${ai2.endTime}</div>
                                 <div class="text-opera">
-                                    <a href="${ctx}/electronic-reporting-page?exp=${ai.id}" target="_blank"class="button-default text-button mr12">报告</a>
-                                    <a href="${ctx}/evaluation-achievement?exp=${ai.id}"target="_blank" class="button-default text-button">成绩</a>
+                                    <a href="${ctx}/electronic-reporting-page?exp=${ai2.id}" target="_blank"class="button-default text-button mr12">报告</a>
+                                    <a href="${ctx}/evaluation-achievement?exp=${ai2.id}"target="_blank" class="button-default text-button">成绩</a>
                                 </div>
                             </div>
                             <div class="text-bottom">
-                                <div class="text-people">老师: ${ai.teacherName}</div>
-                                <a <#if ai.status=="1">href="${ctx}/experiment-process?exp=${ai.id}" <#else>href="javascript:volid(0);"  style="background-color:#C0C0C0"</#if>target="_blank"class="text-go-experiment">去实验 ></a>
+                                <div class="text-people">老师: ${ai2.teacherName}</div>
+                                <a <#if ai2.status=="1">href="${ctx}/experiment-process?exp=${ai2.id}" <#else>href="javascript:volid(0);"  style="background-color:#C0C0C0"</#if>target="_blank"class="text-go-experiment">去实验 ></a>
                             </div> 
                         </div>
                     </li>
+                    </#if>
 					</#list>                    
                 </ul>
-
+                </#if>
+</#list>
             </div>
 			</#if>
-			<#if aiList>
+			<#if aiList2>
             <div class="class-box">
                 <div class="tips"></div>
-                <h3>实验在线课程</h3>
+               
+                <h3>其他实验课程</h3>
                 <h5></h5>
-
+				
                 <ul class="text-list clearfix">
-					<#list otherList as other>
+					<#list aiList2 as ai2>
+				<#if (ai2.courseName)??>
+				<#else>
                     <li>
-                        <img class="text-image" src="${ctx}/localDownload?fileId=${other.picId?c}">
+                        <img class="text-image" src="${ctx}/localDownload?fileId=${ai2.picId?c}">
                         <div class="text-content">
                             <div class="text-top">
-                                <div class="text-title">${other.name}</div>
-                                <div class="text-time">截止时间: ${other.endTime}</div>
+                                <div class="text-title">${ai2.name}</div>
+                                <div class="text-time">截止时间: ${ai2.endTime}</div>
                                 <div class="text-opera">
-                                    <a href="${ctx}/electronic-reporting-page?exp=${other.id}" class="button-default text-button mr12">报告</a>
-                                    <a href="${ctx}/evaluation-achievement?exp=${other.id}" class="button-default text-button">成绩</a>
+                                    <a href="${ctx}/electronic-reporting-page?exp=${ai2.id}" target="_blank"class="button-default text-button mr12">报告</a>
+                                    <a href="${ctx}/evaluation-achievement?exp=${ai2.id}"target="_blank" class="button-default text-button">成绩</a>
                                 </div>
                             </div>
                             <div class="text-bottom">
-                                <div class="text-people">老师：${other.teacherName}</div>
-                                <a <#if other.status=="1">href="${ctx}/experiment-process?exp=${other.id}"<#else>href="javascript:volid(0);" style="background-color:#C0C0C0"</#if> target="_blank"class="text-go-experiment">去实验 ></a>
+                                <div class="text-people">老师: ${ai2.teacherName}</div>
+                                <a <#if ai2.status=="1">href="${ctx}/experiment-process?exp=${ai2.id}" <#else>href="javascript:volid(0);"  style="background-color:#C0C0C0"</#if>target="_blank"class="text-go-experiment">去实验 ></a>
                             </div> 
                         </div>
                     </li>
-					</#list>                    
+                    </#if>
+                </#list>
+					                    
                 </ul>
             </div>
-		
-        </div>
-		</#if>
+			</#if>
 		<script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
         <script>
             $(function(){

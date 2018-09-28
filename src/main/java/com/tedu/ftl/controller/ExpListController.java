@@ -145,10 +145,12 @@ public class ExpListController {
 		UserModel userModel = (UserModel) SessionUtils.getAttrbute(ConstantUtil.USER_INFO);
 		if (userModel != null) {
 			List<Map<String, Object>> list = getParams("experiment/QryScheduleAi", "1", "1");
+			List<Map<String, Object>> list2 = getParams("experiment/QryScheduleAi2", "1", "1");
 			// 绑定sql语句
 			// 添加数据
 			if (!list.isEmpty() && list.size() > 0) {
 				model.addAttribute("aiList", list);
+				model.addAttribute("aiList2", list2);
 			} else {
 				Map<String, Object> map = null;
 				model.addAttribute("aiList", list);

@@ -1,7 +1,7 @@
  select * from (
 SELECT
 	l.id AS id,
-	l.name AS name,
+	l.name AS name,course.stage_name as courseName,
 	l.eg_id as egId,
 	l.teacher_id as teacherId,
 	l.course_id as courseId,
@@ -15,12 +15,12 @@ SELECT
 	empsec.name as updateByName,
 	l.update_count as updateCount,
 	eg.name as egName,
-	course.stage_name as courseName,
+	
 	eg.demand as demand,
 	eg.target as target,
 	eg.content as content,
 	l.count_down as countDown,
-	empt.name as teacherName,
+	empt.name as teacherName, 
 	case when l.status = 0 then "未开启"
 		 when l.status = 1 then "已开启" end as statusName,
 	eg.pic_id as picId
@@ -31,6 +31,6 @@ FROM t_experiment_schedule l
 	left join t_employee emp on l.create_by=emp.id
 	left join t_employee empsec on l.update_by=empsec.id
 	left join t_exp_course course on l.course_id = course.id
-	where l.eg_id is not null and l.status = 1
-	and DATE_ADD(l.end_time,INTERVAL 3 MONTH)>Date(CURDATE()) ORDER BY courseName
- ) a 
+	where l.eg_id is not null and l.status = 1 
+	and DATE_ADD(l.end_time,INTERVAL 3 MONTH)>Date(CURDATE()) 
+	 ) a 
