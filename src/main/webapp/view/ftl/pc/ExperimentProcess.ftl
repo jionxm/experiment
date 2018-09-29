@@ -242,6 +242,11 @@
     </div>
     <script>
         $(function(){
+        	$(".user-box").hover(function(){
+                    $(".nav-user").show();
+                }, function(){
+                    $(".nav-user").hide();
+                })
         	$('#fileName').click(function(){
 				var fileId=$('#fileId').val();
 				window.location.href="${ctx}/localDownload?fileId="+fileId;
@@ -639,16 +644,6 @@ function countTime(){
 }
 	   
     </script>
-    <script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
-        <script>
-            $(function(){
-                $(".user-box").hover(function(){
-                    $(".nav-user").show();
-                }, function(){
-                    $(".nav-user").hide();
-                })
-            })
-        </script>
 </body>
 
 </html>
