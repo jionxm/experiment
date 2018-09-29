@@ -12,6 +12,7 @@
 	<#include "pc/common/base.ftl">
 	<script src="${ctx}/view/common/js/ajaxfileupload.js?${date}"></script>
 	<script src="${ctx}/view/common/assets/pc/js/guacamole-common-0.9.14-all.min.js"></script>
+	<script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
 </head>
 
 <body>

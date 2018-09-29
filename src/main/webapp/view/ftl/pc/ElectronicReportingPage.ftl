@@ -10,6 +10,7 @@
         <link href="${ctx}/view/common/assets/pc/css/normalize.css" rel="stylesheet" type="text/css">
         <link href="${ctx}/view/common/assets/pc/css/public.css" rel="stylesheet" type="text/css">
         <link href="${ctx}/view/common/assets/pc/css/electronicReporting.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
         <script src="${ctx}/view/common/js/ajaxfileupload.js?${date}"></script>
     </head>
 
@@ -86,7 +87,16 @@
         </div>
 
     </body>
-	<script>		
+	<script>
+	
+		$(function(){
+	        $(".user-box").hover(function(){
+	            $(".nav-user").show();
+	        }, function(){
+	            $(".nav-user").hide();
+	        })
+	    })
+	    
 	 	$('#save').click(function(){
 		var id='${(studentRecord.id?c)!''}';
 		console.log(id);
@@ -253,14 +263,5 @@ function readImg(file) {
 	
 	
 </script>
-<script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
-        <script>
-            $(function(){
-                $(".user-box").hover(function(){
-                    $(".nav-user").show();
-                }, function(){
-                    $(".nav-user").hide();
-                })
-            })
-        </script>
+        
 </html>

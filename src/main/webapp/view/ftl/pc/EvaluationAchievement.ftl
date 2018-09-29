@@ -9,6 +9,7 @@
         <link href="${ctx}/view/common/assets/pc/css/normalize.css" rel="stylesheet" type="text/css">
         <link href="${ctx}/view/common/assets/pc/css/public.css" rel="stylesheet" type="text/css">
         <link href="${ctx}/view/common/assets/pc/css/electronicReporting.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
     </head>
 
     <body>
@@ -54,7 +55,6 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
         <script>
             $(function(){
                 $(".user-box").hover(function(){

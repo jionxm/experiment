@@ -12,7 +12,7 @@
 	<#include "pc/common/base.ftl">
 	<script src="${ctx}/view/common/js/ajaxfileupload.js?${date}"></script>
 	<script src="${ctx}/view/common/assets/pc/js/guacamole-common-0.9.14-all.min.js"></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+	<script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
 </head>
 
 <body>
@@ -151,12 +151,12 @@
                     	<div class="environment-content-tab-title  cur_point posi1 selected">
                         	<span class="icon-close"></span>虚拟机1
                     	</div>
-                    	<div class="environment-content-tab-title  cur_point posi1">
+                    	<!-- <div class="environment-content-tab-title  cur_point posi1">
                         	<span class="icon-close"></span>虚拟机2
                     	</div>
                    		<div class="environment-content-tab-title cur_point posi1">
                         	<span class="icon-close"></span>虚拟机3
-                    	</div>
+                    	</div> -->
                 </div>
                 <div class="virtual-container" id="environmentTabContainer">
                     	<div class="virtual-item" style="display: block;"></div>
@@ -170,7 +170,7 @@
         <div class="experiment-over-prompt" id="experimentPromptBox">
             <div class="experiment-over-prompt-bg"></div>
             <div class="icon-close-experiment-over" id="closeExperimentPromptBox"></div>
-            <div class="prompt">本次实验即将开启3个虚拟机</div>
+            <div class="prompt" id="number">等待获取到虚拟机</div>
             <button class="experiment-over-btnsure button-yellow" id="experimentPromptBtn">确 定</button>
         </div>
 		<!-- 倒计时时间弹框  -->
@@ -218,6 +218,7 @@
         	    data123=data;
         	    if(data.data[0][0].length==36){
         	    	uuid=data.data[0]
+        	    	$("#number").html("本次实验即将开启"+uuid.length+"个虚拟机")
         	    	clearInterval(detector)
         	    	openvir()
         	    }
@@ -227,8 +228,11 @@
     	
     	function openvir(){
     		$.each(uuid,function(index,value){
+    			if(index){
         		$("#environmentTabContainer").append('"<div class="virtual-item" style="display: none;"></div>"')
-            });  
+        		$("#environmentTabID").append('<div class="environment-content-tab-title  cur_point posi1"><span class="icon-close"></span>虚拟机'+index+1+'</div>')
+    			}
+    		});  
     		
     		$("#environmentTabContainer").children().each(function(index,display){
                 console.log('initial virtual start:' + index);
@@ -236,7 +240,7 @@
                 //这里填写实现了隧道的servlet的访问地址。也就是服务端隧道的访问地址。
                 var guac = new Guacamole.Client(
                     //new Guacamole.HTTPTunnel("tunnel")
-                    new Guacamole.HTTPTunnel("http://104.223.1.65:50063/console/tunnel/"+uuid[index],true)
+                    new Guacamole.HTTPTunnel("http://104.223.1.65:50063/console/tunnel/"+uuid[index])
                     //new Guacamole.HTTPTunnel("http://10.7.11.35:8080/my-guacamole/tunnel"+index)
                 );
 

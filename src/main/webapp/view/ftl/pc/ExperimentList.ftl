@@ -9,6 +9,7 @@
         <link href="${ctx}/view/common/assets/pc/css/normalize.css" rel="stylesheet" type="text/css">
         <link href="${ctx}/view/common/assets/pc/css/public.css" rel="stylesheet" type="text/css">
         <link href="${ctx}/view/common/assets/pc/css/experimentList.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>       
 		<#include "pc/common/base.ftl">
 	</head>
 
@@ -105,7 +106,6 @@
                 </ul>
             </div>
 			</#if>
-		<script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
         <script>
             $(function(){
                 $(".user-box").hover(function(){
