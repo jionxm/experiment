@@ -37,10 +37,10 @@
 
         <div class="container" style="margin-bottom: 60px;">
 			<#if aiList>
+			<#list aiList as ai>
+			<#if ai.courseName>
             <div class="class-box">
                 <div class="tips"></div>
-                <#list aiList as ai>
-                <#if ai.courseName>
                 <h3>${ai.courseName }</h3>
                 <h5></h5>
 
@@ -60,16 +60,16 @@
                             </div>
                             <div class="text-bottom">
                                 <div class="text-people">老师: ${ai2.teacherName}</div>
-                                <a <#if ai2.status=="1">href="${ctx}/experiment-process?exp=${ai2.id}" <#else>href="javascript:volid(0);"  style="background-color:#C0C0C0"</#if>target="_blank"class="text-go-experiment">去实验 ></a>
+                                <a <#if ai2.status=="1">href="${ctx}/experiment-process?exp=${ai2.id}" <#else>href="javascript:volid(0);"  style="background-color:#C0C0C0"</#if>class="text-go-experiment">去实验 ></a>
                             </div> 
                         </div>
                     </li>
                     </#if>
 					</#list>                    
                 </ul>
-                </#if>
-</#list>
             </div>
+            </#if>
+            </#list>
 			</#if>
 			<#if aiList2>
             <div class="class-box">
@@ -95,7 +95,7 @@
                             </div>
                             <div class="text-bottom">
                                 <div class="text-people">老师: ${ai2.teacherName}</div>
-                                <a <#if ai2.status=="1">href="${ctx}/experiment-process?exp=${ai2.id}" <#else>href="javascript:volid(0);"  style="background-color:#C0C0C0"</#if>target="_blank"class="text-go-experiment">去实验 ></a>
+                                <a <#if ai2.status=="1">href="${ctx}/experiment-process?exp=${ai2.id}" <#else>href="javascript:volid(0);"  style="background-color:#C0C0C0"</#if>class="text-go-experiment">去实验 ></a>
                             </div> 
                         </div>
                     </li>

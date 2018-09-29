@@ -32,5 +32,5 @@ FROM t_experiment_schedule l
 	left join t_employee empsec on l.update_by=empsec.id
 	left join t_exp_course course on l.course_id = course.id
 	where l.eg_id is not null and l.status = 1
-	and DATE_ADD(l.end_time,INTERVAL 3 MONTH)>Date(CURDATE()) ORDER BY courseName
+	and DATE_ADD(l.end_time,INTERVAL 3 MONTH)>Date(CURDATE()) GROUP  By courseName  ORDER BY courseName
  ) a 
