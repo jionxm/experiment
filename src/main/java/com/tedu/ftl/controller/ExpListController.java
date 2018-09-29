@@ -234,6 +234,65 @@ public class ExpListController {
 		}
 
 	}
+	@RequestMapping("/experiment-processTest")
+	public String experimentProcessTest(Model model, HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		UserModel userModel = (UserModel) SessionUtils.getAttrbute(ConstantUtil.USER_INFO);
+		model.addAttribute("baseTitle", baseTitle);
+        model.addAttribute("loginImg", loginImg);
+        model.addAttribute("loginLogo", loginLogo);
+        model.addAttribute("notice", notice);
+        model.addAttribute("copyRight", copyRight);
+        model.addAttribute("faviconPng", faviconPng);
+        model.addAttribute("faviconIco", faviconIco);
+		if (userModel != null) {
+			String id = request.getParameter("exp");
+			if (StringUtils.isNotEmpty(id)) {
+				model.addAttribute("expId", id);
+				String egId = null;
+				String studentId = String.valueOf(SessionUtils.getUserInfo().getUserId());
+				model.addAttribute("studentId", studentId);
+				List<Map<String, Object>> expScheduleList = getParams("experiment/QrySchedule", "eq_id", id);
+				model.addAttribute("expScheduleList", expScheduleList);
+				for (int i = 0; i < expScheduleList.size(); i++) {
+					Map<String, Object> exp = expScheduleList.get(i);
+					egId = String.valueOf(exp.get("egId"));
+					String countDown = exp.get("countDown").toString();
+					String endTime = exp.get("endTime").toString();
+					Calendar calendar = Calendar.getInstance();
+					calendar.add(Calendar.HOUR_OF_DAY, Integer.parseInt(countDown));
+					Date time = calendar.getTime();
+					String count = DateUtils.getDateToStr(DateUtils.YYMMDD_HHMMSS_24, time);
+					exp.put("countDown", count);
+				}
+				List<Map<String, Object>> expSoftwareList = getParams("experiment/QryExpSoftware", "eq_egId", egId);
+				model.addAttribute("expSoftwareList", expSoftwareList);
+				List<Map<String, Object>> expOperateList = getParams("experiment/QryOperateEnvironment", "eq_egId",
+						egId);
+				model.addAttribute("expOperateList", expOperateList);
+				List<Map<String, Object>> expDisList = getParams("experiment/QryExpDis", "eq_egId", egId);
+				model.addAttribute("expDisList", expDisList);
+				List<Map<String, Object>> expFileList = getParams("experiment/QryExpFile", "eq_egId", egId);
+				model.addAttribute("expFileList", expFileList);
+				List<Map<String, Object>> studentRecordList = getParams2("experiment/QryStuRecord", "eq_scheduleId", id,
+						"eq_studentId", studentId);
+				log.info(studentRecordList);
+				if (!studentRecordList.isEmpty() && studentRecordList.size() > 0) {
+					Map<String, Object> map = studentRecordList.get(0);
+					model.addAttribute("studentRecord", map);
+				} else {
+					Map<String, Object> map = null;
+					model.addAttribute("studentRecord", map);
+				}
+				return "pc/ExperimentProcess0";
+			} else {
+				return "login";
+			}
+		} else {
+			return "login";
+		}
+
+	}
 
 	@RequestMapping("/electronic-reporting-page")
 	public String electronicReportingPage(Model model, HttpServletRequest request) {
