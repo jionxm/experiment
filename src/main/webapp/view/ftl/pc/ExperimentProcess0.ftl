@@ -13,7 +13,7 @@
 	<script src="${ctx}/view/common/js/ajaxfileupload.js?${date}"></script>
 	<script src="${ctx}/view/common/assets/pc/js/guacamole-common-0.9.14-all.min.js"></script>
 	<script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
-</head>
+  </head>
 
 <body>
     <header>
@@ -130,7 +130,7 @@
                 <div class="countdown fr" id="btnExperimentOver">倒计时：<span id="experimentOverTime">${expScheduleList[0].countDown1}</span></div>
             </div>
 			
-            <div class="environment-content" id="experimentContent" style="display: block">
+            <div class="environment-content" id="experimentContent" style="display: block;height:0px">
                 <iframe width="100%" height="590" style="border: 1px solid #368ae3" id="jupyterIframe" src="http://117.50.17.174:8000/hub/login?username=jia"></iframe>
             </div>
          </div>
@@ -151,6 +151,7 @@
                     	<div class="environment-content-tab-title  cur_point posi1 selected">
                         	<span class="icon-close"></span>虚拟机1
                     	</div>
+                    	<!-- <---123---> 
                     	<!-- <div class="environment-content-tab-title  cur_point posi1">
                         	<span class="icon-close"></span>虚拟机2
                     	</div>
@@ -159,7 +160,7 @@
                     	</div> -->
                 </div>
                 <div class="virtual-container" id="environmentTabContainer">
-                    	<div class="virtual-item" style="display: block;"></div>
+                    	<div class="virtual-item" style="display: block;height:0px"></div>
                 </div>
            	</div>
         </div>
@@ -170,6 +171,7 @@
         <div class="experiment-over-prompt" id="experimentPromptBox">
             <div class="experiment-over-prompt-bg"></div>
             <div class="icon-close-experiment-over" id="closeExperimentPromptBox"></div>
+      <!-- <---123---> 
             <div class="prompt" id="number">等待获取到虚拟机</div>
             <button class="experiment-over-btnsure button-yellow" id="experimentPromptBtn">确 定</button>
         </div>
@@ -227,33 +229,115 @@
     	}
     	
     	function openvir(){
+    		
+    		var count
     		$.each(uuid,function(index,value){
     			if(index){
-        		$("#environmentTabContainer").append('"<div class="virtual-item" style="display: none;"></div>"')
-        		$("#environmentTabID").append('<div class="environment-content-tab-title  cur_point posi1"><span class="icon-close"></span>虚拟机'+index+1+'</div>')
+        		$("#environmentTabContainer").append('<div class="virtual-item" style="display: none;height:0px"></div>')
+        		count=index+1
+        		$("#environmentTabID").append('<div class="environment-content-tab-title  cur_point posi1"><span class="icon-close"></span>虚拟机'+count+'</div>')
     			}
     		});  
+    		//结束实验
+            $("#overTest").click(function(){
+            	$("#layoutBox").show();
+                $("#overTestMsg").show();
+            })
+            //关闭时间弹窗
+            $("#timeBtn").click(function(){
+                $("#layoutBox").hide();
+                $("#stopTimeBox").hide();
+            })
+            //关闭时间弹窗
+            $("#closetimeBox").click(function(){
+                $("#layoutBox").hide();
+                $("#stopTimeBox").hide();
+            })
+            //关闭虚拟机弹窗-显示虚拟机
+            $("#experimentPromptBtn").click(function(){
+            	countTime();
+                $("#layoutBox").hide();
+                $("#experimentPromptBox").hide();
+                var overTest = document.getElementById("overTest");
+                overTest.style.display = "block";
+                $("#runExperimentContent").hide();
+                $("#experimentContent").show();
+            })
+            		
+            //关闭虚拟机-显示重启或关闭弹窗
+            $("#environmentTabID .icon-close").click(function(){
+                console.log(123);
+                $("#layoutBox").show();
+                $("#experimentVirtualBox").show();
+            })
+            //关闭-显示重启或关闭弹窗
+            $("#closeExperimentVirtualBox").click(function(){
+                $("#layoutBox").hide();
+                $("#experimentVirtualBox").hide();
+            })
+            //确定按钮--离开实验
+            $("#overTimeBtn").click(function(){
+            	window.location.href="${ctx}/experiment-list";
+            })
+            //关闭按钮--关闭虚拟机
+            $("#closeVirtualBtn").click(function(){
+                $("#layoutBox").hide();
+                $("#experimentVirtualBox").hide();
+            })
+            //确定按钮--结束实验
+            $("#overTestYesBtn").click(function(){
+            	window.location.href="${ctx}/experiment-list";
+            })
+            //取消按钮--结束实验
+            $("#overTestNoBtn").click(function(){
+                $("#layoutBox").hide();
+                $("#overTestMsg").hide();
+            })
+            //关闭结束实验确认弹窗
+            $("#overTestCloseBtn").click(function(){
+                $("#layoutBox").hide();
+                $("#overTestMsg").hide();
+            })
+    		
+    		/*虚拟机的选项卡*/
+            $("#environmentTabID").children().each(function(index,value){
+                $(value).click(function(){
+                    $(this).siblings().removeClass("selected");
+                    $(this).addClass("selected");
+                    
+                    
+                    var display = $(".virtual-item")[index];
+                    $(display).show();
+                    $(display).siblings().hide();
+                    //获取当前选项卡uuid
+                    $("#environmentTabID").children().each(function(index,value){
+            			if($(this).hasClass('selected')){
+            				uuidnow=uuid[index]}
+            		});
+                })
+
+            });
     		
     		$("#environmentTabContainer").children().each(function(index,display){
                 console.log('initial virtual start:' + index);
-            
+            	
                 //这里填写实现了隧道的servlet的访问地址。也就是服务端隧道的访问地址。
-                var guac = new Guacamole.Client(
+                guac[index] = new Guacamole.Client(
                     //new Guacamole.HTTPTunnel("tunnel")
                     new Guacamole.HTTPTunnel("http://104.223.1.65:50063/console/tunnel/"+uuid[index])
                     //new Guacamole.HTTPTunnel("http://10.7.11.35:8080/my-guacamole/tunnel"+index)
                 );
 
                 // 将显示虚拟机的节点添加到页面上
-                display.appendChild(guac.getDisplay().getElement());
+                display.appendChild(guac[index].getDisplay().getElement());
 
                 // 错误处理的回调接口
-                guac.onerror = function(error) {
+                guac[index].onerror = function(error) {
                     //alert(error);
                 };
 
                 // 上边完毕后，执行连接操作。
-                guac.connect();
+                guac[index].connect();
 
                 // 当关闭后要执行的操作放在这里
                 window.onunload = function() {
@@ -261,23 +345,23 @@
                 }
 
                 // 以下是对鼠标的配置，无特殊情况不可更改
-                var mouse = new Guacamole.Mouse(guac.getDisplay().getElement());
+                var mouse = new Guacamole.Mouse(guac[index].getDisplay().getElement());
 
                 mouse.onmousedown = 
                 mouse.onmouseup   =
                 mouse.onmousemove = function(mouseState) {
-                    guac.sendMouseState(mouseState);
+                	guac[index].sendMouseState(mouseState);
                 };
 
                 // 以下是对键盘的处理，无特殊情况不可更改
                 var keyboard = new Guacamole.Keyboard(document);
 
                 keyboard.onkeydown = function (keysym) {
-                    guac.sendKeyEvent(1, keysym);
+                	guac[index].sendKeyEvent(1, keysym);
                 };
 
                 keyboard.onkeyup = function (keysym) {
-                    guac.sendKeyEvent(0, keysym);
+                	guac[index].sendKeyEvent(0, keysym);
                 };
 
                 console.log('initial virtual end:' + index);
@@ -285,10 +369,90 @@
     	}
     	
     	
+    	//申请虚拟资源
     	var key=[];
     	var uuid=[];
     	var data123=null;
+    	function applyVir(){
+    		$.ajax({ 
+                type:'post', 
+                url: "http://104.223.1.65:50063/domain/data", 
+                data: '{"user":{"uid":2},"serverInformationList":[{"emulator":"/usr/bin/qemu-system-x86_64","domainStoragePoolSrc":"/home/deepmind/libvirt-images/","hostname":"172.164.10.32","port":"16509","username":"deepmind","password":"deepmind","maxDomains":25,"maxMemory":16,"minDomains":0}],"experimentInformationList":[{"mirror":"base-centos-7.qcow2","mirrorUsername":"root","mirrorPassword":"root","cpu":1,"memory":512,"hardDisk":10},{"mirror":"base-centos-7.qcow2","mirrorUsername":"root","mirrorPassword":"root","cpu":1,"memory":512,"hardDisk":10}]}', 
+                dataType:"json", 
+                async:false, 
+                contentType : 'application/json;charset=UTF-8',
+                success: function(res){ 
+                	key=res.data
+                } 
+            }); 
+        	
+        	detector=setInterval('check()',5000);
+    	}
+    	//断开虚拟机
+    	var uuidnow;
+    	var guac=[];
+    	function disConnect(){
+    		$("#environmentTabID").children().each(function(index,value){
+    			if($(this).hasClass('selected')){
+    				guac[index].disconnect()}
+    		});
+    		$.ajax({ 
+                type:'post', 
+                url: "http://104.223.1.65:50063/domain/disConnect", 
+                data: '{"domainUuid":"'+uuidnow+'"}', 
+                dataType:"json", 
+                async:false, 
+                contentType : 'application/json;charset=UTF-8',
+                success: function(res){ 
+                	
+                } 
+            });
+    	}
+    	//销毁虚拟机
+    	function destroyUuid(){
+    		$.ajax({ 
+                type:'post', 
+                url: "http://104.223.1.65:50063/domain/undefine/uuid", 
+                data: '{"domainUuid":"'+uuidnow+'"}', 
+                dataType:"json", 
+                async:false, 
+                contentType : 'application/json;charset=UTF-8',
+                success: function(res){ 
+                	
+                } 
+            });
+    	}
+    	function destroyKey(){
+    		$.ajax({ 
+                type:'post', 
+                url: "http://104.223.1.65:50063/domain/undefine", 
+                data: '{"key":"'+key+'"}', 
+                dataType:"json", 
+                async:false, 
+                contentType : 'application/json;charset=UTF-8',
+                success: function(res){ 
+                	
+                } 
+            });
+    	}
+    	function reboot(){
+    		$.ajax({ 
+                type:'post', 
+                url: "http://104.223.1.65:50063/domain/reboot", 
+                data: '{"domainUuid":"'+uuidnow+'"}', 
+                dataType:"json", 
+                async:false, 
+                contentType : 'application/json;charset=UTF-8',
+                success: function(res){ 
+                	
+                } 
+            });
+    	}
+    	
         $(function(){
+        	$("#closeVirtualBtn").click(function(){disConnect()});
+        	
+        	$("#restartVirtualBtn").click(function(){reboot()});
         	$("#b01").click(function(){
         		  $.ajax({
         			  type:'post', 
@@ -304,41 +468,20 @@
         		  });
         	
         	
-        	$.ajax({ 
-                type:'post', 
-                url: "http://104.223.1.65:50063/domain/data", 
-                data: '{"user":{"uid":2},"serverInformationList":[{"emulator":"/usr/bin/qemu-system-x86_64","domainStoragePoolSrc":"/home/deepmind/libvirt-images/","hostname":"172.164.10.32","port":"16509","username":"deepmind","password":"deepmind","maxDomains":25,"maxMemory":16,"minDomains":0}],"experimentInformationList":[{"mirror":"base-centos-7.qcow2","mirrorUsername":"root","mirrorPassword":"root","cpu":1,"memory":512,"hardDisk":10}]}', 
-                dataType:"json", 
-                async:false, 
-                contentType : 'application/json;charset=UTF-8',
-                success: function(res){ 
-                	key=res.data
-                } 
-            }); 
         	
-        	detector=setInterval('check()',5000);
         	
         	 /* $.each(uuid,function(index,value){
         		$("#environmentTabContainer").append('"<div class="virtual-item" style="display: none;"></div>"')
             });   */
         	
         //<>虚拟机
-        	
-			 
+        	//关闭虚拟机弹窗
+            $("#closeExperimentPromptBox").click(function(){
+                $("#layoutBox").hide();
+                $("#experimentPromptBox").hide();
+            })	
 
-            /*虚拟机的选项卡*/
-            $("#environmentTabID").children().each(function(index,value){
-                $(value).click(function(){
-                    $(this).siblings().removeClass("selected");
-                    $(this).addClass("selected");
-                    
-                    
-                    var display = $(".virtual-item")[index];
-                    $(display).show();
-                    $(display).siblings().hide();
-                })
-
-            });
+            
             getHeight();
             /*左侧大tab切换*/
             $("#tabTitle1").click(function(){
@@ -383,76 +526,14 @@
             })
 			//运行按钮
             $("#iconRunExperiment").click(function(){
+            	applyVir()
                 $("#layoutBox").show();
                 $("#experimentPromptBox").show();
             })
-            //结束实验
-            $("#overTest").click(function(){
-            	$("#layoutBox").show();
-                $("#overTestMsg").show();
-            })
-            //关闭时间弹窗
-            $("#timeBtn").click(function(){
-                $("#layoutBox").hide();
-                $("#stopTimeBox").hide();
-            })
-            //关闭时间弹窗
-            $("#closetimeBox").click(function(){
-                $("#layoutBox").hide();
-                $("#stopTimeBox").hide();
-            })
-            //关闭虚拟机弹窗-显示虚拟机
-            $("#experimentPromptBtn").click(function(){
-            	countTime();
-                $("#layoutBox").hide();
-                $("#experimentPromptBox").hide();
-                var overTest = document.getElementById("overTest");
-                overTest.style.display = "block";
-                $("#runExperimentContent").hide();
-                $("#experimentContent").show();
-            })
-            //关闭虚拟机弹窗
-            $("#closeExperimentPromptBox").click(function(){
-                $("#layoutBox").hide();
-                $("#experimentPromptBox").hide();
-            })			
-            //关闭虚拟机-显示重启或关闭弹窗
-            $("#environmentTabID .icon-close").click(function(){
-                console.log(123);
-                $("#layoutBox").show();
-                $("#experimentVirtualBox").show();
-            })
-            //关闭-显示重启或关闭弹窗
-            $("#closeExperimentVirtualBox").click(function(){
-                $("#layoutBox").hide();
-                $("#experimentVirtualBox").hide();
-            })
-            //确定按钮--离开实验
-            $("#overTimeBtn").click(function(){
-            	window.location.href="${ctx}/experiment-list";
-            })
-            //关闭按钮--关闭虚拟机
-            $("#closeVirtualBtn").click(function(){
-                $("#layoutBox").hide();
-                $("#experimentVirtualBox").hide();
-            })
-            //确定按钮--结束实验
-            $("#overTestYesBtn").click(function(){
-            	window.location.href="${ctx}/experiment-list";
-            })
-            //取消按钮--结束实验
-            $("#overTestNoBtn").click(function(){
-                $("#layoutBox").hide();
-                $("#overTestMsg").hide();
-            })
-            //关闭结束实验确认弹窗
-            $("#overTestCloseBtn").click(function(){
-                $("#layoutBox").hide();
-                $("#overTestMsg").hide();
-            })
+            
           //显示实验总倒计时时间
             var allTime = "${expScheduleList[0].countDown1}"*60*60*1000;
-            console.log(allTime);
+            //console.log(allTime);
             
             if(allTime >= 0){
                d = Math.floor(allTime/1000/60/60/24);
@@ -472,7 +553,7 @@
             console.log(iframeHeight);
             $("#tabContent1").css("height", iframeHeight-160);
             $("#tabContent2").css("height", iframeHeight-160);
-            $(".virtual-item").css("height", iframeHeight-160);
+            //$(".virtual-item").css("height", iframeHeight-160);
             $("#rightContent").css("height", iframeHeight-160);
 
             
