@@ -12,7 +12,6 @@
 	<#include "pc/common/base.ftl">
 	<script src="${ctx}/view/common/js/ajaxfileupload.js?${date}"></script>
 	<script src="${ctx}/view/common/assets/pc/js/guacamole-common-0.9.14-all.min.js"></script>
-	<script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
 </head>
 
 <body>
@@ -29,7 +28,7 @@
                         <a href="#">个人中心</a>
                     </li>
                     <li>
-                        <a href="#">安全退出</a>
+                        <a href="${ctx}/logOut">安全退出</a>
                     </li>
                 </ul>
             </div>
@@ -114,7 +113,7 @@
                                     </#if>
                                     <ul class="experiment-resource-list">
                                         <li>
-                                            <div class="experiment-resource-download"><a href="${ctx}/localDownload?fileId=${(studentRecord.fileId?c)!''}"id="fileName">${studentRecord.fileName}</a></div>
+                                            <div class="experiment-resource-download"><a id="fileName">${studentRecord.fileName}</a></div>
                                             <!--<div class="experiment-delete-resource"id="delete"></div>-->
                                         </li>
                                     </ul>
@@ -144,7 +143,7 @@
             </div>
 			
             <div class="environment-content" id="experimentContent" style="display: block">
-                <iframe width="100%" height="590" style="border: 1px solid #368ae3" id="jupyterIframe" src="http://117.50.17.174:8000/hub/login?username=jia"></iframe>
+                <iframe width="100%" height="590" style="border: 1px solid #368ae3" id="jupyterIframe" src="http://39.105.110.193:8000/hub/login?username=jia"></iframe>
             </div>
          </div>
          
@@ -243,6 +242,10 @@
     </div>
     <script>
         $(function(){
+        	$('#fileName').click(function(){
+				var fileId=$('#fileId').val();
+				window.location.href="${ctx}/localDownload?fileId="+fileId;
+			})
 			$("#environmentTabContainer").children().each(function(index,display){
                 console.log('initial virtual start:' + index);
             

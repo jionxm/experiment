@@ -26,7 +26,7 @@
                         <a href="#">个人中心</a>
                     </li>
                     <li>
-                        <a href="#">安全退出</a>
+                        <a href="${ctx}/logOut">安全退出</a>
                     </li>
                 </ul>
             </div>

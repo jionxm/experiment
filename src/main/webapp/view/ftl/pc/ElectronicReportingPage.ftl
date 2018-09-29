@@ -10,7 +10,6 @@
         <link href="${ctx}/view/common/assets/pc/css/normalize.css" rel="stylesheet" type="text/css">
         <link href="${ctx}/view/common/assets/pc/css/public.css" rel="stylesheet" type="text/css">
         <link href="${ctx}/view/common/assets/pc/css/electronicReporting.css" rel="stylesheet" type="text/css">
-        <script type="text/javascript" src="${ctx}/view/common/assets/pc/js/jquery-1.11.0.min.js" ></script>
         <script src="${ctx}/view/common/js/ajaxfileupload.js?${date}"></script>
     </head>
 
@@ -28,7 +27,7 @@
                         <a href="#">个人中心</a>
                     </li>
                     <li>
-                        <a href="#">安全退出</a>
+                        <a href="${ctx}/logOut">安全退出</a>
                     </li>
                 </ul>
             </div>
@@ -72,7 +71,7 @@
                     <ul class="experiment-resource-list">
                         <li>
 							<input id="fileId" value="${(studentRecord.fileId?c)!''}" type="hidden"/>
-                            <div class="experiment-resource-download"><a href="${ctx}/localDownload?fileId=${(studentRecord.fileId?c)!''}"id="fileName" download="${(studentRecord.fileName)!''}">${(studentRecord.fileName)!''}</a></div>
+                            <div class="experiment-resource-download"><a id="fileName" >${(studentRecord.fileName)!''}</a></div>
                             <!--<div class="experiment-delete-resource"></div>-->
                         </li>
                     </ul>
@@ -90,6 +89,10 @@
 	<script>
 	
 		$(function(){
+			$('#fileName').click(function(){
+				var fileId=$('#fileId').val();
+		 		window.location.href="${ctx}/localDownload?fileId="+fileId;
+			})
 	        $(".user-box").hover(function(){
 	            $(".nav-user").show();
 	        }, function(){
