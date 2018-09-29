@@ -26,9 +26,6 @@
                 </div>
                 <ul class="nav-user clearfix">
                     <li>
-                        <a href="#">个人中心</a>
-                    </li>
-                    <li>
                         <a href="${ctx}/logOut">安全退出</a>
                     </li>
                 </ul>
