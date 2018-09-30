@@ -16,6 +16,7 @@
         
         <header>
             <div class="logo"></div>
+            <div class="experiment-title">${expScheduleList[0].name}</div>
             <div class="user-box">
                 <div class="user-info clearfix">
                     <img class="user-head src-head" src="${ctx}/view/common/assets/pc/image/icon_user_head.jpg">

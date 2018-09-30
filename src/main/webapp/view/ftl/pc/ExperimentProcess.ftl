@@ -107,6 +107,7 @@
                                         <input class="input-uploadfile-button" type="file" accept="image/*" mutiple="mutiple" capture="exp" id="exp" onchange="readImg(this)" name="exp"/>
                                         <span class="experiment-uploadfile-text">选择文件</span>
                                     </div>
+                                   
                                     </#if>
                                     <ul class="experiment-resource-list">
                                         <li>
@@ -114,6 +115,11 @@
                                             <!--<div class="experiment-delete-resource"id="delete"></div>-->
                                         </li>
                                     </ul>
+                                     <div class="experiment-uploadfile-button">
+                                   		<span class="experiment-uploadfile-text">支持文件类型</span>
+                                   	</div>
+                                    <div class="experiment-resource-download">zip,pptx,py,ipynb,doc,docx</div>
+                                    <div class="experiment-resource-download">jpg,jpeg,gif,png,bmp,xls</div>
                                 </div>
                 				<#if !(studentRecord.grade)?if_exists>
                                 <div class="experiment-opera">
@@ -455,6 +461,7 @@
 $('#save').click(function(){
 		var id='${(studentRecord.id?c)!''}';
 	    var Mode;
+	    console.log(id);
 	    if(id==null||id=='undefine'||id==''){
 	    	Mode='Add';
 	    	}else{
@@ -482,10 +489,11 @@ $('#save').click(function(){
 	    			 }, function(data) {
     	    			console.log(data);
     	    			if(data.code==0){
-    	    			alert("保存成功");
+    	    				alert("保存成功!");
     	    			}
     	    			else{alert(data.msg);}
     	    			}
+    	    			window.location.reload();
     	    	);
     	   
 	   			
@@ -521,9 +529,12 @@ $('#submit').click(function(){
 	    			 }, function(data) {
     	    			console.log(data);
     	    			if(data.code==0){
-    	    			alert("提交成功");
+    	    				alert("提交成功");
     	    			}
-    	    			else{alert(data.msg);}
+    	    			else{
+    	    				alert(data.msg);
+    	    			}
+    	    			window.location.reload();
     	    });
 	  
 	})

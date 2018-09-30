@@ -369,6 +369,8 @@ public class ExpListController {
 			log.info(expId);
 			if (StringUtils.isNotEmpty(expId)) {
 				model.addAttribute("expId", expId);
+				List<Map<String, Object>> expScheduleList = getParams("experiment/QrySchedule", "eq_id", expId);
+				model.addAttribute("expScheduleList", expScheduleList);
 				String studentId = String.valueOf(SessionUtils.getUserInfo().getUserId());
 				model.addAttribute("studentId", studentId);
 				List<Map<String, Object>> studentRecordList = getParams2("experiment/QryStuRecord", "eq_scheduleId",

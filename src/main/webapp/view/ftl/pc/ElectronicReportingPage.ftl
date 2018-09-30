@@ -17,6 +17,7 @@
         
         <header>
             <div class="logo"></div>
+            <div class="experiment-title">${expScheduleList[0].name}</div>
             <div class="user-box">
                 <div class="user-info clearfix">
                     <img class="user-head src-head" src="${ctx}/view/common/assets/pc/image/icon_user_head.jpg">
@@ -132,10 +133,14 @@
 	    			 }, function(data) {
     	    			console.log(data);
     	    			if(data.code==0){
-    	    			alert("保存成功");
+    	    				alert("保存成功");
     	    			}
-    	    			else{alert(data.msg);}
+    	    			else{
+    	    			alert(data.msg);
     	    			}
+    	    			window.location.reload();
+    	    		}
+    	    			
     	    	);
     	   
 	   			
@@ -171,9 +176,12 @@
 	    			 }, function(data) {
     	    			console.log(data);
     	    			if(data.code==0){
-    	    			alert("提交成功");
+    	    				alert("提交成功");
     	    			}
-    	    			else{alert(data.msg);}
+    	    			else{
+    	    			alert(data.msg);
+    	    			}
+    	    			window.location.reload();
     	    });
 	  
 	})
