@@ -69,10 +69,14 @@
                     <ul class="experiment-resource-list">
                         <li>
 							<input id="fileId" value="${(studentRecord.fileId?c)!''}" type="hidden"/>
-                            <div class="experiment-resource-download"><a id="fileName" >${(studentRecord.fileName)!''}</a></div>
+                            <div class="experiment-resource-download"><a id="fileName"style="cursor:pointer;" >${(studentRecord.fileName)!''}</a></div>
                             <!--<div class="experiment-delete-resource"></div>-->
                         </li>
                     </ul>
+                      <div class="experiment-uploadfile-button">
+                                   		<span class="experiment-uploadfile-text">支持类型</span>
+                                   	</div>
+                                    <div class="experiment-resource-download">jpg,jpeg,gif,png,bmp,xls,zip,pptx,py,ipynb,doc,docx</div>
                 </div>
 				<#if !(studentRecord.grade)?if_exists>
                 <div class="experiment-opera">

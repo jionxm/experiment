@@ -111,12 +111,12 @@
                                     </#if>
                                     <ul class="experiment-resource-list">
                                         <li>
-                                            <div class="experiment-resource-download"><a id="fileName">${studentRecord.fileName}</a></div>
+                                            <div class="experiment-resource-download"><a id="fileName" style="cursor:pointer;" >${studentRecord.fileName}</a></div>
                                             <!--<div class="experiment-delete-resource"id="delete"></div>-->
                                         </li>
                                     </ul>
                                      <div class="experiment-uploadfile-button">
-                                   		<span class="experiment-uploadfile-text">支持文件类型</span>
+                                   		<span class="experiment-uploadfile-text">支持类型</span>
                                    	</div>
                                     <div class="experiment-resource-download">zip,pptx,py,ipynb,doc,docx</div>
                                     <div class="experiment-resource-download">jpg,jpeg,gif,png,bmp,xls</div>
@@ -492,8 +492,8 @@ $('#save').click(function(){
     	    				alert("保存成功!");
     	    			}
     	    			else{alert(data.msg);}
-    	    			}
     	    			window.location.reload();
+    	    			}
     	    	);
     	   
 	   			
