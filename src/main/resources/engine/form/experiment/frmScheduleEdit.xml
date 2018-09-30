@@ -25,7 +25,7 @@
 					width="1" height="1" column="" />
 				<control name="eq_courseId" title="课程" property="courseId"
 					type="Hidden" edit="Y" required="" format="" width="1" height="1"
-					column="" initial="'0'" />
+					column=""  />
 				<control name="eq_egId" title="实验案例名称" property="egId"
 					type="Hidden" edit="Y" required="N" format="" width="1" height="1"
 					column="" />
@@ -129,7 +129,6 @@
 					ifyes="qid" ifno="">
 					<param name="Out" value="pForm.eq_id" />
 				</procedure>
-
 				<procedure name="qid" logic="QueryById" ifyes="" ifno="">
 					<param name="In" value="pForm" />
 					<param name="Out" value="pForm" />

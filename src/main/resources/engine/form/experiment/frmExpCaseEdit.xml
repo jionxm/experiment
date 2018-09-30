@@ -6,7 +6,7 @@
 		<ui name="frmExpCaseEdit" title="新增实验案例">
 			<panel name="hiddenPanel" title="hidden" object="experimentEg"
 				type="Hidden">
-				<control name="eq_egId" title="编号" property="id"
+				<control name="eq_id" title="编号" property="id"
 					type="Hidden" edit="" required="" format="" width="" height=""
 					column="" />
 			</panel>
@@ -271,7 +271,7 @@
 				</procedure>
 				<procedure name="jDecodeId" server="" logic="DecodeId"
 					ifyes="qid" ifno="">
-					<param name="Out" value="hiddenPanel.eq_egId" />
+					<param name="Out" value="hiddenPanel.eq_id" />
 				</procedure>
 				<procedure name="qid" logic="QueryById" ifyes="query"
 					ifno="">
