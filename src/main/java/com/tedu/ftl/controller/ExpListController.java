@@ -189,6 +189,8 @@ public class ExpListController {
         model.addAttribute("faviconPng", faviconPng);
         model.addAttribute("faviconIco", faviconIco);
 		if (userModel != null) {
+			String loginName=userModel.getEmpName();
+			model.addAttribute("loginName", loginName);
 			String id = request.getParameter("exp");
 			if (StringUtils.isNotEmpty(id)) {
 				model.addAttribute("expId", id);
@@ -308,6 +310,8 @@ public class ExpListController {
 		ModelAndView modelAndView = new ModelAndView();
 		UserModel userModel = (UserModel) SessionUtils.getAttrbute(ConstantUtil.USER_INFO);
 		if (userModel != null) {
+			String loginName=userModel.getEmpName();
+			model.addAttribute("loginName", loginName);
 			String expId = request.getParameter("exp");
 			if (StringUtils.isNotEmpty(expId)) {
 				log.info(expId);
@@ -367,6 +371,8 @@ public class ExpListController {
 		ModelAndView modelAndView = new ModelAndView();
 		UserModel userModel = (UserModel) SessionUtils.getAttrbute(ConstantUtil.USER_INFO);
 		if (userModel != null) {
+			String loginName=userModel.getEmpName();
+			model.addAttribute("loginName", loginName);
 			String expId = request.getParameter("exp");
 			log.info(expId);
 			if (StringUtils.isNotEmpty(expId)) {
