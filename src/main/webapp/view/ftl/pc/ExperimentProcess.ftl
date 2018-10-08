@@ -18,7 +18,8 @@
     <header>
         <div class="logo"></div>
         <div class="experiment-title">${expScheduleList[0].name}</div>
-        <div class="user-box">
+        <#include "pc/common/user.ftl">
+        <!-- <div class="user-box">
                 <div class="user-info clearfix">
                     <img class="user-head src-head" src="${ctx}/view/common/assets/pc/image/icon_user_head.jpg">
                     <span class="user-nick">贾文佳</span>
@@ -28,7 +29,7 @@
                         <a href="${ctx}/logOut">安全退出</a>
                     </li>
                 </ul>
-            </div>
+            </div> -->
     </header>
 
     <div class="big-container clearfix" style="margin-top: 20px; padding-bottom: 0">
