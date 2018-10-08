@@ -144,6 +144,8 @@ public class ExpListController {
 	public String experimentList(Model model, HttpServletRequest request) {
 		UserModel userModel = (UserModel) SessionUtils.getAttrbute(ConstantUtil.USER_INFO);
 		if (userModel != null) {
+			String loginName=userModel.getEmpName();
+			model.addAttribute("loginName", loginName);
 			List<Map<String, Object>> list = getParams("experiment/QryScheduleAi", "1", "1");
 			List<Map<String, Object>> list2 = getParams("experiment/QryScheduleAi2", "1", "1");
 			// 绑定sql语句
