@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
 	<ui_layer>
-		<ui name="frmExpCaseDetail" title="实验案例详情">
+		<ui name="frmExpCaseDetail" title="实验案例详情1">
 			<panel name="pToolbar" title="工具条" object="" type="Toolbar">
 				<control name="btnReturn" title="返回" property=""
 					type="Button" edit="" required="" format="" width="" height=""
@@ -11,7 +11,7 @@
 			</panel>
 			<panel name="hiddenPanel" title="hidden" object="experimentEg"
 				type="Hidden">
-				<control name="eq_egId" title="编号" property="id"
+				<control name="eq_egId" title="编号" property="egId"
 					type="Hidden" edit="" required="" format="" width="" height=""
 					column="" />
 			</panel>
