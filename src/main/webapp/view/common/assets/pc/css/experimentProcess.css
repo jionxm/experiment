@@ -403,6 +403,7 @@
     background: #fff;
     position: absolute;
     z-index: 2;
+    margin-top: -598px;
 }
 
 .other-loading .loading-bg {
