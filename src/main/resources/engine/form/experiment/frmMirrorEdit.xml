@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsoftware
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
+	<ui_layer>
+		<ui name="frmMirrorEdit" title="新增镜像">
+			<panel name="hiddenPanel" title="hidden" object="mirror"
+				type="Hidden">
+				<control name="eq_mirrorId" title="编号" property="mirrorId"
+					type="Hidden" edit="" required="" format="" width="" height=""
+					column="" />
+			</panel>
+			<panel name="pForm" title="新增镜像" object="mirror"
+				type="Group">
+				<control name="id" title="编号" property="id" type="Hidden"
+					edit="Y" required="" format="" width="1" height="1" column="2" />
+				<control name="mirror" title="镜像名称" property="mirror"
+					type="TextBox" edit="Y" required="Y" format="" width="2" height=""
+					column="2" />
+				<control name="mirrorUsername" title="镜像用户名"
+					property="mirrorUsername" type="TextBox" edit="Y" required="Y"
+					format="" width="1" height="" column="" />
+				<control name="mirrorPassword" title="镜像密码"
+					property="mirrorPassword" type="PasswordBox" edit="Y" required="Y"
+					format="" width="1" height="" column="2" />
+
+			</panel>
+			<panel name="meetDis" title="资源分配规划" object="mirrorPlan"
+				type="Grid" multiple="">
+				<control name="ctlAdd" title="新增" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="ctlDel" title="删除" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="id" title="id" property="id" type="Hidden"
+					edit="Y" required="" format="" width="" height="" column="" />
+				<control name="decision" title="参数" property="decision"
+					type="PopupBox" edit="Y" required="Y" format="" width="150"
+					height="" column="" />
+				<control name="type" title="类型" property="type"
+					type="TextBox" edit="N" required="" format="" width="150" height=""
+					column="" />
+				<control name="distribution" title="描述"
+					property="distribution" type="TextBox" edit="N" required=""
+					format="" width="300" height="" column="" />
+				<control name="planId" title="id"
+					property="planId" type="Hidden" edit="N" required="N"
+					format="" width="" height="" column="" />
+				<control name="mirrorId" title="mirrorId" property="mirrorId"
+					type="Hidden" edit="N" required="N" format="" width="" height=""
+					column="" />
+			</panel>
+			<panel name="pButton" title="pnlDown" object="" type="Grid">
+				<control name="ctlSave" title="提交" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="ctlCancel" title="取消" property=""
+					type="Button" edit="" required="" format="" width="" height=""
+					column="" />
+			</panel>
+			<flow trigger="meetDis.ctlAdd" event="OnClick" filter="">
+				<procedure name="addRow" server="" logic="AddRow" ifyes=""
+					ifno="">
+					<param name="Out" value="meetDis"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetDis.ctlDel" event="OnClick" filter="">
+				<procedure name="removeRow" server="" logic="RemoveRow"
+					ifyes="" ifno="">
+					<param name="In" value="meetDis"></param>
+				</procedure>
+			</flow>
+			<!-- 初始化 -->
+			<flow trigger="" event="OnLoad" filter="">
+				<procedure name="btnClear" logic="Clear" ifyes="jBranch"
+					ifno="">
+					<param name="Out" value="pForm"></param>
+				</procedure>
+				<procedure name="jBranch" server="" logic="Branch"
+					ifyes="jDecodeId" ifno="">
+					<param name="In"
+						value="getStorage('frmMirrorEdit_EditMode')=='Edit'"></param>
+				</procedure>
+				<procedure name="jDecodeId" server="" logic="DecodeId"
+					ifyes="getId" ifno="">
+					<param name="Out" value="hiddenPanel.eq_mirrorId" />
+				</procedure>
+				<procedure name="getId" logic="EncodeId" ifyes="jDecodeId2"
+					ifno="">
+					<param name="In" value="hiddenPanel.eq_mirrorId"></param>
+				</procedure>
+				<procedure name="jDecodeId2" server="" logic="DecodeId"
+					ifyes="qid" ifno="">
+					<param name="Out" value="pForm.id" />
+				</procedure>
+				<procedure name="qid" logic="QueryById" ifyes="query1"
+					ifno="">
+					<param name="In" value="pForm"></param>
+					<param name="Out" value="pForm" />
+					<param name="Sql" value="experiment/QryMirrorList" />
+				</procedure>
+				<procedure name="query1" logic="Query" ifyes="query2"
+					ifno="">
+					<param name="In" value="hiddenPanel"></param>
+					<param name="Out" value="meetDis"></param>
+					<param name="Sql" value="experiment/QryMirrorDis"></param>
+				</procedure>
+			</flow>
+			<!-- 保存 -->
+			<flow trigger="pButton.ctlSave" event="OnClick" filter="">
+				<procedure name="jssave" logic="Save" ifyes="jsclose"
+					ifno="">
+					<param name="In"
+						value="pForm,meetDis.mirrorId"></param>
+					<param name="Msg" value="'信息已被保存'"></param>
+				</procedure>
+				<procedure name="jsclose" server="" logic="Close" ifyes=""
+					ifno="">
+					<param name="Refresh" value="true"></param>
+				</procedure>
+			</flow>
+			<flow trigger="meetDis.decision" event="OnClick" filter="">
+				<procedure name="find" logic="Find" ifyes="" ifno="">
+					<param name="Out" value="meetDis"></param>
+					<param name="Sql" value="DistributionCase"></param>
+					<param name="Title" value="选择运行资源"></param>
+					<param name="Columns"
+						value="id,资源编号,planId|type,类型,type|decision,参数,decision|distribution,描述,distribution"></param>
+				</procedure>
+			</flow>
+			<!-- 取消 -->
+			<flow trigger="pButton.ctlCancel" event="OnClick" filter="">
+				<procedure name="jsclose" server="" logic="Close" ifyes=""
+					ifno="">
+					<param name="Refresh" value="false"></param>
+				</procedure>
+			</flow>
+
+
+			<layout>
+				<region location="South" scale="">
+					<subregion panel="pButton" location="South" scale="" />
+				</region>
+				<region location="Center" scale="">
+					<subregion panel="pForm" location="North" scale="" />
+					<subregion panel="meetDis" location="Center" scale="" />
+					<subregion panel="hiddenPanel" location="Center" scale="" />
+				</region>
+
+			</layout>
+		</ui>
+	</ui_layer>
+</tsoftware>

@@ -6,7 +6,7 @@
 		<ui name="frmExpCaseEdit" title="新增实验案例">
 			<panel name="hiddenPanel" title="hidden" object="experimentEg"
 				type="Hidden">
-				<control name="eq_id" title="编号" property="id"
+				<control name="eq_egId" title="编号" property="egId"
 					type="Hidden" edit="" required="" format="" width="" height=""
 					column="" />
 			</panel>
@@ -270,12 +270,20 @@
 						value="getStorage('frmExpCaseEdit_EditMode')=='Edit'"></param>
 				</procedure>
 				<procedure name="jDecodeId" server="" logic="DecodeId"
+					ifyes="getId" ifno="">
+					<param name="Out" value="hiddenPanel.eq_egId" />
+				</procedure>
+				<procedure name="getId" logic="EncodeId" ifyes="jDecodeId2"
+					ifno="">
+					<param name="In" value="hiddenPanel.eq_egId"></param>
+				</procedure>
+				<procedure name="jDecodeId2" server="" logic="DecodeId"
 					ifyes="qid" ifno="">
-					<param name="Out" value="hiddenPanel.eq_id" />
+					<param name="Out" value="pForm.id" />
 				</procedure>
 				<procedure name="qid" logic="QueryById" ifyes="query"
 					ifno="">
-					<param name="In" value="hiddenPanel"></param>
+					<param name="In" value="pForm"></param>
 					<param name="Out" value="pForm" />
 					<param name="Sql" value="experiment/QryExpCase" />
 				</procedure>

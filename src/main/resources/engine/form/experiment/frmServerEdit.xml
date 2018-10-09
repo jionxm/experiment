@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tsoftware xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<tsoftware
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
 	<ui_layer>
 		<ui name="frmServerEdit" title="基础信息管理/服务器设置/添加服务器">
-			<panel name="pForm" title="添加服务器" object="serverNode" type="Group">
+			<panel name="pForm" title="添加服务器" object="serverNode"
+				type="Group">
 				<control name="eq_id" title="id" property="id" type="Hidden"
 					edit="Y" required="" format="" width="" height="" column="" />
-				<control name="code" title="编号" property="code" type="TextBox"
-					edit="Y" required="Y" format="" width="1" height="" column="" />
-				<control name="name" title="名称" property="name" type="TextBox"
-					edit="Y" required="Y" format="" width="1" height="" column="2" />
+				<control name="code" title="编号" property="code"
+					type="TextBox" edit="Y" required="Y" format="" width="1" height=""
+					column="" />
+				<control name="name" title="名称" property="name"
+					type="TextBox" edit="Y" required="Y" format="" width="1" height=""
+					column="2" />
 				<control name="ip" title="IP" property="ip" type="TextBox"
 					edit="Y" required="Y" format="" width="1" height="" column="" />
-				<control name="port" title="端口" property="port" type="TextBox"
-					edit="Y" required="Y" format="" width="1" height="" column="1" />
-				<control name="accountNumber" title="账号" property="accountNumber" type="TextBox"
-					edit="Y" required="Y" format="" width="1" height="" column="" />
-				<control name="password" title="密码" property="password" type="PasswordBox"
-					edit="Y" required="Y" format="" width="1" height="" column="2" />
+				<control name="port" title="端口" property="port"
+					type="TextBox" edit="Y" required="Y" format="" width="1" height=""
+					column="1" />
+				<control name="accountNumber" title="账号"
+					property="accountNumber" type="TextBox" edit="Y" required="Y"
+					format="" width="1" height="" column="" />
+				<control name="password" title="密码" property="password"
+					type="PasswordBox" edit="Y" required="Y" format="" width="1"
+					height="" column="2" />
+				<control name="emulator" title="模拟器地址" property="emulator"
+					type="TextBox" edit="Y" required="Y" format="" width="2" height=""
+					column="2" />
+				<control name="domainStoragePoolSrc" title="客户机默认卷地址"
+					property="domainStoragePoolSrc" type="TextBox" edit="Y" required="Y"
+					format="" width="2" height="" column="2" />
+				<control name="maxDomains" title="最大客户机数量"
+					property="maxDomains" type="TextBox" edit="Y" required="Y" format=""
+					width="1" height="" column="" />
+				<control name="minDomains" title="最小客户机数量"
+					property="minDomains" type="TextBox" edit="Y" required="Y" format=""
+					width="1" height="" column="2" />
+				<control name="maxMemory" title="最大内存(GB)"
+					property="maxMemory" type="TextBox" edit="Y" required="Y" format=""
+					width="1" height="" column="2" />
 			</panel>
 			<panel name="pButton" title="工具按钮" object="" type="Toolbar">
 				<control name="save" title="提交" property="" type="Button"
@@ -32,9 +54,10 @@
 					ifno="" sync="Y">
 					<param name="Out" value="pForm"></param>
 				</procedure>
-				<procedure name="jBranch" server="" logic="Branch" ifyes="jDecodeId"
-					ifno="">
-					<param name="In" value="getStorage('frmServerEdit_EditMode')=='Edit'"></param>
+				<procedure name="jBranch" server="" logic="Branch"
+					ifyes="jDecodeId" ifno="">
+					<param name="In"
+						value="getStorage('frmServerEdit_EditMode')=='Edit'"></param>
 				</procedure>
 				<procedure name="jDecodeId" server="" logic="DecodeId"
 					ifyes="qid" ifno="">

@@ -1,33 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tsoftware xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<tsoftware
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
 	<ui_layer>
 		<ui name="frmServerList" title="系统维护/服务器管理 ">
 			<panel name="pToolbar" title="工具条" object="" type="Toolbar">
-				<control name="btnSubmit" title="查询" property="" type="Button"
-					edit="" required="" format="" width="" height="" column="" />
-				<control name="btnAdd" title="添加新服务器" property="" type="Button"
-					edit="" required="" format="" width="" height="" column="" />
+				<control name="btnSubmit" title="查询" property=""
+					type="Button" edit="" required="" format="" width="" height=""
+					column="" />
+				<control name="btnAdd" title="添加新服务器" property=""
+					type="Button" edit="" required="" format="" width="" height=""
+					column="" />
 			</panel>
-			<panel name="pCondition" title="查询条件" object="serverNode" type="Group">
-				<control name="lk_code" title="服务器编号:" property="code" type="TextBox"
-					edit="Y" required="N" format="" width="1" height="1" column="4" />
+			<panel name="pCondition" title="查询条件" object="serverNode"
+				type="Group">
+				<control name="lk_code" title="服务器编号:" property="code"
+					type="TextBox" edit="Y" required="N" format="" width="1" height="1"
+					column="4" />
 			</panel>
-			<panel name="pTable" title="查询结果" object="serverNode" type="Grid">
+			<panel name="pTable" title="查询结果" object="serverNode"
+				type="Grid">
 				<control name="id" title="id" property="id" type="Hidden"
 					edit="" required="" format="" width="" height="" column="" />
-				<control name="code" title="编号" property="code" type="TextBox"
-					edit="" required="Y" format="" width="80" height="" column="" />
-				<control name="name" title="名称" property="name" type="TextBox"
-					edit="" required="Y" format="" width="150" height="" column="" />
+				<control name="code" title="编号" property="code"
+					type="TextBox" edit="" required="Y" format="" width="80" height=""
+					column="" />
+				<control name="name" title="名称" property="name"
+					type="TextBox" edit="" required="Y" format="" width="150" height=""
+					column="" />
 				<control name="ip" title="IP" property="ip" type="TextBox"
 					edit="" required="" format="" width="100" height="" column="" />
-				<control name="port" title="端口" property="port" type="TextBox"
-					edit="" required="" format="" width="80" height="" column="" />
-				<control name="accountNumber" title="账号" property="accountNumber" type="TextBox"
-					edit="" required="Y" format="" width="100" height="" column="" />
-				<control name="password" title="密码" property="password" type="TextBox"
-					edit="" required="Y" format="" width="150" height="" column="" />
+				<control name="port" title="端口" property="port"
+					type="TextBox" edit="" required="" format="" width="80" height=""
+					column="" />
+				<control name="accountNumber" title="账号"
+					property="accountNumber" type="TextBox" edit="" required="Y"
+					format="" width="100" height="" column="" />
+				<control name="password" title="密码" property="password"
+					type="TextBox" edit="" required="Y" format="" width="100" height=""
+					column="" />
+				<control name="emulator" title="模拟器地址" property="emulator"
+					type="TextBox" edit="" required="Y" format="" width="200" height=""
+					column="" />
+				<control name="domainStoragePoolSrc" title="客户机默认卷地址"
+					property="domainStoragePoolSrc" type="TextBox" edit="" required="Y"
+					format="" width="200" height="" column="" />
+				<control name="maxDomains" title="最大客户机数量"
+					property="maxDomains" type="TextBox" edit="" required="Y" format=""
+					width="100" height="" column="" />
+				<control name="minDomains" title="最小客户机数量"
+					property="minDomains" type="TextBox" edit="" required="Y" format=""
+					width="100" height="" column="" />
+				<control name="maxMemory" title="最大内存(GB)"
+					property="maxMemory" type="TextBox" edit="" required="Y" format=""
+					width="80" height="" column="" />
 				<control name="dicedit" title="编辑" property="" type="Link"
 					edit="" required="" format="" width="80" height="" column=""></control>
 				<control name="dicdelete" title="删除" property="" type="Link"
@@ -68,8 +94,8 @@
 
 			<!-- 删除 -->
 			<flow trigger="pTable.dicdelete" event="OnClick" filter="">
-				<procedure name="j0" server="" logic="ConfirmMsg" ifyes="j1"
-					ifno="">
+				<procedure name="j0" server="" logic="ConfirmMsg"
+					ifyes="j1" ifno="">
 					<param name="Title" value="删除提示"></param>
 					<param name="Msg" value="确认删除当前服务器吗?"></param>
 				</procedure>

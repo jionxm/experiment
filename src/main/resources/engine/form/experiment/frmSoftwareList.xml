@@ -5,7 +5,7 @@
   <ui name="frmSoftwareList" title="基础信息管理/软件基础信息">
 	<panel name="pToolbar" title="工具条" object="" type="Toolbar">
 		<control name="btnSubmit" title="查询" property="" type="Button" edit="" required="" format="" width="" height="" column=""/>
-		<control name="btnAdd" title="添加新软件或新版本" property="" type="Button" edit="" required="" format="" width="" height="" column=""/>
+		<control name="btnAdd" title="添加新软件" property="" type="Button" edit="" required="" format="" width="" height="" column=""/>
 	</panel>
 	
 	<panel name="pCondition" title="查询条件" object="software" type="Group">
