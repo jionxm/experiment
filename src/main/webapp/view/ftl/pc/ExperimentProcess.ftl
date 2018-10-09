@@ -206,9 +206,9 @@
                     	</div>
                 </div>
                 <div class="virtual-container" id="environmentTabContainer">
-                    	<div class="virtual-item" style="display: block;"></div>
-                    	<div class="virtual-item" style="display: none;"></div>
-                    	<div class="virtual-item" style="display: none;"></div>
+                    	<div class="virtual-item" id="em1" style="display: block;"></div>
+                    	<div class="virtual-item" id="em2" style="display: none;"></div>
+                    	<div class="virtual-item" id="em3" style="display: none;"></div>
                 </div>
            	</div>
         </div>
@@ -428,6 +428,15 @@
             	$("#layoutBox").hide();
             	$("#experimentVirtualBox").hide();
                  $("#"+xunijiId).hide();
+                 if(xunijiId=="en1"){
+                	 $("#em1").hide();
+                 }
+                 if(xunijiId=="en2"){
+                	 $("#em2").hide();
+                 }
+                 if(xunijiId=="en3"){
+                	 $("#em3").hide();
+                 }
             })
             //确定按钮--结束实验
             $("#overTestYesBtn").click(function(){
