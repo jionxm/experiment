@@ -131,7 +131,7 @@
                             </div>
                             </#list>
                         </div>
-
+		
                     </div>
                 </div>
             </div>
@@ -147,7 +147,20 @@
             </div>
 			
             <div class="environment-content" id="experimentContent" style="display: block">
-                <iframe width="100%" height="590" style="border: 1px solid #368ae3" id="jupyterIframe" src="http://39.105.110.193:8000/hub/login?username=jia"></iframe>
+                <iframe width="100%" height="590" style="border: 1px solid #368ae3" id="jupyterIframe" src="http://117.50.17.174:8000/hub/login?username=123">
+                </iframe>
+                <#if window.navigator.onLine==true>
+                <div class="other-loading">
+                    <div class="loading-bg"></div>
+                    <div class="text">正在努力加载中...</div>
+                </div>
+                <#else>
+             	<!-- 无网络 -->
+                <div class="other-loading">
+                    <div class="no-net-bg"></div>
+                    <div class="text">目前没有网络，请检查网络</div>
+                </div>
+                 </#if>
             </div>
          </div>
          
@@ -182,13 +195,13 @@
 
             <div class="environment-content" id="experimentContent">
                 <div class="environment-content-tab" id="environmentTabID">
-                    	<div class="environment-content-tab-title  cur_point posi1 selected">
+                    	<div class="environment-content-tab-title  cur_point posi1 selected" id="en1">
                         	<span class="icon-close"></span>虚拟机1
                     	</div>
-                    	<div class="environment-content-tab-title  cur_point posi1">
+                    	<div class="environment-content-tab-title  cur_point posi1" id="en2">
                         	<span class="icon-close"></span>虚拟机2
                     	</div>
-                   		<div class="environment-content-tab-title cur_point posi1">
+                   		<div class="environment-content-tab-title cur_point posi1" id="en3">
                         	<span class="icon-close"></span>虚拟机3
                     	</div>
                 </div>
@@ -397,10 +410,12 @@
                 $("#experimentPromptBox").hide();
             })			
             //关闭虚拟机-显示重启或关闭弹窗
+            var xunijiId;
             $("#environmentTabID .icon-close").click(function(){
-                console.log(123);
+            	console.log(123);
                 $("#layoutBox").show();
                 $("#experimentVirtualBox").show();
+            	xunijiId = $(this).parent().attr("id");
             })
             //关闭-显示重启或关闭弹窗
             $("#closeExperimentVirtualBox").click(function(){
@@ -409,8 +424,10 @@
             })
             //关闭按钮--关闭虚拟机
             $("#closeVirtualBtn").click(function(){
-                $("#layoutBox").hide();
-                $("#experimentVirtualBox").hide();
+            	console.log(xunijiId);
+            	$("#layoutBox").hide();
+            	$("#experimentVirtualBox").hide();
+                 $("#"+xunijiId).hide();
             })
             //确定按钮--结束实验
             $("#overTestYesBtn").click(function(){
