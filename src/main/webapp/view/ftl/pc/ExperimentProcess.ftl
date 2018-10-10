@@ -147,20 +147,19 @@
             </div>
 			
             <div class="environment-content" id="experimentContent" style="display: block">
-                <iframe width="100%" height="590" style="border: 1px solid #368ae3" id="jupyterIframe" src="http://117.50.17.174:8000/hub/login?username=123">
+                <iframe width="100%" height="590" class="dis_n" style="border: 1px solid #368ae3" id="jupyterIframe" >
                 </iframe>
-                <#if window.navigator.onLine==true>
-                <div class="other-loading">
+                <!-- 加载中 -->
+                <div class="other-loading dis_n">
                     <div class="loading-bg"></div>
                     <div class="text">正在努力加载中...</div>
                 </div>
-                <#else>
              	<!-- 无网络 -->
-                <div class="other-loading">
+                <div class="other-loading" id="loadingBox">
                     <div class="no-net-bg"></div>
                     <div class="text">目前没有网络，请检查网络</div>
                 </div>
-                 </#if>
+
             </div>
          </div>
          
@@ -259,6 +258,20 @@
     </div>
     <script>
         $(function(){
+        	 var iframe = document.getElementById("jupyterIframe"); 
+             iframe.src = "http://117.50.17.174:8000/hub/login?username=123"; 
+             if (iframe.attachEvent){ 
+                 iframe.attachEvent("onload", function(){
+                     $("#loadingBox").addClass("dis_n");
+                     $("#jupyterIframe").removeClass("dis_n");
+                     alert("Local iframe is now loaded."); 
+                 }); 
+             } else { 
+                 iframe.onload = function(){ 
+                     $("#loadingBox").addClass("dis_n");
+                     $("#jupyterIframe").removeClass("dis_n");
+                 }; 
+             } 
         	$(".user-box").hover(function(){
                     $(".nav-user").show();
                 }, function(){
