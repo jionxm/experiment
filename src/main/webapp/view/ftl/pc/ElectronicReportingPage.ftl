@@ -201,8 +201,7 @@
 	    	console.log(data);
 	    	if(data.status!=0){
 	    	console.log(data);
-	    	var fileNames=data.data.url.split("/");
-	    	var fileName = fileNames[fileNames.length-1];
+	    	var fileName = data.data.filename;
 	    	console.log("fileName"+fileName);
 	    	console.log(data.data.fileId);
 	    		$("#fileName").html(fileName);

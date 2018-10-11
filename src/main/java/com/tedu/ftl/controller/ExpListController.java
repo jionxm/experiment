@@ -327,7 +327,6 @@ public class ExpListController {
 						  String replacebr=String.valueOf(entry.getValue());
 						  replacebr=replacebr.replace("\r\n", "<br>");
 						  expScheduleList.get(i).put(entry.getKey(), replacebr);
-						  System.err.println(expScheduleList.get(i));
 						}
 				}
 				model.addAttribute("expScheduleList", expScheduleList);

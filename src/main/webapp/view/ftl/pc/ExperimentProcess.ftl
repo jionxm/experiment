@@ -587,8 +587,7 @@ function settime(fileid,token){
 	    fileElementId:fileid,//file标签的id  
 	    dataType: 'json',//返回数据的类型   
 	    success: function (data) {
-	    	var fileNames=data.data.url.split("/");
-	    	var fileName = fileNames[fileNames.length-1];
+	    	var fileName = data.data.filename;
 	    	console.log("fileName"+fileName);
 	    	console.log(data.data.fileId);
 	    		$("#fileName").html(fileName);
