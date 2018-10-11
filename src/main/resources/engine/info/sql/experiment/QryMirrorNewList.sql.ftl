@@ -9,5 +9,4 @@ SELECT
 	a.mirror_num as serverNum
 FROM t_experiment_mirror a
 LEFT JOIN t_mirror l ON a.mirror_id = l.id
-LEFT JOIN t_experiment_eg e ON e.id = a.eg_id
  ) b

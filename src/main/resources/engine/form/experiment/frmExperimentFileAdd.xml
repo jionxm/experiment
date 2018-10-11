@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tsoftware xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<tsoftware
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
 
 
 	<ui_layer>
-		<ui name="experimentFileAdd" title="新增工作附件">
-			<panel name="pnlGroup" title="迭代信息" object="experimentFile"
-				type="Grid">
+		<ui name="experimentFileAdd" title="新增附件">
+			<panel name="pnlGroup" title="附件" object="experimentFile"
+				type="Group">
 				<control name="id" title="id" property="id" type="Hidden"
 					edit="Y" required="" format="" width="" height="" column="" />
-				<control name="fileId" title="案例操作环境名称" property="fileId"
+				<control name="fileId" title="文件Id" property="fileId"
 					type="Hidden" edit="Y" required="" format="" width="" height=""
 					column="" />
 				<control name="fileName" title="文件名" property="fileName"
 					type="FileBox" edit="Y" required="Y" format="" width="1" height="2"
 					column="1" />
-				<control name="egId" title="experimentId" property="egId"
+				<control name="egId" title="egId" property="egId"
 					type="Hidden" edit="Y" required="N" format="" width="" height=""
 					column="" />
 			</panel>
 			<panel name="pnlDown" title="pnlDown" object="" type="Toolbar">
 				<control name="ctlSave" title="确认" property="" type="Button"
 					edit="" required="" format="" width="" height="" column="" />
-				<control name="ctlCancel" title="取消" property="" type="Button"
-					edit="" required="" format="" width="" height="" column="" />
+				<control name="ctlCancel" title="取消" property=""
+					type="Button" edit="" required="" format="" width="" height=""
+					column="" />
 			</panel>
 			<!-- 加载 -->
 			<flow trigger="" event="OnLoad" filter="">
@@ -50,7 +52,8 @@
 					<param name="In"
 						value="getPanelControlValue('pnlGroup.fileId') == ''"></param>
 				</procedure>
-				<procedure name="jsMsg" logic="InfoMsg" ifyes="" ifno="jssave">
+				<procedure name="jsMsg" logic="InfoMsg" ifyes=""
+					ifno="jssave">
 					<param name="Msg" value="上传文件失败，请重新上传"></param>
 				</procedure>
 				<procedure name="jssave" logic="Save" ifyes="jsclose"

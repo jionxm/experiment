@@ -20,7 +20,7 @@
 				<control name="picName" title="缩略图" property="picName"
 					type="FileBox" edit="Y" required="Y" format="" width="1" height="1"
 					column="4" />
-			
+
 				<control name="demand" title="实验概述" property="demand"
 					type="TextBox" edit="Y" required="Y" format="" width="1" height="3"
 					column="" />
@@ -94,24 +94,23 @@
 					edit="" required="" format="" width="" height="" column="" />
 				<control name="id" title="数据编号" property="id" type="Hidden"
 					edit="" required="" format="" width="80" height="" column="" />
-					<control name="serverNum" title="服务器数量" property="serverNum"
-					type="TextBox" edit="Y" required="" format="" width="300" height=""
-					column="" />
 				<control name="mirror" title="镜像名称" property="mirror"
-					type="PopupBox" edit="Y" required="" format="" width="300" height=""
-					column="" />
-				
+					type="PopupBox" edit="Y" required="Y" format="" width="300"
+					height="" column="" />
 				<control name="mirrorUsername" title="镜像用户名"
-					property="mirrorUsername" type="TextBox" edit="Y" required=""
+					property="mirrorUsername" type="TextBox" edit="N" required=""
 					format="" width="300" height="" column="" />
 				<control name="mirrorPassword" title="镜像密码"
-					property="mirrorPassword" type="TextBox" edit="Y" required=""
+					property="mirrorPassword" type="TextBox" edit="N" required=""
 					format="" width="300" height="" column="" />
-					<control name="egId" title="experimentId" property="egId"
-					type="Hidden" edit="N" required="N" format="" width="" height=""
+				<control name="serverNum" title="服务器数量" property="serverNum"
+					type="TextBox" edit="Y" required="Y" format="" width="300"
+					height="" column="" />
+				<control name="egId" title="experimentId" property="egId"
+					type="Hidden" edit="Y" required="" format="" width="" height=""
 					column="" />
-					<control name="mirrorId" title="id" property="mirrorId"
-					type="Hidden" edit="N" required="N" format="" width="" height=""
+				<control name="mirrorId" title="id" property="mirrorId"
+					type="Hidden" edit="Y" required="" format="" width="" height=""
 					column="" />
 			</panel>
 			<panel name="meetOperate" title="操作环境"
@@ -138,7 +137,7 @@
 					property="operateId" type="Hidden" edit="N" required="N" format=""
 					width="" height="" column="" />
 			</panel>
-			
+
 			<panel name="pButton" title="pnlDown" object="" type="Grid">
 				<control name="ctlSave" title="提交" property="" type="Button"
 					edit="" required="" format="" width="" height="" column="" />
@@ -147,7 +146,7 @@
 					column="" />
 			</panel>
 
-		
+
 			<!-- 附件上传 -->
 			<flow trigger="pForm.picName" event="OnClick" filter="">
 				<procedure name="fileUpload" server="" logic="Upload"
@@ -159,7 +158,7 @@
 					<param name="Out" value="pForm.picId"></param>
 				</procedure>
 			</flow>
-			
+
 			<flow trigger="meetDis.ctlAdd" event="OnClick" filter="">
 				<procedure name="addRow" server="" logic="AddRow" ifyes=""
 					ifno="">
@@ -238,8 +237,8 @@
 					ifyes="getId" ifno="">
 					<param name="Out" value="hiddenPanel.eq_egId" />
 				</procedure>
-				<procedure name="getId" logic="EncodeId" ifyes="jDecodeId2"
-					ifno="">
+				<procedure name="getId" logic="EncodeId"
+					ifyes="jDecodeId2" ifno="">
 					<param name="In" value="hiddenPanel.eq_egId"></param>
 				</procedure>
 				<procedure name="jDecodeId2" server="" logic="DecodeId"
@@ -264,13 +263,12 @@
 					<param name="Out" value="meetDis"></param>
 					<param name="Sql" value="experiment/QryMirrorNewList"></param>
 				</procedure>
-				<procedure name="query2" logic="Query" ifyes=""
-					ifno="">
+				<procedure name="query2" logic="Query" ifyes="" ifno="">
 					<param name="In" value="hiddenPanel"></param>
 					<param name="Out" value="meetOperate"></param>
 					<param name="Sql" value="experiment/QryOperateEnvironment"></param>
 				</procedure>
-			
+
 			</flow>
 			<!-- 保存 -->
 			<flow trigger="pButton.ctlSave" event="OnClick" filter="">
@@ -304,7 +302,7 @@
 					<subregion panel="meetDetail" location="Center" scale="" />
 					<subregion panel="meetDis" location="Center" scale="" />
 					<subregion panel="meetOperate" location="Center" scale="" />
-				
+
 					<subregion panel="hiddenPanel" location="Center" scale="" />
 				</region>
 
