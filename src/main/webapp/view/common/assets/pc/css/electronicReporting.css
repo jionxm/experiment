@@ -143,6 +143,10 @@
     right: 180px;
 }
 
+.experiment-opera button:active, .experiment-opera button:focus, .experiment-opera button:hover {
+    box-shadow: 0px 6px 6px #bdcddc;
+}
+
 /*
     成绩
 */

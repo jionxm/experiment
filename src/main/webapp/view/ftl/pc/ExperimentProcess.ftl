@@ -255,10 +255,17 @@
             </div>
         </div>
         </#if>
+         <!-- 上传文件添加loading -->
+        <div class="upload-loading-box" id="loadingBox">
+            <div class="wait" id="loadingWait">正在上传，请稍后...</div>
+            <div class="success" id="loadingSuccess">上传成功</div>
+            <div class="error" id="loadingError">文件上传失败</div>
+        </div>
     </div>
     <script>
         $(function(){
         	 var iframe = document.getElementById("jupyterIframe"); 
+        	if(iframe){
              iframe.src = "http://117.50.17.174:8000/hub/login?username=123"; 
              if (iframe.attachEvent){ 
                  iframe.attachEvent("onload", function(){
@@ -271,7 +278,7 @@
                      //$("#loadingBox").addClass("dis_n");
                      //$("#jupyterIframe").removeClass("dis_n");
                  }; 
-             } 
+             } }
         	$(".user-box").hover(function(){
                     $(".nav-user").show();
                 }, function(){
@@ -579,6 +586,12 @@ $('#submit').click(function(){
 	  
 	})
 function settime(fileid,token){
+setTimeout(function(){
+	            $("#loadingBox").hide();
+	            $("#loadingWait").hide();
+	            $("#loadingSuccess").hide();
+	            $("#loadingError").hide();
+        	  }, 5000);
 	console.log(token);
 	$.ajaxFileUpload({  
 	    url:'${ctx}/localUpload?token='+token,  
@@ -592,10 +605,15 @@ function settime(fileid,token){
 	    	console.log(data.data.fileId);
 	    		$("#fileName").html(fileName);
 				$("#fileId").val(data.data.fileId);
-		    	alert('上传成功');
+				$("#loadingBox").show();
+					$("#loadingWait").hide();
+					$("#loadingSuccess").show();
+		    	//alert('上传成功');
 	    },
 	    error: function (data) {  
-	        alert('文件上传失败，请重新上传');  
+	         $("#loadingBox").show();
+			$("#loadingWait").hide();
+			$("#loadingError").show();
 	    }  
 	});
 }

@@ -22,7 +22,7 @@
          <#include "pc/common/user.ftl">
         </header>
 
-        <div class="container" style="margin-bottom: 60px;">
+        <div class="container" style="padding-bottom:60px;">
 			<#if aiList>
 			<#list aiList as ai>
 			<#if ai.courseName>
@@ -101,5 +101,8 @@
                 })
             })
         </script>
+        <div class="exper-list-bg01"><img src="${ctx}/view/common/assets/pc/image/bg_list_01.png"/></div>
+    <div class="exper-list-bg02"><img src="${ctx}/view/common/assets/pc/image/bg_list_02.png"/></div>
+    <div class="exper-list-bg03"><img src="${ctx}/view/common/assets/pc/image/bg_list_03.png"/></div>
     </body>
 </html>
