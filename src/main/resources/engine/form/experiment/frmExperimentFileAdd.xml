@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsoftware xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
+
+
+	<ui_layer>
+		<ui name="experimentFileAdd" title="新增工作附件">
+			<panel name="pnlGroup" title="迭代信息" object="experimentFile"
+				type="Grid">
+				<control name="id" title="id" property="id" type="Hidden"
+					edit="Y" required="" format="" width="" height="" column="" />
+				<control name="fileId" title="案例操作环境名称" property="fileId"
+					type="Hidden" edit="Y" required="" format="" width="" height=""
+					column="" />
+				<control name="fileName" title="文件名" property="fileName"
+					type="FileBox" edit="Y" required="Y" format="" width="1" height="2"
+					column="1" />
+				<control name="egId" title="experimentId" property="egId"
+					type="Hidden" edit="Y" required="N" format="" width="" height=""
+					column="" />
+			</panel>
+			<panel name="pnlDown" title="pnlDown" object="" type="Toolbar">
+				<control name="ctlSave" title="确认" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+				<control name="ctlCancel" title="取消" property="" type="Button"
+					edit="" required="" format="" width="" height="" column="" />
+			</panel>
+			<!-- 加载 -->
+			<flow trigger="" event="OnLoad" filter="">
+				<procedure name="getEgId" server="" logic="DecodeId"
+					ifyes="" ifno="">
+					<param name="Out" value="pnlGroup.egId"></param>
+				</procedure>
+			</flow>
+			<!-- 附件上传 -->
+			<flow trigger="pnlGroup.fileName" event="OnClick" filter="">
+				<procedure name="fileUpload" server="" logic="Upload"
+					ifyes="" ifno="">
+					<param name="Size" value="9999999"></param>
+					<param name="Type"
+						value="jpg,txt,mp4,md,pdf,jpeg,gif,png,bmp,xls,xlsx,doc,docx,ppt,pptx"></param>
+					<param name="Bucket" value="public"></param>
+					<param name="Out" value="pnlGroup.fileId"></param>
+				</procedure>
+			</flow>
+			<!-- 确认 -->
+			<flow trigger="pnlDown.ctlSave" event="OnClick" filter="">
+				<procedure name="branch" logic="Branch" ifyes="jsMsg"
+					ifno="jssave">
+					<param name="In"
+						value="getPanelControlValue('pnlGroup.fileId') == ''"></param>
+				</procedure>
+				<procedure name="jsMsg" logic="InfoMsg" ifyes="" ifno="jssave">
+					<param name="Msg" value="上传文件失败，请重新上传"></param>
+				</procedure>
+				<procedure name="jssave" logic="Save" ifyes="jsclose"
+					ifno="">
+					<param name="In" value="pnlGroup"></param>
+					<param name="Msg" value="'附件已被保存,详情请查看操作日志'"></param>
+				</procedure>
+				<procedure name="jsclose" server="" logic="Close" ifyes=""
+					ifno="">
+					<param name="Refresh" value="true"></param>
+				</procedure>
+			</flow>
+			<!-- 取消 -->
+			<flow trigger="pnlDown.ctlCancel" event="OnClick" filter="">
+				<procedure name="jsclose" server="" logic="Close" ifyes=""
+					ifno="">
+					<param name="Refresh" value="false"></param>
+				</procedure>
+			</flow>
+			<layout>
+				<region location="South" scale="">
+					<subregion panel="pnlDown" location="South" scale="" />
+				</region>
+				<region location="Center" scale="">
+					<subregion panel="pnlGroup" location="North" scale="" />
+				</region>
+			</layout>
+		</ui>
+	</ui_layer>
+
+</tsoftware>
