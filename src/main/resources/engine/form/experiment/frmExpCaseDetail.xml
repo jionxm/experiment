@@ -21,10 +21,8 @@
 					edit="N" required="N" format="" width="" height="" column="" />
 				<control name="name" title="案例名称" property="name"
 					type="TextBox" edit="N" required="N" format="" width="1" height="1"
-					column="" />
-				<control name="serverNum" title="服务器数量" property="serverNum"
-					type="TextBox" edit="" required="" format="" width="1" height=""
 					column="4" />
+				
 				<control name="createTime" title="创建时间"
 					property="createTime" type="TextBox" edit="N" required="N"
 					format="" width="1" height="1" column="" />
@@ -83,25 +81,23 @@
 					type="Hidden" edit="N" required="N" format="" width="" height=""
 					column="" />
 			</panel>
-			<panel name="meetDis" title="资源分配规划" object="ExperimentDis"
+			<panel name="meetDis" title="镜像管理" object="exmirror"
 				type="Grid" multiple="">
-				<control name="id" title="id" property="id" type="Hidden"
-					edit="Y" required="" format="" width="" height="" column="" />
-				<control name="decision" title="参数" property="decision"
-					type="TextBox" edit="N" required="Y" format="" width="150"
-					height="" column="" />
-				<control name="type" title="类型" property="type"
-					type="TextBox" edit="N" required="" format="" width="150" height=""
+					<control name="id" title="数据编号" property="id" type="Hidden"
+					edit="" required="" format="" width="80" height="" column="" />
+					<control name="serverNum" title="服务器数量" property="serverNum"
+					type="TextBox" edit="" required="" format="" width="300" height=""
 					column="" />
-				<control name="distribution" title="描述"
-					property="distribution" type="TextBox" edit="N" required=""
+				<control name="mirror" title="镜像名称" property="mirror"
+					type="TextBox" edit="" required="" format="" width="300" height=""
+					column="" />
+				
+				<control name="mirrorUsername" title="镜像用户名"
+					property="mirrorUsername" type="TextBox" edit="" required=""
 					format="" width="300" height="" column="" />
-				<control name="distributionId" title="id"
-					property="distributionId" type="Hidden" edit="N" required="N"
-					format="" width="" height="" column="" />
-				<control name="egId" title="experimentId" property="egId"
-					type="Hidden" edit="N" required="N" format="" width="" height=""
-					column="" />
+				<control name="mirrorPassword" title="镜像密码"
+					property="mirrorPassword" type="TextBox" edit="" required=""
+					format="" width="300" height="" column="" />
 			</panel>
 			<panel name="meetOperate" title="操作环境"
 				object="ExperimentOperate" type="Grid" multiple="">
@@ -173,7 +169,7 @@
 					ifno="">
 					<param name="In" value="hiddenPanel"></param>
 					<param name="Out" value="meetDis"></param>
-					<param name="Sql" value="experiment/QryExpDis"></param>
+					<param name="Sql" value="experiment/QryMirrorNewList"></param>
 				</procedure>
 				<procedure name="query2" logic="Query" ifyes="query3"
 					ifno="">

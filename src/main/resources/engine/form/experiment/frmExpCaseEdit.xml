@@ -19,10 +19,8 @@
 					column="" />
 				<control name="picName" title="缩略图" property="picName"
 					type="FileBox" edit="Y" required="Y" format="" width="1" height="1"
-					column="" />
-				<control name="serverNum" title="服务器数量" property="serverNum"
-					type="TextBox" edit="Y" required="Y" format="" width="1" height=""
-					column="4"/>
+					column="4" />
+			
 				<control name="demand" title="实验概述" property="demand"
 					type="TextBox" edit="Y" required="Y" format="" width="1" height="3"
 					column="" />
@@ -88,27 +86,31 @@
 					type="Hidden" edit="N" required="N" format="" width="" height=""
 					column="" />
 			</panel>
-			<panel name="meetDis" title="资源分配规划" object="ExperimentDis"
+			<panel name="meetDis" title="镜像管理" object="exmirror"
 				type="Grid" multiple="">
 				<control name="ctlAdd" title="新增" property="" type="Button"
 					edit="" required="" format="" width="" height="" column="" />
 				<control name="ctlDel" title="删除" property="" type="Button"
 					edit="" required="" format="" width="" height="" column="" />
-				<control name="id" title="id" property="id" type="Hidden"
-					edit="Y" required="" format="" width="" height="" column="" />
-				<control name="decision" title="参数" property="decision"
-					type="PopupBox" edit="Y" required="Y" format="" width="150"
-					height="" column="" />
-				<control name="type" title="类型" property="type"
-					type="TextBox" edit="N" required="" format="" width="150" height=""
+				<control name="id" title="数据编号" property="id" type="Hidden"
+					edit="" required="" format="" width="80" height="" column="" />
+					<control name="serverNum" title="服务器数量" property="serverNum"
+					type="TextBox" edit="Y" required="" format="" width="300" height=""
 					column="" />
-				<control name="distribution" title="描述"
-					property="distribution" type="TextBox" edit="N" required=""
+				<control name="mirror" title="镜像名称" property="mirror"
+					type="PopupBox" edit="Y" required="" format="" width="300" height=""
+					column="" />
+				
+				<control name="mirrorUsername" title="镜像用户名"
+					property="mirrorUsername" type="TextBox" edit="Y" required=""
 					format="" width="300" height="" column="" />
-				<control name="distributionId" title="id"
-					property="distributionId" type="Hidden" edit="N" required="N"
-					format="" width="" height="" column="" />
-				<control name="egId" title="experimentId" property="egId"
+				<control name="mirrorPassword" title="镜像密码"
+					property="mirrorPassword" type="TextBox" edit="Y" required=""
+					format="" width="300" height="" column="" />
+					<control name="egId" title="experimentId" property="egId"
+					type="Hidden" edit="N" required="N" format="" width="" height=""
+					column="" />
+					<control name="mirrorId" title="id" property="mirrorId"
 					type="Hidden" edit="N" required="N" format="" width="" height=""
 					column="" />
 			</panel>
@@ -249,13 +251,13 @@
 						value="id,软件ID,softwareId|name,软件名,name|version,版本号,version|gitPath,下载地址,gitPath"></param>
 				</procedure>
 			</flow>
-			<flow trigger="meetDis.decision" event="OnClick" filter="">
+			<flow trigger="meetDis.mirror" event="OnClick" filter="">
 				<procedure name="find" logic="Find" ifyes="" ifno="">
 					<param name="Out" value="meetDis"></param>
-					<param name="Sql" value="DistributionCase"></param>
-					<param name="Title" value="选择运行资源"></param>
+					<param name="Sql" value="MirrorList"></param>
+					<param name="Title" value="选择镜像名称"></param>
 					<param name="Columns"
-						value="id,资源编号,distributionId|type,类型,type|decision,参数,decision|distribution,描述,distribution"></param>
+						value="id,镜像编号,mirrorId|mirror,镜像名称,mirror|mirrorUsername,镜像用户名,mirrorUsername|mirrorPassword,镜像密码,mirrorPassword"></param>
 				</procedure>
 			</flow>
 			<!-- 初始化 -->
@@ -297,7 +299,7 @@
 					ifno="">
 					<param name="In" value="hiddenPanel"></param>
 					<param name="Out" value="meetDis"></param>
-					<param name="Sql" value="experiment/QryExpDis"></param>
+					<param name="Sql" value="experiment/QryMirrorNewList"></param>
 				</procedure>
 				<procedure name="query2" logic="Query" ifyes="query3"
 					ifno="">
