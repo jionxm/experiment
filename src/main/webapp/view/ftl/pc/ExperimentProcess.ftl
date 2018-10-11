@@ -268,8 +268,8 @@
                  }); 
              } else { 
                  iframe.onload = function(){ 
-                     $("#loadingBox").addClass("dis_n");
-                     $("#jupyterIframe").removeClass("dis_n");
+                     //$("#loadingBox").addClass("dis_n");
+                     //$("#jupyterIframe").removeClass("dis_n");
                  }; 
              } 
         	$(".user-box").hover(function(){
