@@ -44,23 +44,23 @@
 					property="updateByName" type="TextBox" edit="N" required="N"
 					target="" format="" width="1" height="1" column="4" />
 				<control name="demand" title="实验需求" property="demand"
-					type="TextBox" edit="N" required="N" format="" width="1" height="5"
+					type="TextBox" edit="N" required="N" format="" width="1" height="3"
 					column="" />
 				<control name="reportDemand" title="实验需求(报告)"
 					property="reportDemand" type="TextBox" edit="Y" required="N"
-					format="" width="1" height="5" column="2" />
+					format="" width="1" height="3" column="2" />
 				<control name="target" title="实验目标" property="target"
-					type="TextBox" edit="N" required="N" format="" width="1" height="5"
+					type="TextBox" edit="N" required="N" format="" width="1" height="3"
 					column="" />
 				<control name="reportTarget" title="实验目标(报告)"
 					property="reportTarget" type="TextBox" edit="Y" required="N"
-					format="" width="1" height="5" column="2" />
+					format="" width="1" height="3" column="2" />
 				<control name="content" title="实验步骤" property="content"
-					type="TextBox" edit="N" required="N" format="" width="1" height="5"
+					type="TextBox" edit="N" required="N" format="" width="1" height="3"
 					column="" />
 				<control name="reportContent" title="实验步骤(报告)"
 					property="reportContent" type="TextBox" edit="Y" required=""
-					format="" width="1" height="5" column="2" />
+					format="" width="1" height="3" column="2" />
 
 			</panel>
 			<panel name="meetDetail" title="软件基础信息" object="expSoftware"
