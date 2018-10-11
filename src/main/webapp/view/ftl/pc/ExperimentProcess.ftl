@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <title>实验过程--编辑器</title>
+    <title>实验过程</title>
     <link href="${ctx}/view/common/assets/pc/css/normalize.css" rel="stylesheet" type="text/css">
     <link href="${ctx}/view/common/assets/pc/css/public.css" rel="stylesheet" type="text/css">
     <link href="${ctx}/view/common/assets/pc/css/experimentProcess.css" rel="stylesheet" type="text/css">
@@ -532,7 +532,7 @@ $('#save').click(function(){
     	    				alert("保存成功!");
     	    			}
     	    			else{alert(data.msg);}
-    	    			window.location.reload();
+    	    			//window.location.reload();
     	    			}
     	    	);
     	   
@@ -574,7 +574,7 @@ $('#submit').click(function(){
     	    			else{
     	    				alert(data.msg);
     	    			}
-    	    			window.location.reload();
+    	    			//window.location.reload();
     	    });
 	  
 	})

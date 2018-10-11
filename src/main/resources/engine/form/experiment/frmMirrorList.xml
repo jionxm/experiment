@@ -26,7 +26,7 @@
 					type="TextBox" edit="" required="" format="" width="300" height=""
 					column="" />
 				<control name="mirrorUsername" title="镜像用户名"
-					property="mirrorUsername" type="TextBox" edit="Y" required=""
+					property="mirrorUsername" type="TextBox" edit="" required=""
 					format="" width="" height="" column="" />
 				<control name="mirrorPassword" title="镜像密码"
 					property="mirrorPassword" type="TextBox" edit="" required=""
