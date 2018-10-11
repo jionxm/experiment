@@ -5,7 +5,7 @@
 	<model_layer>
 		<!-- 学生实验记录表 -->
 		<object name="studentRecord" table="t_student_record"
-			primary="id" unique="" order="">
+			primary="id" unique="student_id,schedule_id" order="">
 			<property name="id" type="Long" length="10" initial=""
 				field="id" />
 			<property name="studentId" type="Long" length="10"

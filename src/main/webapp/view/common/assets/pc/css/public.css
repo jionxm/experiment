@@ -2,6 +2,8 @@ body {
 	background: #eee;
 	font-size: 14px;
 	color: #666;
+	position: relative;
+	
 }
 
 .clearfix {
@@ -74,7 +76,8 @@ button {
 }
 
 .big-container {
-	padding: 0 60px 60px;
+	max-width: 1200px;
+	margin: 0 auto;	
 }
 
 .mr12 {
@@ -87,7 +90,7 @@ button {
 
 
 /*
-	header公共样式
+	header鍏叡鏍峰紡
 */
 
 header {
@@ -191,4 +194,64 @@ header .user-box .nav-user li:hover {
 header .user-box .nav-user li a {
     display: block;
     color: #fff;
+}
+
+/* body鑳屾櫙鍥� */
+.exper-list-bg01 {
+	position: absolute;
+	top: 230px;
+	left: 0;
+	z-index: -1;
+}
+.exper-list-bg02 {
+	position: absolute;
+	top: 430px;
+	right: 0;
+	z-index: -1;
+}
+.exper-list-bg03 {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: -1;
+}
+
+/** 绛夊緟妗� */
+.upload-loading-box {
+ display: none;
+ width: 250px;
+    min-height: 120px;
+    padding: 30px 25px;
+    background: #ffffff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -125px;
+    margin-top: -60px;
+    z-index: 101;
+    border-radius: 10px;
+    text-align: center;
+    color: #333;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
+}
+
+.upload-loading-box .wait {
+	display: none;
+    padding-top: 60px;
+    background: url(../image/icon_upload_loading.png) no-repeat top center;
+    background-size: 45px; 
+}
+
+.upload-loading-box .success {
+	display: none;
+    padding-top: 60px;
+	background: url(../image/icon_upload_success.png) no-repeat top center;
+	background-size: 45px; 
+}
+
+.upload-loading-box .error {
+	display: none;
+    padding-top: 60px;
+    background: url(../image/icon_upload_error.png) no-repeat top center;
+    background-size: 45px;	
 }

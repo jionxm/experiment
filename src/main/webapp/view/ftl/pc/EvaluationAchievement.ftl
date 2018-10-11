@@ -31,7 +31,7 @@
             </div> -->
         </header>
 
-        <div class="big-container">
+        <div class="big-container" style="padding-bottom:60px;">
             <ul class="segment-content clearfix">
                 <li><a href="#" class="selected">成绩评价</a></li>
                 <li><a href="${ctx}/electronic-reporting-page?exp=${expId}">电子报告</a></li>
@@ -63,7 +63,9 @@
                 })
             })
         </script>
-
+<div class="exper-list-bg01"><img src="${ctx}/view/common/assets/pc/image/bg_list_01.png"/></div>
+    <div class="exper-list-bg02"><img src="${ctx}/view/common/assets/pc/image/bg_list_02.png"/></div>
+    <div class="exper-list-bg03"><img src="${ctx}/view/common/assets/pc/image/bg_list_03.png"/></div>
     </body>
     
 </html>

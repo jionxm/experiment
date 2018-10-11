@@ -169,7 +169,6 @@
 
 .experiment-opera {
     width: 100%;
-    height: 36px;
     margin-top: 56px;
     position: relative;
 }
@@ -184,6 +183,10 @@
     color: #fff;
     font-size: 16px;
     border-radius: 20px;
+}
+
+.experiment-opera button:active, .experiment-opera button:focus, .experiment-opera button:hover {
+    box-shadow: 0px 6px 6px #bdcddc;
 }
 
 .experiment-opera button.btn-save {
@@ -350,7 +353,7 @@
 .experiment-over-prompt-bg {
     width: 380px;
     height: 10px;
-    background: rgba(255, 255, 255, 0.5);
+    background:#bfbfbf;
     position: absolute;
     bottom: -10px;
     left: 10px;

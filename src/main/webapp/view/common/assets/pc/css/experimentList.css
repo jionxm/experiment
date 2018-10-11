@@ -50,7 +50,7 @@
 .text-list li:hover {
     height: 175px;
     border: none;
-    box-shadow: #008fea 0 0 10px;
+    box-shadow: #dde5ed 0 0 10px;
 }
 
 .text-list li:nth-child(2n-1) {

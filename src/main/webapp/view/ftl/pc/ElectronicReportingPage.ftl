@@ -87,7 +87,15 @@
 				</#if>
             </div>
         </div>
-
+          <!-- 上传文件添加loading -->
+        <div class="upload-loading-box" id="loadingBox">
+            <div class="wait" id="loadingWait">正在上传，请稍后...</div>
+            <div class="success" id="loadingSuccess">上传成功</div>
+            <div class="error" id="loadingError">文件上传失败</div>
+        </div>
+	<div class="exper-list-bg01"><img src="${ctx}/view/common/assets/pc/image/bg_list_01.png"/></div>
+    <div class="exper-list-bg02"><img src="${ctx}/view/common/assets/pc/image/bg_list_02.png"/></div>
+    <div class="exper-list-bg03"><img src="${ctx}/view/common/assets/pc/image/bg_list_03.png"/></div>
     </body>
 	<script>
 	
@@ -191,6 +199,12 @@
 	  
 	})
 		function settime(fileid,token){
+			  setTimeout(function(){
+	            $("#loadingBox").hide();
+	            $("#loadingWait").hide();
+	            $("#loadingSuccess").hide();
+	            $("#loadingError").hide();
+        	  }, 5000);
 	$.ajaxFileUpload({  
 	    url:'${ctx}/localUpload?token='+token,  
 	    data:{accessType:"public",allowFile:"jpg,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xls",maxSize:"9999999",uploadUrl:""},
@@ -200,17 +214,21 @@
 	    success: function (data) {
 	    	console.log(data);
 	    	if(data.status!=0){
-	    	console.log(data);
-	    	var fileName = data.data.filename;
-	    	console.log("fileName"+fileName);
-	    	console.log(data.data.fileId);
-	    		$("#fileName").html(fileName);
-				$("#fileId").val(data.data.fileId);
-		    	alert('上传成功');
-	    	}
+		    	console.log(data);
+		    	var fileName = data.data.filename;
+		    	console.log("fileName"+fileName);
+		    	console.log(data.data.fileId);
+		    		$("#fileName").html(fileName);
+					$("#fileId").val(data.data.fileId);
+			    	$("#loadingBox").show();
+					$("#loadingWait").hide();
+					$("#loadingSuccess").show();
+		    	}
 	    },
 	    error: function (data) {  
-	        alert('文件上传失败，请重新上传');  
+	        $("#loadingBox").show();
+			$("#loadingWait").hide();
+			$("#loadingError").show();
 	    }  
 	});
 }

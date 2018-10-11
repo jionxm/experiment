@@ -12,7 +12,7 @@
 				type="Group">
 				<control name="id" title="id" property="id" type="Hidden"
 					edit="" required="" format="" width="" height="" column="" />
-				<control name="studentId" title="学生id" property="studentId"
+				<control name="studentId" title="该学生" property="studentId"
 					type="Hidden" edit="Y" required="" format="" width="1" height="1"
 					column="" />
 				<control name="studentName" title="学生名字"
@@ -21,7 +21,7 @@
 				<control name="fileName" title="实验结果文件" property="fileName"
 					type="FileBox" edit="Y" required="Y" format="" width="1" height="1"
 					column="2" />
-				<control name="eq_scheduleId" title="实验课程编号"
+				<control name="eq_scheduleId" title="的实验报告"
 					property="scheduleId" type="Hidden" edit="Y" required="N" format=""
 					width="" height="" column="" />
 				<control name="scheduleName" title="实验课程名称"
