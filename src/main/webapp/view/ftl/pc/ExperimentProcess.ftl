@@ -415,7 +415,7 @@
                 $("#stopTimeBox").hide();
             })
             //关闭虚拟机弹窗-显示虚拟机
-            $("#experimentPromptBtn").click(function(){
+           /*  $("#experimentPromptBtn").click(function(){
             	countTime();
                 $("#layoutBox").hide();
                 $("#experimentPromptBox").hide();
@@ -423,7 +423,17 @@
                 overTest.style.display = "block";
                 $("#runExperimentContent").hide();
                 $("#experimentContent").show();
-            })
+            }) */
+             $("#experimentPromptBtn").click(function(){
+        	countTime();
+        	$("#layoutBox").hide();
+            $("#experimentPromptBox").hide();
+            $("#runExperimentContent").hide();
+            $("#experimentContent").show();
+            $(".virtual-item").show();
+            $(".environment-content-tab-title").show();
+        }) 
+            
             //关闭虚拟机弹窗
             $("#closeExperimentPromptBox").click(function(){
                 $("#layoutBox").hide();
@@ -444,19 +454,48 @@
             })
             //关闭按钮--关闭虚拟机
             $("#closeVirtualBtn").click(function(){
-            	console.log(xunijiId);
-            	$("#layoutBox").hide();
-            	$("#experimentVirtualBox").hide();
-                 $("#"+xunijiId).hide();
-                 if(xunijiId=="en1"){
-                	 $("#em1").hide();
-                 }
-                 if(xunijiId=="en2"){
-                	 $("#em2").hide();
-                 }
-                 if(xunijiId=="en3"){
-                	 $("#em3").hide();
-                 }
+             console.log(xunijiId);
+             $("#layoutBox").hide();
+                $("#experimentVirtualBox").hide();
+                $("#"+xunijiId).hide();
+
+                if(xunijiId == "en1"){
+                    $("#em1").hide();
+                    if($("#en2").is(":hidden") == false){
+                        $("#en2").addClass("selected");
+                        $("#em2").show();
+                    }else if($("#en3").is(":hidden") == false){
+                        $("#en3").addClass("selected");
+                        $("#em3").show();
+                    }else {
+                        $("#runExperimentContent").show();
+                        $("#experimentContent").hide();
+                    }
+                }else if(xunijiId == "en2"){
+                    $("#em2").hide();
+                    if($("#en1").is(":hidden") == false){
+                        $("#en1").addClass("selected");
+                        $("#em1").show();
+                    }else if($("#en3").is(":hidden") == false){
+                        $("#en3").addClass("selected");
+                        $("#em3").show();
+                    }else {
+                        $("#runExperimentContent").show();
+                        $("#experimentContent").hide();
+                    }
+                }else {
+                    $("#em3").hide();
+                    if($("#en1").is(":hidden") == false){
+                        $("#en1").addClass("selected");
+                        $("#em1").show();
+                    }else if($("#en2").is(":hidden") == false){
+                        $("#en2").addClass("selected");
+                        $("#em2").show();
+                    }else {
+                        $("#runExperimentContent").show();
+                        $("#experimentContent").hide();
+                    }
+                }
             })
             //确定按钮--结束实验
             $("#overTestYesBtn").click(function(){
