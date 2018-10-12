@@ -107,7 +107,7 @@
                                 	<input id="fileId" value="${(studentRecord.fileId?c)!''}" type="hidden"/>
                                 	<#if !(studentRecord.grade)?if_exists>
                                     <div class="experiment-uploadfile-button">
-                                        <input class="input-uploadfile-button" type="file" accept="image/*" mutiple="mutiple" capture="exp" id="exp" onchange="readImg(this)" name="exp"/>
+                                        <input class="input-uploadfile-button" type="file"  mutiple="mutiple" capture="exp" id="exp" onchange="readImg(this)" name="exp"/>
                                         <span class="experiment-uploadfile-text">选择文件</span>
                                     </div>
                                    
@@ -269,12 +269,27 @@
     </div>
     <script>
         $(function(){
-        	 var iframe = document.getElementById("jupyterIframe"); 
+        	 var iframe = document.getElementById("jupyterIframe");
+        	 var iframeurl="http://39.105.110.193:8000/hub/login?username=jupyter"; 
         	if(iframe){
              //iframe.src = "http://117.50.17.174:8000/hub/login?username=123"; 
-              iframe.src = "http://39.105.110.193:8000/hub/login?username=jupyter"; 
-              console.log("event:"+iframe.attachEvent);
-             if (iframe.attachEvent){ 
+              
+             $.ajax({
+  					url: iframeurl,
+ 					 type: 'GET',
+  					complete: function(response) {
+  						console.log(response.status);
+   						if(response.status == 200) {
+   							iframe.src = iframeurl; 
+    						iframe.onload = function(){ 
+                     			$("#loadingBox").addClass("dis_n");
+                     			$("#jupyterIframe").removeClass("dis_n");
+                 			}; 
+  						 } else {
+   						}
+  					}
+ 			});
+             /*if (iframe.attachEvent){ 
                  iframe.attachEvent("onload", function(){
                      $("#loadingBox").addClass("dis_n");
                      $("#jupyterIframe").removeClass("dis_n");
@@ -286,7 +301,8 @@
                      $("#loadingBox").addClass("dis_n");
                      $("#jupyterIframe").removeClass("dis_n");
                  }; 
-             } }
+             } */
+             }
         	$(".user-box").hover(function(){
                     $(".nav-user").show();
                 }, function(){
@@ -577,12 +593,14 @@ $('#save').click(function(){
 		var stuResult=$("#result").val();
 		var studentId="${studentId}";
 		var studentName="mz";
-		var fileName = "file";
+		var fileName = $("#fileName").html();
+		console.log(fileName);
 		var eq_scheduleId= '${expId}';
 		console.log(eq_scheduleId);
 		var fileId=$('#fileId').val();
 		var submit= "0";
-		ajaxPost(APIS.frmStudentRecord.save, 
+		if(fileName!=''&&stuResult!=''){
+			ajaxPost(APIS.frmStudentRecord.save, 
 	   				 {
 	   				 	id: id,
 	   				 	Mode:Mode,
@@ -599,12 +617,14 @@ $('#save').click(function(){
     	    				$("#record").val(data.data.id);
     	    				alert("保存成功!");
     	    			}
-    	    			else{alert(data.msg);}
+    	    			else{alert(data.data.msg);}
     	    			//window.location.reload();
     	    			}
     	    	);
     	   
-	   			
+	   		}else{
+	   			alert("实验结果或文件不能为空！");
+	   		}	
 	})
 $('#submit').click(function(){
 		var id=$("#record").val();
@@ -617,12 +637,14 @@ $('#submit').click(function(){
 		var stuResult=$("#result").val();
 		var studentId="${studentId}";
 		var studentName="mz";
-		var fileName = "file";
+		var fileName = $("#fileName").html();
+		console.log("fileName-->"+fileName);
 		var eq_scheduleId= '${expId}';
 		console.log(eq_scheduleId);
 		var fileId=$('#fileId').val();
 		var submit= "1";
-		ajaxPost(APIS.frmStudentRecord.save, 
+		if(fileName!=''&&stuResult!=''){
+			ajaxPost(APIS.frmStudentRecord.save, 
 	   				 {
 	   				 	id: id,
 	   				 	Mode:Mode,
@@ -641,10 +663,13 @@ $('#submit').click(function(){
     	    				alert("提交成功");
     	    			}
     	    			else{
-    	    				alert(data.msg);
+    	    				alert(data.data.msg);
     	    			}
     	    			//window.location.reload();
     	    });
+    	   }else{
+    	   	alert("实验结果或文件不能为空！");
+    	   }
 	  
 	})
 function settime(fileid,token){
