@@ -271,7 +271,9 @@
         $(function(){
         	 var iframe = document.getElementById("jupyterIframe"); 
         	if(iframe){
-             iframe.src = "http://117.50.17.174:8000/hub/login?username=123"; 
+             //iframe.src = "http://117.50.17.174:8000/hub/login?username=123"; 
+              iframe.src = "http://39.105.110.193:8000/hub/login?username=jupyter"; 
+              console.log("event:"+iframe.attachEvent);
              if (iframe.attachEvent){ 
                  iframe.attachEvent("onload", function(){
                      $("#loadingBox").addClass("dis_n");
@@ -279,9 +281,10 @@
                      alert("Local iframe is now loaded."); 
                  }); 
              } else { 
+             	console.log("进来了");
                  iframe.onload = function(){ 
-                     //$("#loadingBox").addClass("dis_n");
-                     //$("#jupyterIframe").removeClass("dis_n");
+                     $("#loadingBox").addClass("dis_n");
+                     $("#jupyterIframe").removeClass("dis_n");
                  }; 
              } }
         	$(".user-box").hover(function(){
@@ -293,8 +296,9 @@
 				var fileId=$('#fileId').val();
 				window.location.href="${ctx}/localDownload?fileId="+fileId;
 			})
+			var tabindexid = 0;
 			$("#environmentTabContainer").children().each(function(index,display){
-                console.log('initial virtual start:' + index);
+                //console.log('initial virtual start:' + index);
             
                 //这里填写实现了隧道的servlet的访问地址。也就是服务端隧道的访问地址。
                 var guac = new Guacamole.Client(
@@ -330,26 +334,38 @@
 
                 
                 	
-                 // 以下是对键盘的处理，无特殊情况不可更改
-                 var keyboard = new Guacamole.Keyboard(document);
+             // 以下是对键盘的处理，无特殊情况不可更改
+                var keyboard = new Guacamole.Keyboard(document);
 
                 keyboard.onkeydown = function (keysym) {
-                    guac.sendKeyEvent(1, keysym);
+                    //console.log("输入内容:" + keysym);
+                    if(document.activeElement.id=='result'){
+                    	keysym = String.fromCharCode(keysym);
+                        var hasVal = $("#result").val();
+                        $("#result").val(hasVal + keysym);
+                        return ;
+                    }else {
+                        if(index === tabindexid){
+                           guac.sendKeyEvent(1, keysym);
+                        }
+                    } 
+                    
                 };
 
                 keyboard.onkeyup = function (keysym) {
-                    guac.sendKeyEvent(0, keysym);
-               	} 
-
-                console.log('initial virtual end:' + index);
+                    if(index === tabindexid){
+                        guac.sendKeyEvent(0, keysym);
+                    }
+                };
+                //console.log('initial virtual end:' + index);
             })
 
             /*虚拟机的选项卡*/
             $("#environmentTabID").children().each(function(index,value){
                 $(value).click(function(){
+                	tabindexid = index;
                     $(this).siblings().removeClass("selected");
                     $(this).addClass("selected");
-                    
                     
                     var display = $(".virtual-item")[index];
                     $(display).show();
@@ -435,8 +451,9 @@
             $("#experimentPromptBox").hide();
             $("#runExperimentContent").hide();
             $("#experimentContent").show();
-            $(".virtual-item").show();
-            $(".environment-content-tab-title").show();
+            
+            $("#em1").show();
+          	$(".environment-content-tab-title").show();
         }) 
             
             //关闭虚拟机弹窗
@@ -447,7 +464,6 @@
             //关闭虚拟机-显示重启或关闭弹窗
             var xunijiId;
             $("#environmentTabID .icon-close").click(function(){
-            	console.log(123);
                 $("#layoutBox").show();
                 $("#experimentVirtualBox").show();
             	xunijiId = $(this).parent().attr("id");
