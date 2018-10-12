@@ -81,7 +81,7 @@
                                 <#if expSoftwareList>
                                 <div class="header-title-2">软硬件及环境</div>
                                 <#list expSoftwareList as software>
-                                        <p class="experiment-info">${software.name}</p>
+                                        <div class="header-title-3">${software.name}</div>
                                 </#list>
                 				</#if>
                 
