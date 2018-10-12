@@ -116,11 +116,13 @@
                                             <!--<div class="experiment-delete-resource"id="delete"></div>-->
                                         </li>
                                     </ul>
+                                    <#if !(studentRecord.grade)?if_exists>
                                      <div class="experiment-uploadfile-button">
                                    		<span class="experiment-uploadfile-text">支持类型</span>
                                    	</div>
                                     <div class="experiment-resource-download">zip,pptx,py,ipynb,doc,docx</div>
                                     <div class="experiment-resource-download">jpg,jpeg,gif,png,bmp,xls</div>
+                                	</#if>
                                 </div>
                 				<#if !(studentRecord.grade)?if_exists>
                                 <div class="experiment-opera">
