@@ -80,9 +80,11 @@
                 
                                 <#if expSoftwareList>
                                 <div class="header-title-2">软硬件及环境</div>
+                                <div class="header-title-3">
                                 <#list expSoftwareList as software>
-                                        <div class="header-title-3">${software.name}</div>
+                                        <p>${software.name}</p>
                                 </#list>
+                                </div>
                 				</#if>
                 
                                 <#if m.reportTarget>
