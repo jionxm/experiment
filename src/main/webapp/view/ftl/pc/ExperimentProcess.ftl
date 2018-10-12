@@ -265,6 +265,7 @@
             <div class="success" id="loadingSuccess">上传成功</div>
             <div class="error" id="loadingError">文件上传失败</div>
         </div>
+        <input id="record" value="${(studentRecord.id?c)!''}" type="hidden"/>
     </div>
     <script>
         $(function(){
@@ -549,7 +550,7 @@
             $("#jupyterIframe").css("height", iframeHeight-160);
         }
 $('#save').click(function(){
-		var id='${(studentRecord.id?c)!''}';
+		var id=$("#record").val();
 	    var Mode;
 	    console.log(id);
 	    if(id==null||id=='undefine'||id==''){
@@ -577,8 +578,9 @@ $('#save').click(function(){
 						fileId: fileId,
 						submit: submit
 	    			 }, function(data) {
-    	    			console.log(data);
+    	    			console.log("保存返回数据："+data);
     	    			if(data.code==0){
+    	    				$("#record").val(data.data.id);
     	    				alert("保存成功!");
     	    			}
     	    			else{alert(data.msg);}
@@ -589,7 +591,7 @@ $('#save').click(function(){
 	   			
 	})
 $('#submit').click(function(){
-		var id='${(studentRecord.id?c)!''}';
+		var id=$("#record").val();
 	    var Mode;
 	    if(id==null||id=='undefine'||id==''){
 	    	Mode='Add';
@@ -619,6 +621,7 @@ $('#submit').click(function(){
 	    			 }, function(data) {
     	    			console.log(data);
     	    			if(data.code==0){
+    	    				$("#record").val(data.data.id);
     	    				alert("提交成功");
     	    			}
     	    			else{
