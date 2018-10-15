@@ -15,7 +15,7 @@
 					property="courseName" type="PopupBox" edit="Y" required=""
 					format="" width="1" height="" column="2" />
 				<control name="egName" title="实验案例名称" property="egName"
-					type="PopupBox" edit="Y" required="" format="" width="1" height=""
+					type="PopupBox" edit="Y" required="Y" format="" width="1" height=""
 					column="" />
 				<control name="teacherName" title="实验老师"
 					property="teacherName" type="PopupBox" edit="Y" required="Y"
