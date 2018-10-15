@@ -356,9 +356,11 @@
                 keyboard.onkeydown = function (keysym) {
                     //console.log("输入内容:" + keysym);
                     if(document.activeElement.id=='result'){
-                    	keysym = String.fromCharCode(keysym);
-                        var hasVal = $("#result").val();
-                        $("#result").val(hasVal + keysym);
+                    	if(index == 0){
+                            keysym = String.fromCharCode(keysym);
+                            var hasVal = $("#result").val();
+                            $("#result").val(hasVal + keysym);
+                        }
                         return ;
                     }else {
                         if(index === tabindexid){
