@@ -95,6 +95,7 @@
             <div class="success" id="loadingSuccess">上传成功</div>
             <div class="error" id="loadingError">文件上传失败</div>
         </div>
+        <input id="record" value="${(studentRecord.id?c)!''}" type="hidden"/>
 	<div class="exper-list-bg01"><img src="${ctx}/view/common/assets/pc/image/bg_list_01.png"/></div>
     <div class="exper-list-bg02"><img src="${ctx}/view/common/assets/pc/image/bg_list_02.png"/></div>
     <div class="exper-list-bg03"><img src="${ctx}/view/common/assets/pc/image/bg_list_03.png"/></div>
@@ -114,7 +115,7 @@
 	    })
 	    
 	 	$('#save').click(function(){
-		var id='${(studentRecord.id?c)!''}';
+		var id=$("#record").val();
 		console.log(id);
 	    var Mode;
 	    if(id==null||id=='undefine'||id==''){
@@ -128,13 +129,12 @@
 		var studentId="${studentId}";
 		console.log(studentId);
 		var studentName="mz";
-		var fileName = "file";
+		var fileName = $("#fileName").html();
 		var eq_scheduleId= '${expId}';
-		console.log(eq_scheduleId);
-		console.log(eq_scheduleId);
 		var fileId=$('#fileId').val();
 		var submit= "0";
-		ajaxPost(APIS.frmStudentRecord.save, 
+		if(fileName!=''&&stuResult!=''){
+			ajaxPost(APIS.frmStudentRecord.save, 
 	   				 {
 	   				 	id: id,
 	   				 	Mode: Mode,
@@ -147,7 +147,9 @@
 						fileName:fileName
 	    			 }, function(data) {
     	    			console.log(data);
+    	    			
     	    			if(data.code==0){
+    	    			$("#record").val(data.data.id);
     	    				alert("保存成功");
     	    			}
     	    			else{
@@ -157,11 +159,13 @@
     	    		}
     	    			
     	    	);
-    	   
+    	   }else{
+    	   		alert("实验结果或文件不能为空！");
+    	   }
 	   			
 	})
 	$('#submit').click(function(){
-		var id='${(studentRecord.id?c)!''}';
+		var id=$("#record").val();
 	    var Mode;
 	    if(id==null||id=='undefine'||id==''){
 	    	Mode='Add';
@@ -171,12 +175,13 @@
 		var stuResult=$("#stuResult").val();
 		var studentId="${studentId}";
 		var studentName="mz";
-		var fileName = "file";
+		var fileName = $("#fileName").html();
 		var eq_scheduleId= '${expId}';
 		console.log(eq_scheduleId);
 		var fileId=$('#fileId').val();
 		var submit= "1";
-		ajaxPost(APIS.frmStudentRecord.save, 
+		if(fileName!=''&&stuResult!=''){
+			ajaxPost(APIS.frmStudentRecord.save, 
 	   				 {
 	   				 	id: id,
 	   				 	Mode: Mode,
@@ -191,6 +196,7 @@
 	    			 }, function(data) {
     	    			console.log(data);
     	    			if(data.code==0){
+    	    				$("#record").val(data.data.id);
     	    				alert("提交成功");
     	    			}
     	    			else{
@@ -198,6 +204,9 @@
     	    			}
     	    			window.location.reload();
     	    });
+    	    }else{
+    	    		alert("实验结果或文件不能为空！");
+    	    }
 	  
 	})
 		function settime(fileid,token){
