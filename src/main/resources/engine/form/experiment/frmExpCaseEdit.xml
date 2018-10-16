@@ -99,12 +99,12 @@
 					height="" column="" />
 				<control name="mirrorUsername" title="镜像用户名"
 					property="mirrorUsername" type="TextBox" edit="N" required=""
-					format="" width="300" height="" column="" />
+					format="" width="150" height="" column="" />
 				<control name="mirrorPassword" title="镜像密码"
 					property="mirrorPassword" type="TextBox" edit="N" required=""
-					format="" width="300" height="" column="" />
+					format="" width="150" height="" column="" />
 				<control name="serverNum" title="服务器数量" property="serverNum"
-					type="TextBox" edit="Y" required="Y" format="" width="300"
+					type="TextBox" edit="Y" required="Y" format="" width="80"
 					height="" column="" />
 				<control name="egId" title="experimentId" property="egId"
 					type="Hidden" edit="Y" required="" format="" width="" height=""

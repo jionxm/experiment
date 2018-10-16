@@ -31,9 +31,9 @@
 				<control name="picName" title="缩略图" property="picName"
 					type="DataLink" edit="" required="" format="" width="300" height=""
 					column="" />
-				<control name="serverNum" title="服务器数量" property="serverNum"
+				<!-- <control name="serverNum" title="服务器数量" property="serverNum"
 					type="TextBox" edit="" required="" format="" width="80" height=""
-					column="" />
+					column="" /> -->
 				<control name="createByName" title="创建人"
 					property="createByName" type="TextBox" edit="" required=""
 					format="" width="80" height="" column="" />
