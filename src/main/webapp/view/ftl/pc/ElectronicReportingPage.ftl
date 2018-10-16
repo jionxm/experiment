@@ -150,17 +150,17 @@
     	    			
     	    			if(data.code==0){
     	    			$("#record").val(data.data.id);
-    	    				alert("保存成功");
+    	    				Exp.showToast("保存成功");
     	    			}
     	    			else{
-    	    			alert(data.msg);
+    	    			Exp.showToast(data.msg);
     	    			}
     	    			window.location.reload();
     	    		}
     	    			
     	    	);
     	   }else{
-    	   		alert("实验结果或文件不能为空！");
+    	   		Exp.showToast("实验结果或文件不能为空！");
     	   }
 	   			
 	})
@@ -197,15 +197,15 @@
     	    			console.log(data);
     	    			if(data.code==0){
     	    				$("#record").val(data.data.id);
-    	    				alert("提交成功");
+    	    				Exp.showToast("提交成功");
     	    			}
     	    			else{
-    	    			alert(data.msg);
+    	    			Exp.showToast(data.msg);
     	    			}
     	    			window.location.reload();
     	    });
     	    }else{
-    	    		alert("实验结果或文件不能为空！");
+    	    		Exp.showToast("实验结果或文件不能为空！");
     	    }
 	  
 	})
