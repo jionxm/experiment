@@ -45,6 +45,7 @@
 			<property name="reportContent" type="String" length="500" field="" />
 			<property name="fileId" type="Long" length="10" field="" />
 			<property name="fileName" type="String" length="50" field="" />
+			<property name="scheduleId" type="Long" length="20" field="" />
 		</object>
 	</model_layer>
 </tsoftware>
