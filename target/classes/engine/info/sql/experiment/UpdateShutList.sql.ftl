@@ -1,1 +1,0 @@
-update t_experiment_schedule set status=0 where id=#{data.id} 
