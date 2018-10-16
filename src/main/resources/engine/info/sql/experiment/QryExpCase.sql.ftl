@@ -19,7 +19,6 @@ FROM
 			l.update_count AS updateCount,
 			empsec.name AS updateByName,
 			l.pic_id as picId,
-			l.server_num as serverNum,
 			case when isnull(le.filename) then '' else le.filename end as picName
 		FROM
 			t_experiment_eg l

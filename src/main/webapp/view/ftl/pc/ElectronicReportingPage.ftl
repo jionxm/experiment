@@ -153,9 +153,11 @@
     	    				Exp.showToast("保存成功");
     	    			}
     	    			else{
-    	    			Exp.showToast(data.msg);
+    	    				Exp.showToast(data.msg);
     	    			}
-    	    			window.location.reload();
+    	    			setTimeout(() => {
+        					window.location.reload();
+    					}, 3000);
     	    		}
     	    			
     	    	);
@@ -202,7 +204,10 @@
     	    			else{
     	    			Exp.showToast(data.msg);
     	    			}
-    	    			window.location.reload();
+    	    			setTimeout(() => {
+        					window.location.reload();
+    					}, 3000);
+    	    			
     	    });
     	    }else{
     	    		Exp.showToast("实验结果或文件不能为空！");
