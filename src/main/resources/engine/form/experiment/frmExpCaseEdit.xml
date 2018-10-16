@@ -103,6 +103,15 @@
 				<control name="mirrorPassword" title="镜像密码"
 					property="mirrorPassword" type="TextBox" edit="N" required=""
 					format="" width="150" height="" column="" />
+				<control name="cpu" title="CPU(个)" property="cpu"
+					type="TextBox" edit="" required="" format="" width="80"
+					height="" column="" />
+				<control name="memory" title="内存(MB)" property="memory"
+					type="TextBox" edit="" required="" format="" width="80"
+					height="" column="" />
+				<control name="hardDisk" title="硬盘(GB)" property="hardDisk"
+					type="TextBox" edit="" required="" format="" width="80"
+					height="" column="2" />
 				<control name="serverNum" title="服务器数量" property="serverNum"
 					type="TextBox" edit="Y" required="Y" format="" width="80"
 					height="" column="" />
@@ -219,7 +228,7 @@
 					<param name="Sql" value="MirrorList"></param>
 					<param name="Title" value="选择镜像名称"></param>
 					<param name="Columns"
-						value="id,镜像编号,mirrorId|mirror,镜像名称,mirror|mirrorUsername,镜像用户名,mirrorUsername|mirrorPassword,镜像密码,mirrorPassword"></param>
+						value="id,镜像编号,mirrorId|mirror,镜像名称,mirror|mirrorUsername,镜像用户名,mirrorUsername|mirrorPassword,镜像密码,mirrorPassword|cpu,CPU(个),cpu|memory,内存(MB),memory|hardDisk,硬盘(GB),hardDisk"></param>
 				</procedure>
 			</flow>
 			<!-- 初始化 -->

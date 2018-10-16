@@ -4,23 +4,28 @@
 	xsi:noNamespaceSchemaLocation="../componentConfig.xsd">
 	<model_layer>
 		<!-- 节点服务器表 -->
-		<object name="exmirror" table="t_experiment_mirror" primary="id" unique=""
-			order="id desc">
+		<object name="exmirror" table="t_experiment_mirror"
+			primary="id" unique="" order="id desc">
 			<property name="id" type="Long" length="20" initial=""
 				field="id" />
 			<property name="mirrorId" type="Long" length="20" initial=""
 				field="mirror_id" />
-			<property name="mirror" type="String" length="20"
-				field="" />
+			<property name="mirror" type="String" length="20" field="" />
 			<property name="mirrorUsername" type="String" length="20"
 				field="" />
 			<property name="mirrorPassword" type="String" length="20"
 				field="" />
-				<property name="serverNum" type="String" length="50"
+			<property name="cpu" type="Long" length="20" initial=""
+				field="" />
+			<property name="memory" type="Long" length="20" initial=""
+				field="" />
+			<property name="hardDisk" type="Long" length="20" initial=""
+				field="" />
+			<property name="serverNum" type="String" length="50"
 				field="mirror_num" />
-				<property name="egId" type="Long" length="10" initial=""
+			<property name="egId" type="Long" length="10" initial=""
 				field="eg_id" />
 		</object>
-		
+
 	</model_layer>
 </tsoftware>

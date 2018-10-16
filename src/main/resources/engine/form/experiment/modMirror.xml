@@ -10,27 +10,18 @@
 				field="id" />
 			<property name="mirrorId" type="Long" length="20" initial=""
 				field="" />
+			<property name="cpu" type="Long" length="20" initial=""
+				field="cpu" />
+			<property name="memory" type="Long" length="20" initial=""
+				field="memory" />
+			<property name="hardDisk" type="Long" length="20" initial=""
+				field="hard_disk" />
 			<property name="mirror" type="String" length="20"
 				field="mirror" />
 			<property name="mirrorUsername" type="String" length="20"
 				field="mirror_username" />
 			<property name="mirrorPassword" type="String" length="20"
 				field="mirror_password" />
-		</object>
-		<object name="mirrorPlan" table="t_mirror_plan" primary="id"
-			unique="" order="id desc">
-			<property name="id" type="Long" length="20" initial=""
-				field="id" />
-			<property name="mirrorId" type="Long" length="20"
-				field="mirror_id" />
-			<property name="planId" type="Long" length="20"
-				field="plan_id" />
-			<property name="decision" type="String" length="10"
-				initial="" field="" />
-			<property name="type" type="String" length="10" initial=""
-				field="" />
-			<property name="distribution" type="String" length="10"
-				initial="" field="" />
 		</object>
 	</model_layer>
 </tsoftware>

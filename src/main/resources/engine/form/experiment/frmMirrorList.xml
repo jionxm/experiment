@@ -31,6 +31,15 @@
 				<control name="mirrorPassword" title="镜像密码"
 					property="mirrorPassword" type="TextBox" edit="" required=""
 					format="" width="300" height="" column="" />
+				<control name="cpu" title="CPU(个)" property="cpu"
+					type="TextBox" edit="" required="" format="" width="80"
+					height="" column="" />
+				<control name="memory" title="内存(MB)" property="memory"
+					type="TextBox" edit="" required="" format="" width="80"
+					height="" column="" />
+				<control name="hardDisk" title="硬盘(GB)" property="hardDisk"
+					type="TextBox" edit="" required="" format="" width="80"
+					height="" column="2" />
 				<control name="ctlEdit" title="编辑" property="" type="Link"
 					edit="" required="" format="" width="80" height="" column="" />
 				<control name="ctlDel" title="删除" property="" type="Link"

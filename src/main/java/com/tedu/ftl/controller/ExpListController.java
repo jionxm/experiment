@@ -119,6 +119,7 @@ public class ExpListController {
 		List<Map<String, Object>> list = formService.queryBySqlId(queryPage);
 		return list;
 	}
+
 	@RequestMapping("/experiment")
 	public String experiment(Model model, HttpServletRequest request) {
 		model.addAttribute("loginImg", loginImg);
@@ -144,7 +145,7 @@ public class ExpListController {
 	public String experimentList(Model model, HttpServletRequest request) {
 		UserModel userModel = (UserModel) SessionUtils.getAttrbute(ConstantUtil.USER_INFO);
 		if (userModel != null) {
-			String loginName=userModel.getEmpName();
+			String loginName = userModel.getEmpName();
 			model.addAttribute("loginName", loginName);
 			List<Map<String, Object>> list = getParams("experiment/QryScheduleAi", "1", "1");
 			List<Map<String, Object>> list2 = getParams("experiment/QryScheduleAi2", "1", "1");
@@ -167,12 +168,12 @@ public class ExpListController {
 			return "pc/ExperimentList";
 		} else {
 			model.addAttribute("baseTitle", baseTitle);
-	        model.addAttribute("loginImg", loginImg);
-	        model.addAttribute("loginLogo", loginLogo);
-	        model.addAttribute("notice", notice);
-	        model.addAttribute("copyRight", copyRight);
-	        model.addAttribute("faviconPng", faviconPng);
-	        model.addAttribute("faviconIco", faviconIco);
+			model.addAttribute("loginImg", loginImg);
+			model.addAttribute("loginLogo", loginLogo);
+			model.addAttribute("notice", notice);
+			model.addAttribute("copyRight", copyRight);
+			model.addAttribute("faviconPng", faviconPng);
+			model.addAttribute("faviconIco", faviconIco);
 			return "login";
 		}
 	}
@@ -182,14 +183,14 @@ public class ExpListController {
 		ModelAndView modelAndView = new ModelAndView();
 		UserModel userModel = (UserModel) SessionUtils.getAttrbute(ConstantUtil.USER_INFO);
 		model.addAttribute("baseTitle", baseTitle);
-        model.addAttribute("loginImg", loginImg);
-        model.addAttribute("loginLogo", loginLogo);
-        model.addAttribute("notice", notice);
-        model.addAttribute("copyRight", copyRight);
-        model.addAttribute("faviconPng", faviconPng);
-        model.addAttribute("faviconIco", faviconIco);
+		model.addAttribute("loginImg", loginImg);
+		model.addAttribute("loginLogo", loginLogo);
+		model.addAttribute("notice", notice);
+		model.addAttribute("copyRight", copyRight);
+		model.addAttribute("faviconPng", faviconPng);
+		model.addAttribute("faviconIco", faviconIco);
 		if (userModel != null) {
-			String loginName=userModel.getEmpName();
+			String loginName = userModel.getEmpName();
 			model.addAttribute("loginName", loginName);
 			String id = request.getParameter("exp");
 			if (StringUtils.isNotEmpty(id)) {
@@ -197,6 +198,7 @@ public class ExpListController {
 				String egId = null;
 				String studentId = String.valueOf(SessionUtils.getUserInfo().getUserId());
 				model.addAttribute("studentId", studentId);
+				List<Map<String, Object>> expNodeList = getParams("experiment/QryExpServerNode", "eq_scheduleId", id);
 				List<Map<String, Object>> expScheduleList = getParams("experiment/QrySchedule", "eq_id", id);
 				model.addAttribute("expScheduleList", expScheduleList);
 				for (int i = 0; i < expScheduleList.size(); i++) {
@@ -215,8 +217,8 @@ public class ExpListController {
 				List<Map<String, Object>> expOperateList = getParams("experiment/QryOperateEnvironment", "eq_egId",
 						egId);
 				model.addAttribute("expOperateList", expOperateList);
-				List<Map<String, Object>> expDisList = getParams("experiment/QryExpDis", "eq_egId", egId);
-				model.addAttribute("expDisList", expDisList);
+				List<Map<String, Object>> expMirrorList = getParams("experiment/QryMirrorNewList", "eq_egId", egId);
+				model.addAttribute("expMirrorList", expMirrorList);
 				List<Map<String, Object>> expFileList = getParams("experiment/QryExpFile", "eq_egId", egId);
 				model.addAttribute("expFileList", expFileList);
 				List<Map<String, Object>> studentRecordList = getParams2("experiment/QryStuRecord", "eq_scheduleId", id,
@@ -238,24 +240,32 @@ public class ExpListController {
 		}
 
 	}
+
 	@RequestMapping("/experiment-processTest")
 	public String experimentProcessTest(Model model, HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		UserModel userModel = (UserModel) SessionUtils.getAttrbute(ConstantUtil.USER_INFO);
 		model.addAttribute("baseTitle", baseTitle);
-        model.addAttribute("loginImg", loginImg);
-        model.addAttribute("loginLogo", loginLogo);
-        model.addAttribute("notice", notice);
-        model.addAttribute("copyRight", copyRight);
-        model.addAttribute("faviconPng", faviconPng);
-        model.addAttribute("faviconIco", faviconIco);
+		model.addAttribute("loginImg", loginImg);
+		model.addAttribute("loginLogo", loginLogo);
+		model.addAttribute("notice", notice);
+		model.addAttribute("copyRight", copyRight);
+		model.addAttribute("faviconPng", faviconPng);
+		model.addAttribute("faviconIco", faviconIco);
+		log.info(userModel);
 		if (userModel != null) {
+			String loginName = userModel.getEmpName();
+			long userId = userModel.getUserId();
+			model.addAttribute("userId", userId);
+			model.addAttribute("loginName", loginName);
 			String id = request.getParameter("exp");
 			if (StringUtils.isNotEmpty(id)) {
 				model.addAttribute("expId", id);
 				String egId = null;
 				String studentId = String.valueOf(SessionUtils.getUserInfo().getUserId());
 				model.addAttribute("studentId", studentId);
+				List<Map<String, Object>> expNodeList = getParams("experiment/QryExpServerNode", "eq_scheduleId", id);
+				model.addAttribute("expNodeList",expNodeList);
 				List<Map<String, Object>> expScheduleList = getParams("experiment/QrySchedule", "eq_id", id);
 				model.addAttribute("expScheduleList", expScheduleList);
 				for (int i = 0; i < expScheduleList.size(); i++) {
@@ -274,8 +284,8 @@ public class ExpListController {
 				List<Map<String, Object>> expOperateList = getParams("experiment/QryOperateEnvironment", "eq_egId",
 						egId);
 				model.addAttribute("expOperateList", expOperateList);
-				List<Map<String, Object>> expDisList = getParams("experiment/QryExpDis", "eq_egId", egId);
-				model.addAttribute("expDisList", expDisList);
+				List<Map<String, Object>> expMirrorList = getParams("experiment/QryMirrorNewList", "eq_egId", egId);
+				model.addAttribute("expMirrorList", expMirrorList);
 				List<Map<String, Object>> expFileList = getParams("experiment/QryExpFile", "eq_egId", egId);
 				model.addAttribute("expFileList", expFileList);
 				List<Map<String, Object>> studentRecordList = getParams2("experiment/QryStuRecord", "eq_scheduleId", id,
@@ -295,22 +305,21 @@ public class ExpListController {
 		} else {
 			return "login";
 		}
-
 	}
 
 	@RequestMapping("/electronic-reporting-page")
 	public String electronicReportingPage(Model model, HttpServletRequest request) {
 		model.addAttribute("baseTitle", baseTitle);
-        model.addAttribute("loginImg", loginImg);
-        model.addAttribute("loginLogo", loginLogo);
-        model.addAttribute("notice", notice);
-        model.addAttribute("copyRight", copyRight);
-        model.addAttribute("faviconPng", faviconPng);
-        model.addAttribute("faviconIco", faviconIco);
+		model.addAttribute("loginImg", loginImg);
+		model.addAttribute("loginLogo", loginLogo);
+		model.addAttribute("notice", notice);
+		model.addAttribute("copyRight", copyRight);
+		model.addAttribute("faviconPng", faviconPng);
+		model.addAttribute("faviconIco", faviconIco);
 		ModelAndView modelAndView = new ModelAndView();
 		UserModel userModel = (UserModel) SessionUtils.getAttrbute(ConstantUtil.USER_INFO);
 		if (userModel != null) {
-			String loginName=userModel.getEmpName();
+			String loginName = userModel.getEmpName();
 			model.addAttribute("loginName", loginName);
 			String expId = request.getParameter("exp");
 			if (StringUtils.isNotEmpty(expId)) {
@@ -322,12 +331,12 @@ public class ExpListController {
 				List<Map<String, Object>> expScheduleList = getParams("experiment/QrySchedule", "eq_id", expId);
 				for (int i = 0; i < expScheduleList.size(); i++) {
 					egId = String.valueOf(expScheduleList.get(i).get("egId"));
-					for (Entry<String, Object> entry : expScheduleList.get(i).entrySet()) { 
+					for (Entry<String, Object> entry : expScheduleList.get(i).entrySet()) {
 //						  System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue()); 
-						  String replacebr=String.valueOf(entry.getValue());
-						  replacebr=replacebr.replace("\r\n", "<br>");
-						  expScheduleList.get(i).put(entry.getKey(), replacebr);
-						}
+						String replacebr = String.valueOf(entry.getValue());
+						replacebr = replacebr.replace("\r\n", "<br>");
+						expScheduleList.get(i).put(entry.getKey(), replacebr);
+					}
 				}
 				model.addAttribute("expScheduleList", expScheduleList);
 				List<Map<String, Object>> expSoftwareList = getParams("experiment/QryExpSoftware", "eq_egId", egId);
@@ -335,8 +344,8 @@ public class ExpListController {
 				List<Map<String, Object>> expOperateList = getParams("experiment/QryOperateEnvironment", "eq_egId",
 						egId);
 				model.addAttribute("expOperateList", expOperateList);
-				List<Map<String, Object>> expDisList = getParams("experiment/QryExpDis", "eq_egId", egId);
-				model.addAttribute("expDisList", expDisList);
+				List<Map<String, Object>> expMirrorList = getParams("experiment/QryMirrorNewList", "eq_egId", egId);
+				model.addAttribute("expMirrorList", expMirrorList);
 				List<Map<String, Object>> studentRecordList = getParams2("experiment/QryStuRecord", "eq_scheduleId",
 						expId, "eq_studentId", studentId);
 				log.info(studentRecordList);
@@ -361,16 +370,16 @@ public class ExpListController {
 	@RequestMapping("/evaluation-achievement")
 	public String evaluationAchievement(Model model, HttpServletRequest request) {
 		model.addAttribute("baseTitle", baseTitle);
-        model.addAttribute("loginImg", loginImg);
-        model.addAttribute("loginLogo", loginLogo);
-        model.addAttribute("notice", notice);
-        model.addAttribute("copyRight", copyRight);
-        model.addAttribute("faviconPng", faviconPng);
-        model.addAttribute("faviconIco", faviconIco);
+		model.addAttribute("loginImg", loginImg);
+		model.addAttribute("loginLogo", loginLogo);
+		model.addAttribute("notice", notice);
+		model.addAttribute("copyRight", copyRight);
+		model.addAttribute("faviconPng", faviconPng);
+		model.addAttribute("faviconIco", faviconIco);
 		ModelAndView modelAndView = new ModelAndView();
 		UserModel userModel = (UserModel) SessionUtils.getAttrbute(ConstantUtil.USER_INFO);
 		if (userModel != null) {
-			String loginName=userModel.getEmpName();
+			String loginName = userModel.getEmpName();
 			model.addAttribute("loginName", loginName);
 			String expId = request.getParameter("exp");
 			log.info(expId);

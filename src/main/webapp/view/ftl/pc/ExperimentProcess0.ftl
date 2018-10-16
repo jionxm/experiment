@@ -148,10 +148,10 @@
 
             <div class="environment-content" id="experimentContent">
                 <div class="environment-content-tab" id="environmentTabID">
-                    	<div class="environment-content-tab-title  cur_point posi1 selected">
+                    	 <div class="environment-content-tab-title  cur_point posi1 selected">
                         	<span class="icon-close"></span>虚拟机1
                     	</div>
-                    	<!-- <---123---> 
+                    	
                     	<!-- <div class="environment-content-tab-title  cur_point posi1">
                         	<span class="icon-close"></span>虚拟机2
                     	</div>
@@ -215,8 +215,8 @@
     	var detector
     	function check(){
     		if(key){
-    		$.get("http://104.223.1.65:50063/domain/check?key="+key[0],function(data,status){
-        	    //alert("Data: " + data + "\nStatus: " + status);
+    		$.get("http://172.164.10.167:8080/domain/check?key="+key[0],function(data,status){
+        	    console.log("Data: " + data + "\nStatus: " + status);
         	    data123=data;
         	    if(data.data[0][0].length==36){
         	    	uuid=data.data[0]
@@ -317,14 +317,15 @@
                 })
 
             });
-    		
+    		var height=820;
+    		var width = 325;
     		$("#environmentTabContainer").children().each(function(index,display){
                 console.log('initial virtual start:' + index);
             	
                 //这里填写实现了隧道的servlet的访问地址。也就是服务端隧道的访问地址。
                 guac[index] = new Guacamole.Client(
                     //new Guacamole.HTTPTunnel("tunnel")
-                    new Guacamole.HTTPTunnel("http://104.223.1.65:50063/console/tunnel/"+uuid[index])
+                    new Guacamole.HTTPTunnel("http://172.164.10.167:8080/console/tunnel/"+uuid[index]+"_"+width+"_"+height)
                     //new Guacamole.HTTPTunnel("http://10.7.11.35:8080/my-guacamole/tunnel"+index)
                 );
 
@@ -373,16 +374,38 @@
     	var key=[];
     	var uuid=[];
     	var data123=null;
+    	var serverInformationList ="[";
+    	<#list expNodeList as node>
+    		serverInformationList+="{emulator:'${node.emulator}',domainStoragePoolSrc:${node.domainStoragePoolSrc},hostname:'${node.ip}',port:'${node.port}',username:'${node.accountNumber}',password:'${node.password}',maxDomains:${node.maxDomains},maxMemory:${node.maxMemory},minDomains:${node.minDomains}}";
+    		<#if node_has_next>
+    			serverInformationList +=",";
+    		</#if>
+    	</#list>
+    	serverInformationList +="]";
+    	console.log("serverInformationList:"+serverInformationList);
+    	var experimentInformationList = "[";
+    	<#list expMirrorList as mirror>
+    		experimentInformationList+="{mirror:'${mirror.mirror}',mirrorUsername:'${mirror.mirrorUsername}',mirrorPassword:'${mirror.mirrorPassword}',cpu:${mirror.cpu},memory:${mirror.memory},hardDisk:${mirror.hardDisk}}";
+    		<#if mirror_has_next>
+    			experimentInformationList +=",";
+    		</#if>
+    	</#list>
+    	experimentInformationList += "]";
+    	var uid="${userId}";
+    	console.log(uid);
+    	var mirrorData="{user:{uid:"+uid+"},serverInformationList:"+serverInformationList+",experimentInformationList:"+experimentInformationList+"}"
+    	console.log(mirrorData);
     	function applyVir(){
     		$.ajax({ 
                 type:'post', 
-                url: "http://104.223.1.65:50063/domain/data", 
-                data: '{"user":{"uid":2},"serverInformationList":[{"emulator":"/usr/bin/qemu-system-x86_64","domainStoragePoolSrc":"/home/deepmind/libvirt-images/","hostname":"172.164.10.32","port":"16509","username":"deepmind","password":"deepmind","maxDomains":25,"maxMemory":16,"minDomains":0}],"experimentInformationList":[{"mirror":"base-centos-7.qcow2","mirrorUsername":"root","mirrorPassword":"root","cpu":1,"memory":512,"hardDisk":10},{"mirror":"base-centos-7.qcow2","mirrorUsername":"root","mirrorPassword":"root","cpu":1,"memory":512,"hardDisk":10}]}', 
+                url: "http://172.164.10.167:8080/domain/data", 
+                data: mirrorData, 
                 dataType:"json", 
                 async:false, 
                 contentType : 'application/json;charset=UTF-8',
                 success: function(res){ 
-                	key=res.data
+                	key=res.data;
+                	console.log(res);
                 } 
             }); 
         	
@@ -398,7 +421,7 @@
     		});
     		$.ajax({ 
                 type:'post', 
-                url: "http://104.223.1.65:50063/domain/disConnect", 
+                url: "http://172.164.10.167:8080/domain/disConnect", 
                 data: '{"domainUuid":"'+uuidnow+'"}', 
                 dataType:"json", 
                 async:false, 
@@ -412,7 +435,7 @@
     	function destroyUuid(){
     		$.ajax({ 
                 type:'post', 
-                url: "http://104.223.1.65:50063/domain/undefine/uuid", 
+                url: "http://172.164.10.167:8080/domain/undefine/uuid", 
                 data: '{"domainUuid":"'+uuidnow+'"}', 
                 dataType:"json", 
                 async:false, 
@@ -425,7 +448,7 @@
     	function destroyKey(){
     		$.ajax({ 
                 type:'post', 
-                url: "http://104.223.1.65:50063/domain/undefine", 
+                url: "http://172.164.10.167:8080/domain/undefine", 
                 data: '{"key":"'+key+'"}', 
                 dataType:"json", 
                 async:false, 
@@ -438,7 +461,7 @@
     	function reboot(){
     		$.ajax({ 
                 type:'post', 
-                url: "http://104.223.1.65:50063/domain/reboot", 
+                url: "http://172.164.10.167:8080/domain/reboot", 
                 data: '{"domainUuid":"'+uuidnow+'"}', 
                 dataType:"json", 
                 async:false, 
@@ -456,12 +479,12 @@
         	$("#b01").click(function(){
         		  $.ajax({
         			  type:'post', 
-        			  url:"http://104.223.1.65:50063/domain/undefine/all",
+        			  url:"http://172.164.10.167:8080/domain/undefine/all",
         			  data:'{"serverInformationList":[{"emulator":"/usr/bin/qemu-system-x86_64","domainStoragePoolSrc":"/home/deepmind/libvirt-images/","hostname":"172.164.10.32","port":"16509","username":"deepmind","password":"deepmind","maxDomains":25,"maxMemory":16,"minDomains":0}]}',
         			  dataType:"json", 
                       contentType : 'application/json;charset=UTF-8',
                       success: function(data){ 
-                      	alert(data)
+                      	alert(data.data)
                       } 
         			  });
         		 
