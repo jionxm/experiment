@@ -46,12 +46,6 @@
 				<control name="countDown" title="倒计时(小时)"
 					property="countDown" type="TextBox" edit="" required="" format=""
 					width="1" height="" column="4" />
-				<control name="beginAddress" title="IP起始地址"
-					property="beginAddress" type="TextBox" edit="" required=""
-					format="" width="1" height="" column="" />
-				<control name="endAddress" title="IP截止地址"
-					property="endAddress" type="TextBox" edit="" required="" format=""
-					width="1" height="" column="" />
 				<control name="createTime" title="创建时间"
 					property="createTime" type="TextBox" edit="N" required="N"
 					format="" width="1" height="1" column="" />
@@ -60,7 +54,7 @@
 					column="" />
 				<control name="createByName" title="创建人"
 					property="createByName" type="TextBox" edit="N" required="N"
-					format="" width="1" height="1" column="4" />
+					format="" width="1" height="1" column="" />
 				<control name="updateTime" title="最后修改时间"
 					property="updateTime" type="TextBox" edit="N" required="Y"
 					format="" target="CurrentTime()" width="1" height="1" column="" />

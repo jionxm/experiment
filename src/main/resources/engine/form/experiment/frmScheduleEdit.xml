@@ -37,12 +37,6 @@
 					type="DateBox" edit="Y" required="Y" format="" width="1" height=""
 					column="2" />
 
-				<control name="beginAddress" title="IP起始地址"
-					property="beginAddress" type="TextBox" edit="Y" required=""
-					format="" width="1" height="" column="" />
-				<control name="endAddress" title="IP截止地址"
-					property="endAddress" type="TextBox" edit="Y" required="" format=""
-					width="1" height="" column="2" />
 				<control name="countDown" title="倒计时(小时)"
 					property="countDown" type="TextBox" edit="Y" required="Y" format=""
 					width="1" height="" column="2" />
