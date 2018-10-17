@@ -212,13 +212,16 @@ public class ExpListController {
 					String count = DateUtils.getDateToStr(DateUtils.YYMMDD_HHMMSS_24, time);
 					exp.put("countDown", count);
 				}
+				log.info(egId);
 				List<Map<String, Object>> expSoftwareList = getParams("experiment/QryExpSoftware", "eq_egId", egId);
 				model.addAttribute("expSoftwareList", expSoftwareList);
 				List<Map<String, Object>> expOperateList = getParams("experiment/QryOperateEnvironment", "eq_egId",
 						egId);
 				model.addAttribute("expOperateList", expOperateList);
 				List<Map<String, Object>> expMirrorList = getParams("experiment/QryMirrorNewList", "eq_egId", egId);
+				log.info("expMirrorList-->"+expMirrorList);
 				model.addAttribute("expMirrorList", expMirrorList);
+				model.addAttribute("mirrorSize",expMirrorList.size());
 				List<Map<String, Object>> expFileList = getParams("experiment/QryExpFile", "eq_egId", egId);
 				model.addAttribute("expFileList", expFileList);
 				List<Map<String, Object>> studentRecordList = getParams2("experiment/QryStuRecord", "eq_scheduleId", id,

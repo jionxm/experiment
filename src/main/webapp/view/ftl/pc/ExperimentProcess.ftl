@@ -198,31 +198,26 @@
 
             <div class="environment-content" id="experimentContent">
                 <div class="environment-content-tab" id="environmentTabID">
-                    	<div class="environment-content-tab-title  cur_point posi1 selected" id="en1">
-                        	<span class="icon-close"></span>虚拟机1
+                		<#list expMirrorList as mirror>
+                    	<div class="environment-content-tab-title  cur_point posi1 <#if mirror_index==0>selected</#if>" id="en${mirror_index+1}">
+                        	<span class="icon-close"></span>虚拟机${mirror_index+1}
                     	</div>
-                    	<div class="environment-content-tab-title  cur_point posi1" id="en2">
-                        	<span class="icon-close"></span>虚拟机2
-                    	</div>
-                   		<div class="environment-content-tab-title cur_point posi1" id="en3">
-                        	<span class="icon-close"></span>虚拟机3
-                    	</div>
+                    	</#list>
                 </div>
                 <div class="virtual-container" id="environmentTabContainer">
-                    	<div class="virtual-item" id="em1" style="display: block;"></div>
-                    	<div class="virtual-item" id="em2" style="display: none;"></div>
-                    	<div class="virtual-item" id="em3" style="display: none;"></div>
+                		<#list expMirrorList as mirror>
+                    		<div class="virtual-item" id="em${mirror_index+1}" style="display: <#if mirror_index==0>block<#else>none</#if>;"></div>
+                    	</#list>
                 </div>
            	</div>
         </div>
             
         <div class="layout" id="layoutBox"></div>
-
         <!-- 开启虚拟机-弹窗  -->
         <div class="experiment-over-prompt" id="experimentPromptBox">
             <div class="experiment-over-prompt-bg"></div>
             <div class="icon-close-experiment-over" id="closeExperimentPromptBox"></div>
-            <div class="prompt">本次实验即将开启3个虚拟机</div>
+            <div class="prompt">本次实验即将开启${mirrorSize}个虚拟机</div>
             <button class="experiment-over-btnsure button-yellow" id="experimentPromptBtn">确 定</button>
         </div>
 		<!-- 倒计时时间弹框  -->
@@ -435,8 +430,15 @@
             })
 			//运行按钮
             $("#iconRunExperiment").click(function(){
-                $("#layoutBox").show();
-                $("#experimentPromptBox").show();
+             var mirrorSize = '${mirrorSize}';
+           		if(mirrorSize>0){
+ 					$("#layoutBox").show();
+                	$("#experimentPromptBox").show();
+		         }else{
+		         	console.log(mirrorSize);
+		         	Exp.showToast("请联系相关课程教师添加虚拟机！");
+		         }
+               
             })
             //结束实验
             $("#overTest").click(function(){
@@ -463,16 +465,18 @@
                 $("#runExperimentContent").hide();
                 $("#experimentContent").show();
             }) */
-             $("#experimentPromptBtn").click(function(){
-        	countTime();
-        	$("#layoutBox").hide();
-            $("#experimentPromptBox").hide();
-            $("#runExperimentContent").hide();
-            $("#experimentContent").show();
-            
-            $("#em1").show();
-          	$(".environment-content-tab-title").show();
-        }) 
+            $("#experimentPromptBtn").click(function(){
+                $("#layoutBox").hide();
+                $("#experimentPromptBox").hide();
+                $("#runExperimentContent").hide();
+                $("#experimentContent").show();
+
+                surplusNum = ${mirrorSize};
+                $("#em1").show();
+                $("#en1").addClass("selected");
+                $("#en1").siblings().removeClass("selected");
+                $(".environment-content-tab-title").show();
+            })
             
             //关闭虚拟机弹窗
             $("#closeExperimentPromptBox").click(function(){
@@ -481,10 +485,13 @@
             })			
             //关闭虚拟机-显示重启或关闭弹窗
             var xunijiId;
+            var surplusNum = ${mirrorSize};//关闭虚拟机后剩余的数量,n为总共开启虚拟机个数
             $("#environmentTabID .icon-close").click(function(){
                 $("#layoutBox").show();
                 $("#experimentVirtualBox").show();
-            	xunijiId = $(this).parent().attr("id");
+                
+                var a = $(this).parent().attr("id");
+                xunijiId = a.substring(2, 3);
             })
             //关闭-显示重启或关闭弹窗
             $("#closeExperimentVirtualBox").click(function(){
@@ -493,46 +500,54 @@
             })
             //关闭按钮--关闭虚拟机
             $("#closeVirtualBtn").click(function(){
-             console.log(xunijiId);
              $("#layoutBox").hide();
                 $("#experimentVirtualBox").hide();
-                $("#"+xunijiId).hide();
 
-                if(xunijiId == "en1"){
-                    $("#em1").hide();
-                    if($("#en2").is(":hidden") == false){
-                        $("#en2").addClass("selected");
-                        $("#em2").show();
-                    }else if($("#en3").is(":hidden") == false){
-                        $("#en3").addClass("selected");
-                        $("#em3").show();
+                var i = $("#en"+xunijiId).index();
+                if(surplusNum <= 1){
+                    $("#en"+xunijiId).hide();
+                    $("#em"+xunijiId).hide();
+                    $("#runExperimentContent").show();
+                    $("#experimentContent").hide();
+                }else if(surplusNum == 2){
+                    surplusNum--;
+                    $("#en"+xunijiId).hide();
+                    $("#em"+xunijiId).hide();
+                    if(xunijiId == 1){
+                        if($("#en2").is(":hidden") == false){
+                            $("#en2").addClass("selected");
+                            $("#em2").show();
+                        }else if($("#en3").is(":hidden") == false){
+                            $("#en3").addClass("selected");
+                            $("#em3").show();
+                        }
+                    }else if(xunijiId == 2){
+                        if($("#en3").is(":hidden") == false){
+                            $("#en3").addClass("selected");
+                            $("#em3").show();
+                        }else if($("#en1").is(":hidden") == false){
+                            $("#en1").addClass("selected");
+                            $("#em1").show();
+                        } 
                     }else {
-                        $("#runExperimentContent").show();
-                        $("#experimentContent").hide();
+                        if($("#en1").is(":hidden") == false){
+                            $("#en1").addClass("selected");
+                            $("#em1").show();
+                        }else if($("#en2").is(":hidden") == false){
+                            $("#en2").addClass("selected");
+                            $("#em2").show();
+                        }
                     }
-                }else if(xunijiId == "en2"){
-                    $("#em2").hide();
-                    if($("#en1").is(":hidden") == false){
+                }else if(surplusNum == 3){
+                    $("#en"+xunijiId).hide();
+                    $("#em"+xunijiId).hide();
+                    surplusNum--;
+                    if(i < 2){
+                        $("#en"+xunijiId).next().addClass("selected");
+                        $("#em"+xunijiId).next().show();
+                    }else {
                         $("#en1").addClass("selected");
                         $("#em1").show();
-                    }else if($("#en3").is(":hidden") == false){
-                        $("#en3").addClass("selected");
-                        $("#em3").show();
-                    }else {
-                        $("#runExperimentContent").show();
-                        $("#experimentContent").hide();
-                    }
-                }else {
-                    $("#em3").hide();
-                    if($("#en1").is(":hidden") == false){
-                        $("#en1").addClass("selected");
-                        $("#em1").show();
-                    }else if($("#en2").is(":hidden") == false){
-                        $("#en2").addClass("selected");
-                        $("#em2").show();
-                    }else {
-                        $("#runExperimentContent").show();
-                        $("#experimentContent").hide();
                     }
                 }
             })
