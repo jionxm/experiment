@@ -155,13 +155,11 @@
                 </iframe>
                 <!-- 加载中 -->
                 <div class="other-loading"id="isLoadingBox">
-                    <div class="loading-bg"></div>
-                    <div class="text">正在努力加载中...</div>
+                    <div class="loading-bg">正在努力加载中...</div>
                 </div>
              	<!-- 无网络 -->
                 <div class="other-loading dis_n" id="loadingBox">
-                    <div class="no-net-bg"></div>
-                    <div class="text">目前没有网络，请检查网络</div>
+                    <div class="no-net-bg">目前没有网络，请检查网络</div>
                 </div>
 
             </div>

@@ -169,6 +169,7 @@
 
 .experiment-opera {
     width: 100%;
+    height: 48px;
     margin-top: 56px;
     position: relative;
 }
@@ -405,27 +406,38 @@
     width: 100%;
     height: 100%;
     background: #fff;
-    position: absolute;
+    position: relative;
     z-index: 2;
 }
 
 .other-loading .loading-bg {
-    width: 100%;
-    height: 300px;
-    background: url(../image/bg_loading.png) no-repeat center center;
+    width: 260px;
+    height: 280px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -130px;
+    background: url(../image/bg_loading.png) no-repeat top center;
     background-size: 260px;
+    padding-top: 260px;
+    text-align: center;
+    color: #999;
+    font-size: 16px;
 }
 
 .other-loading .no-net-bg {
-    width: 100%;
-    height: 300px;
-    background: url(../image/bg_no_net.png) no-repeat center center;
+    width: 260px;
+    height: 280px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -130px;
+    background: url(../image/bg_no_net.png) no-repeat top center;
     background-size: 260px;
-}
-
-.other-loading .text {
+    padding-top: 260px;
+    text-align: center;
     color: #999;
     font-size: 16px;
-    margin-top: 32px;
-    text-align: center;
 }
