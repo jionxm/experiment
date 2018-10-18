@@ -74,12 +74,6 @@
                             <!--<div class="experiment-delete-resource"></div>-->
                         </li>
                     </ul>
-                     <#if !(studentRecord.grade)?if_exists>
-                      <div class="experiment-uploadfile-button">
-                                   		<span class="experiment-uploadfile-text">支持类型</span>
-                      </div>
-                      <div class="experiment-resource-download">jpg,jpeg,gif,png,bmp,xls,zip,pptx,py,ipynb,doc,docx</div>
-              		 </#if>
                  </div>
 				<#if !(studentRecord.grade)?if_exists>
                 <div class="experiment-opera">
