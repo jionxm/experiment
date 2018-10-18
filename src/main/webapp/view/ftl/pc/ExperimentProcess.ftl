@@ -75,7 +75,7 @@
                             <div class="segment-second-content" id="littleTabContent1">
                                 <#if m.reportTarget>
                                 <div class="header-title-2">实验需求</div>
-                                <div class="header-title-3">${m.reportTarget}</div>
+                                <div class="header-title-3">${m.reportDemand}</div>
                                 </#if>
                 
                                 <#if expSoftwareList>
