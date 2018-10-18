@@ -256,7 +256,7 @@
     <script>
         $(function(){
         	 var iframe = document.getElementById("jupyterIframe");
-        	 var iframeurl="http://39.105.110.193:8000/hub/login?username=jupyter"; 
+        	 var iframeurl="http://${iframeUrl}/hub/login?username=jupyter"; 
         	if(iframe){
              //iframe.src = "http://117.50.17.174:8000/hub/login?username=123"; 
               

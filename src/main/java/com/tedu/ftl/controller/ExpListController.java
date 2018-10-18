@@ -190,6 +190,12 @@ public class ExpListController {
 		model.addAttribute("faviconPng", faviconPng);
 		model.addAttribute("faviconIco", faviconIco);
 		if (userModel != null) {
+			Map<String, Object> iframe = new HashMap<>();
+			iframe.put("eq_code", "iframe");
+			iframe.put("eq_cataCode", "iframe.url");
+			List<Map<String, Object>> iframeList = getParam("experiment/QryIframeUrl", iframe);
+			log.info(iframeList+"-->"+iframeList.get(0).get("name"));
+			model.addAttribute("iframeUrl",iframeList.get(0).get("name"));
 			String loginName = userModel.getEmpName();
 			model.addAttribute("loginName", loginName);
 			String id = request.getParameter("exp");
@@ -199,6 +205,7 @@ public class ExpListController {
 				String studentId = String.valueOf(SessionUtils.getUserInfo().getUserId());
 				model.addAttribute("studentId", studentId);
 				List<Map<String, Object>> expNodeList = getParams("experiment/QryExpServerNode", "eq_scheduleId", id);
+				model.addAttribute("expNodeList",expNodeList);
 				List<Map<String, Object>> expScheduleList = getParams("experiment/QrySchedule", "eq_id", id);
 				model.addAttribute("expScheduleList", expScheduleList);
 				for (int i = 0; i < expScheduleList.size(); i++) {
