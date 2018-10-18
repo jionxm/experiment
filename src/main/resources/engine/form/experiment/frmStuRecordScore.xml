@@ -10,8 +10,6 @@
 				<control name="id" title="编号" property="id" type="Hidden" edit="" required="" format="" width="" height="" column="" />
 				<control name="grade" title="实验成绩 " property="grade" type="TextBox" edit="Y" required="Y" format="" width="1" height="1" column="1" />
 				<control name="comment" title="实验评价 " property="comment" type="TextBox" edit="Y" required="Y" format="" width="1" height="3" column="1" />
-				<control name="submit" title="提交状态" property="submit" type="Hidden" edit="Y" required="N" 
-						 target="1" format="" width="" height="" column=""  />
 			</panel>
 			<panel name="pButton" title="工具按钮" object="" type="Toolbar">
 				<control name="save" title="确认" property="" type="Button" edit="" required="" format="" width="" height="" column="2"/>
@@ -46,6 +44,7 @@
 		    <flow trigger="pButton.save" event="OnClick" filter="" >
 		      <procedure name="jssave"  logic="Save" ifyes="jsclose" ifno="">
 		        <param name="In" value="pForm"></param>
+		        <param name="Plugin" value="scorePlugin"></param>
 		        <param name="Msg" value="'评分成功'"></param>
 		      </procedure>
 		      <procedure name="jsclose" server="" logic="Close" ifyes="" ifno="">
