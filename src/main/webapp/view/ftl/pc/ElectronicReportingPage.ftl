@@ -63,7 +63,7 @@
                 <div>
                		 <#if !(studentRecord.grade)?if_exists>
                     <div class="experiment-uploadfile-button">
-                        <input class="input-uploadfile-button" type="file" accept="image/*" mutiple="mutiple" capture="exp" id="exp" onchange="readImg(this)" name="exp" />
+                        <input class="input-uploadfile-button" type="file" mutiple="mutiple" capture="exp" id="exp" onchange="readImg(this)" name="exp" />
                         <span class="experiment-uploadfile-text">选择文件</span>
                     </div>
                     </#if>

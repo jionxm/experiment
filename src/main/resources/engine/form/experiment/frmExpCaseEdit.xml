@@ -33,7 +33,7 @@
 				<control name="reportTarget" title="实验目标(报告)"
 					property="reportTarget" type="TextBox" edit="Y" required="Y"
 					format="" width="1" height="3" column="2" />
-				<control name="content" title="学前建议" property="content"
+				<control name="content" title="实验步骤" property="content"
 					type="TextBox" edit="Y" required="Y" format="" width="1" height="3"
 					column="" />
 				<control name="reportContent" title="实验步骤(报告)"

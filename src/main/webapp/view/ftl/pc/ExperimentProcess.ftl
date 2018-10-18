@@ -53,7 +53,7 @@
                             <div class="header-title-3">${m.target}</div>
                         </div>
                         <div style="margin-top: 20px;">
-                            <div class="header-title-1">学前建议</div>
+                            <div class="header-title-1">实验步骤</div>
                             <div class="header-title-3">${m.content}</div>
                         </div>
                          <div>
