@@ -123,7 +123,7 @@ public class SyncCourseController {
 		result.setMsg("同步成功！共同步了" + i + "个课程");
 		return result;
 	}
-
+	
 	public void save(String url, Map<String, Object> data) {
 		CustomFormModel customerModel = new CustomFormModel();
 		customerModel.setData(data);

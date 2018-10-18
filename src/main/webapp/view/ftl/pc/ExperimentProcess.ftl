@@ -154,12 +154,12 @@
                 <iframe width="100%" height="590" class="dis_n" style="border: 1px solid #368ae3" id="jupyterIframe" >
                 </iframe>
                 <!-- 加载中 -->
-                <div class="other-loading dis_n">
+                <div class="other-loading"id="isLoadingBox">
                     <div class="loading-bg"></div>
                     <div class="text">正在努力加载中...</div>
                 </div>
              	<!-- 无网络 -->
-                <div class="other-loading" id="loadingBox">
+                <div class="other-loading dis_n" id="loadingBox">
                     <div class="no-net-bg"></div>
                     <div class="text">目前没有网络，请检查网络</div>
                 </div>
@@ -255,7 +255,7 @@
         </div>
         </#if>
          <!-- 上传文件添加loading -->
-        <div class="upload-loading-box" id="loadingBox">
+        <div class="upload-loading-box" id="loadingFile">
             <div class="wait" id="loadingWait">正在上传，请稍后...</div>
             <div class="success" id="loadingSuccess">上传成功</div>
             <div class="error" id="loadingError">文件上传失败</div>
@@ -274,14 +274,16 @@
  					 type: 'GET',
   					complete: function(response) {
   						console.log(response.status);
-   						if(response.status == 200) {
-   							iframe.src = iframeurl; 
-    						iframe.onload = function(){ 
-                     			$("#loadingBox").addClass("dis_n");
-                     			$("#jupyterIframe").removeClass("dis_n");
-                 			}; 
-  						 } else {
-   						}
+   						 if(response.status == 200) {
+                        iframe.src = iframeurl; 
+                        iframe.onload = function(){ 
+                            $("#isLoadingBox").addClass("dis_n");//隐藏加载中
+                            $("#jupyterIframe").removeClass("dis_n");
+                        }; 
+                    } else {
+                        $("#isLoadingBox").addClass("dis_n");//隐藏加载中
+                        $("#loadingBox").removeClass("dis_n");//失败显示无服务
+                      }
   					}
  			});
              /*if (iframe.attachEvent){ 
@@ -691,7 +693,7 @@ $('#submit').click(function(){
 	})
 function settime(fileid,token){
 setTimeout(function(){
-	            $("#loadingBox").hide();
+	            $("#loadingFile").hide();
 	            $("#loadingWait").hide();
 	            $("#loadingSuccess").hide();
 	            $("#loadingError").hide();
@@ -709,13 +711,13 @@ setTimeout(function(){
 	    	console.log(data.data.fileId);
 	    		$("#fileName").html(fileName);
 				$("#fileId").val(data.data.fileId);
-				$("#loadingBox").show();
+				$("#loadingFile").show();
 					$("#loadingWait").hide();
 					$("#loadingSuccess").show();
 		    	//alert('上传成功');
 	    },
 	    error: function (data) {  
-	         $("#loadingBox").show();
+	         $("#loadingFile").show();
 			$("#loadingWait").hide();
 			$("#loadingError").show();
 	    }  
