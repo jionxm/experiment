@@ -270,6 +270,7 @@
                         iframe.onload = function(){ 
                             $("#isLoadingBox").addClass("dis_n");//隐藏加载中
                             $("#jupyterIframe").removeClass("dis_n");
+                            countTime();
                         }; 
                     } else {
                         $("#isLoadingBox").addClass("dis_n");//隐藏加载中
