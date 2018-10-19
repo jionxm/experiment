@@ -460,8 +460,8 @@
                 $("#experimentContent").show();
             }) */
             $("#experimentPromptBtn").click(function(){
-            	var overTest = document.getElementById("overTest");
-                overTest.style.display = "block";
+            	/*var overTest = document.getElementById("overTest");
+                overTest.style.display = "block";*/
             	countTime();
                 $("#layoutBox").hide();
                 $("#experimentPromptBox").hide();
