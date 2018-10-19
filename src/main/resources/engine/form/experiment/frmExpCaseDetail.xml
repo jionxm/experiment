@@ -108,7 +108,7 @@
 				<control name="hardDisk" title="硬盘(GB)" property="hardDisk"
 					type="TextBox" edit="" required="" format="" width="80" height=""
 					column="2" />
-				<control name="serverNum" title="服务器数量" property="serverNum"
+				<control name="serverNum" title="数量" property="serverNum"
 					type="TextBox" edit="Y" required="Y" format="" width="80" height=""
 					column="" />
 			</panel>
