@@ -139,7 +139,7 @@
 
             <div class="environment-top">
                 <span class="environment-head fl" id="environmentHead">实验环境</span>
-                <a href="javascript:volid(0);" class="stop-experiment fr" id="overTest">结束实验</a>
+                <a href="javascript:volid(0);" class="stop-experiment fr" id="overTest" >结束实验</a>
                 <div class="countdown fr" id="btnExperimentOver">倒计时：<span id="experimentOverTime">${expScheduleList[0].countDown1}</span></div>
             </div>
 			
@@ -180,7 +180,7 @@
             <div class="icon-show-left" id="showLeftContent"></div>
             <div class="environment-top">
                 <span class="environment-head fl">实验环境</span>
-                <a href="javascript:volid(0);" class="stop-experiment fr" id="overTest">结束实验</a>
+                <a href="javascript:volid(0);" class="stop-experiment fr" id="overTest" >结束实验</a>
                 <div class="countdown fr" id="btnExperimentOver">倒计时：<span id="experimentOverTime">${expScheduleList[0].countDown1}</span></div>
             </div>
             <div class="experiment-run" id="runExperimentContent">
@@ -450,15 +450,18 @@
             })
             //关闭虚拟机弹窗-显示虚拟机
            /*  $("#experimentPromptBtn").click(function(){
+           		var overTest = document.getElementById("overTest");
+                overTest.style.display = "block";
             	countTime();
                 $("#layoutBox").hide();
                 $("#experimentPromptBox").hide();
-                var overTest = document.getElementById("overTest");
-                overTest.style.display = "block";
                 $("#runExperimentContent").hide();
                 $("#experimentContent").show();
             }) */
             $("#experimentPromptBtn").click(function(){
+            	var overTest = document.getElementById("overTest");
+                overTest.style.display = "block";
+            	countTime();
                 $("#layoutBox").hide();
                 $("#experimentPromptBox").hide();
                 $("#runExperimentContent").hide();

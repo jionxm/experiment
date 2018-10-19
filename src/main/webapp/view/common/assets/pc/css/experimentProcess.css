@@ -234,7 +234,7 @@
 }
 
 .environment-top .stop-experiment {
-    display: block;
+    display: none;
     width: 115px;
     height: 27px;
     line-height: 27px;
