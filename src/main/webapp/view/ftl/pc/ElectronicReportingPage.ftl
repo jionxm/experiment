@@ -95,7 +95,12 @@
     <div class="exper-list-bg03"><img src="${ctx}/view/common/assets/pc/image/bg_list_03.png"/></div>
     </body>
 	<script>
-	
+		function isNull( str ){
+			if ( str == "" ) return true;
+			var regu = "^[ ]+$";
+			var re = new RegExp(regu);
+			return re.test(str);
+		}
 		$(function(){
 			$('#fileName').click(function(){
 				var fileId=$('#fileId').val();
@@ -127,7 +132,8 @@
 		var eq_scheduleId= '${expId}';
 		var fileId=$('#fileId').val();
 		var submit= "0";
-		if(fileName!=''&&stuResult!=''){
+		console.log(stuResult.length);
+		if(!isNull(fileName)&&!isNull(stuResult)){
 			ajaxPost(APIS.frmStudentRecord.save, 
 	   				 {
 	   				 	id: id,
@@ -176,7 +182,7 @@
 		console.log(eq_scheduleId);
 		var fileId=$('#fileId').val();
 		var submit= "1";
-		if(fileName!=''&&stuResult!=''){
+		if(!isNull(fileName)&&!isNull(stuResult)){
 			ajaxPost(APIS.frmStudentRecord.save, 
 	   				 {
 	   				 	id: id,
