@@ -31,6 +31,5 @@ FROM t_experiment_schedule l
 	left join t_employee emp on l.create_by=emp.id
 	left join t_employee empsec on l.update_by=empsec.id
 	left join t_exp_course course on l.course_id = course.id
-	where l.course_id = 0 and l.eg_id is not null
-	and DATE_ADD(l.end_time,INTERVAL 3 MONTH)>Date(CURDATE())
+	where  DATE_ADD(l.end_time,INTERVAL 3 MONTH)>Date(CURDATE())
  ) a 

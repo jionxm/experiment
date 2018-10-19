@@ -158,13 +158,13 @@ public class ExpListController {
 				Map<String, Object> map = null;
 				model.addAttribute("aiList", list);
 			}
-			list = getParams("experiment/QryScheduleOt", "1", "1");
+			/*list = getParams("experiment/QryScheduleOt", "1", "1");
 			if (!list.isEmpty() && list.size() > 0) {
 				model.addAttribute("otherList", list);
 			} else {
 				Map<String, Object> map = null;
 				model.addAttribute("otherList", list);
-			}
+			}*/
 			return "pc/ExperimentList";
 		} else {
 			model.addAttribute("baseTitle", baseTitle);
