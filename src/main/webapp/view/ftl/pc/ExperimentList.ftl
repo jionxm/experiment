@@ -35,7 +35,7 @@
 					<#list aiList2 as ai2>
 					<#if ai2.courseName==ai.courseName>
                     <li>
-                        <img class="text-image" src="${ctx}/localDownload?fileId=${ai2.picId?c}">
+                        <img class="text-image" src="${ctx}/localDownload?fileId=${(ai2.picId?c)!''}">
                         <div class="text-content">
                             <div class="text-top">
                                 <div class="text-title">${ai2.name}</div>
@@ -58,6 +58,7 @@
             </#if>
             </#list>
 			</#if>
+			
 			<#if aiList2>
             <div class="class-box">
                 <div class="tips"></div>
@@ -66,11 +67,11 @@
                 <h5></h5>
 				
                 <ul class="text-list clearfix">
-					<#list aiList2 as ai2>
+			<#list aiList2 as ai2>
 				<#if (ai2.courseName)??>
 				<#else>
                     <li>
-                        <img class="text-image" src="${ctx}/localDownload?fileId=${ai2.picId?c}">
+                        <img class="text-image" src="${ctx}/localDownload?fileId=${(ai2.picId?c)!''}">
                         <div class="text-content">
                             <div class="text-top">
                                 <div class="text-title">${ai2.name}</div>
@@ -92,6 +93,7 @@
                 </ul>
             </div>
 			</#if>
+			
         <script>
             $(function(){
                 $(".user-box").hover(function(){

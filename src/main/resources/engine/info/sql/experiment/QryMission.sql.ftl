@@ -1,11 +1,12 @@
- select * from (
+select * from (
 SELECT
 	l.id AS id,
 	l.name as name,
-	l.decision as decision,
+	case when isnull(l.decision) then '空' else l.decision end as decision,
 	l.start_time as startTime,
 	l.end_time as endTime,
 	l.executor,
+	case when l.end_time>now() then '已结束' else '进行中' end as stausName,
 	em.name as executorName,
 	l.server as server,
 	l.teacher_id as teacherId,

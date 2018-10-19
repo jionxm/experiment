@@ -22,10 +22,19 @@
 				<control name="decision" title="描述" property="decision"
 					type="TextBox" edit="" required="" format="" width="300" height=""
 					column="" />
-				<control name="createByName" title="创建人" property="createByName"
+				<!-- <control name="createByName" title="创建人" property="createByName"
+					type="TextBox" edit="" required="" format="" width="100" height=""
+					column="" /> -->
+				<control name="executorName" title="执行人" property="executorName"
 					type="TextBox" edit="" required="" format="" width="100" height=""
 					column="" />
-				<control name="createTime" title="创建时间" property="createTime"
+				<control name="stausName" title="状态" property="stausName"
+					type="TextBox" edit="" required="" format="" width="80" height=""
+					column="" />
+					<control name="startTime" title="开始时间" property="startTime"
+					type="TextBox" edit="" required="" format="" width="150" height=""
+					column="" />
+					<control name="endTime" title="结束时间" property="endTime"
 					type="TextBox" edit="" required="" format="" width="150" height=""
 					column="" />
 				<control name="ctlView" title="查看详情" property="" type="Link"

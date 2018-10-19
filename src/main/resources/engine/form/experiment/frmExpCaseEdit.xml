@@ -112,8 +112,8 @@
 				<control name="hardDisk" title="硬盘(GB)" property="hardDisk"
 					type="TextBox" edit="" required="" format="" width="80"
 					height="" column="2" />
-				<control name="serverNum" title="服务器数量" property="serverNum"
-					type="TextBox" edit="Y" required="Y" format="" width="80"
+				<control name="serverNum" title="数量" property="serverNum"
+					type="TextBox" edit="Y" required="" format="" width="80"
 					height="" column="" />
 				<control name="egId" title="experimentId" property="egId"
 					type="Hidden" edit="Y" required="" format="" width="" height=""
@@ -285,6 +285,7 @@
 					ifno="">
 					<param name="In"
 						value="pForm,meetDetail.egId,meetDis.egId,meetOperate.egId"></param>
+					<param name="Plugin" value="serverNumPlugin"></param>
 					<param name="Msg" value="'信息已被保存'"></param>
 				</procedure>
 				<procedure name="jsclose" server="" logic="Close" ifyes=""
