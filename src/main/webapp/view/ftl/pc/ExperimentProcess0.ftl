@@ -215,7 +215,7 @@
     	var detector
     	function check(){
     		if(key){
-    		$.get("http://172.164.10.167:8080/domain/check?key="+key[0],function(data,status){
+    		$.get("http://39.105.110.193:8080/domain/check?key="+key[0],function(data,status){
         	    console.log("Data: " + data + "\nStatus: " + status);
         	    data123=data;
         	    if(data.data[0][0].length==36){
@@ -325,7 +325,7 @@
                 //这里填写实现了隧道的servlet的访问地址。也就是服务端隧道的访问地址。
                 guac[index] = new Guacamole.Client(
                     //new Guacamole.HTTPTunnel("tunnel")
-                    new Guacamole.HTTPTunnel("http://172.164.10.167:8080/console/tunnel/"+uuid[index]+"_"+width+"_"+height)
+                    new Guacamole.HTTPTunnel("http://39.105.110.193:8080/console/tunnel/"+uuid[index]+"_"+width+"_"+height)
                     //new Guacamole.HTTPTunnel("http://10.7.11.35:8080/my-guacamole/tunnel"+index)
                 );
 
@@ -376,7 +376,7 @@
     	var data123=null;
     	var serverInformationList ="[";
     	<#list expNodeList as node>
-    		serverInformationList+="{emulator:'${node.emulator}',domainStoragePoolSrc:${node.domainStoragePoolSrc},hostname:'${node.ip}',port:'${node.port}',username:'${node.accountNumber}',password:'${node.password}',maxDomains:${node.maxDomains},maxMemory:${node.maxMemory},minDomains:${node.minDomains}}";
+    		serverInformationList+='{"emulator":"${node.emulator}","domainStoragePoolSrc":"${node.domainStoragePoolSrc}","hostname":"${node.ip}","port":"${node.port}","username":"${node.accountNumber}","password":"${node.password}","maxDomains":"${node.maxDomains}","maxMemory":"${node.maxMemory}","minDomains":"${node.minDomains}"}';
     		<#if node_has_next>
     			serverInformationList +=",";
     		</#if>
@@ -385,7 +385,7 @@
     	console.log("serverInformationList:"+serverInformationList);
     	var experimentInformationList = "[";
     	<#list expMirrorList as mirror>
-    		experimentInformationList+="{mirror:'${mirror.mirror}',mirrorUsername:'${mirror.mirrorUsername}',mirrorPassword:'${mirror.mirrorPassword}',cpu:${mirror.cpu},memory:${mirror.memory},hardDisk:${mirror.hardDisk}}";
+    		experimentInformationList+='{"mirror":"${mirror.mirror}","mirrorUsername":"${mirror.mirrorUsername}","mirrorPassword":"${mirror.mirrorPassword}","cpu":"${mirror.cpu}","memory":"${mirror.memory}","hardDisk":"${mirror.hardDisk}"}';
     		<#if mirror_has_next>
     			experimentInformationList +=",";
     		</#if>
@@ -393,12 +393,12 @@
     	experimentInformationList += "]";
     	var uid="${userId}";
     	console.log(uid);
-    	var mirrorData="{user:{uid:"+uid+"},serverInformationList:"+serverInformationList+",experimentInformationList:"+experimentInformationList+"}"
+    	var mirrorData='{"user":{"uid":'+uid+'},"serverInformationList":'+serverInformationList+',"experimentInformationList":'+experimentInformationList+'}';
     	console.log(mirrorData);
     	function applyVir(){
     		$.ajax({ 
                 type:'post', 
-                url: "http://172.164.10.167:8080/domain/data", 
+                url: "http://39.105.110.193:8080/domain/data", 
                 data: mirrorData, 
                 dataType:"json", 
                 async:false, 
@@ -421,7 +421,7 @@
     		});
     		$.ajax({ 
                 type:'post', 
-                url: "http://172.164.10.167:8080/domain/disConnect", 
+                url: "http://39.105.110.193:8080/domain/disConnect", 
                 data: '{"domainUuid":"'+uuidnow+'"}', 
                 dataType:"json", 
                 async:false, 
@@ -435,7 +435,7 @@
     	function destroyUuid(){
     		$.ajax({ 
                 type:'post', 
-                url: "http://172.164.10.167:8080/domain/undefine/uuid", 
+                url: "http://39.105.110.193:8080/domain/undefine/uuid", 
                 data: '{"domainUuid":"'+uuidnow+'"}', 
                 dataType:"json", 
                 async:false, 
@@ -448,7 +448,7 @@
     	function destroyKey(){
     		$.ajax({ 
                 type:'post', 
-                url: "http://172.164.10.167:8080/domain/undefine", 
+                url: "http://39.105.110.193:8080/domain/undefine", 
                 data: '{"key":"'+key+'"}', 
                 dataType:"json", 
                 async:false, 
@@ -461,7 +461,7 @@
     	function reboot(){
     		$.ajax({ 
                 type:'post', 
-                url: "http://172.164.10.167:8080/domain/reboot", 
+                url: "http://39.105.110.193:8080/domain/reboot", 
                 data: '{"domainUuid":"'+uuidnow+'"}', 
                 dataType:"json", 
                 async:false, 
@@ -479,8 +479,8 @@
         	$("#b01").click(function(){
         		  $.ajax({
         			  type:'post', 
-        			  url:"http://172.164.10.167:8080/domain/undefine/all",
-        			  data:'{"serverInformationList":[{"emulator":"/usr/bin/qemu-system-x86_64","domainStoragePoolSrc":"/home/deepmind/libvirt-images/","hostname":"172.164.10.32","port":"16509","username":"deepmind","password":"deepmind","maxDomains":25,"maxMemory":16,"minDomains":0}]}',
+        			  url:"http://39.105.110.193:8080/domain/undefine/all",
+        			  data:'{"serverInformationList":'+serverInformationList+'}',
         			  dataType:"json", 
                       contentType : 'application/json;charset=UTF-8',
                       success: function(data){ 
