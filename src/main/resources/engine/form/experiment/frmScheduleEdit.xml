@@ -11,7 +11,7 @@
 				<control name="name" title="实验课程名称" property="name"
 					type="TextBox" edit="Y" required="Y" format="" width="1" height=""
 					column="" />
-				<control name="courseName" title="专业课名称"
+				<control name="courseName" title="课程名称"
 					property="courseName" type="PopupBox" edit="Y" required=""
 					format="" width="1" height="" column="2" />
 				<control name="egName" title="实验案例名称" property="egName"
