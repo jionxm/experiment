@@ -425,8 +425,6 @@
       $("#environmentTabID").children().each(function(index,value){
         if($(this).hasClass('selected')){
           guac[index].disconnect()}
-        else 
-        	destroyKey();
       });
       $.ajax({ 
               type:'post', 
