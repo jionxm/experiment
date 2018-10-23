@@ -295,7 +295,8 @@
                   //获取当前选项卡uuid
                   $("#environmentTabID").children().each(function(index,value){
                 if($(this).hasClass('selected')){
-                  uuidnow=uuid[index]}
+                  uuidnow=uuid[index]
+                  tabindexid=index}
               });
               })
 
@@ -356,7 +357,7 @@
                         }else {
                             if(index === tabindexid){
                             	guac[index].sendKeyEvent(1, keysym);
-                            	console.log(123)
+                            	
                             }
                         } 
                         
