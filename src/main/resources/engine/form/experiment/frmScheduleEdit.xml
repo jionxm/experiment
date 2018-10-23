@@ -73,7 +73,7 @@
 					<param name="Sql" value="courseId" />
 					<param name="Out" value="pForm" />
 					<param name="Title" value="专业课选择" />
-					<param name="Columns" value="id,课程编号,eq_courseId|courseName,课程方向名称,courseName|versionName,班级名称,versionName|stageName,课程名称,stageName"/>
+					<param name="Columns" value="id,课程编号,eq_courseId|courseName,课程方向名称|versionName,班级名称|stageName,课程名称,courseName"/>
 					<param name="Options" value="$RESET,重置" />
 					<param name="Window" value="Medium" />
 				</procedure>
