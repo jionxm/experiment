@@ -9,7 +9,7 @@ SELECT
 	l.preset as preset,
 	case when preset='N' then '默认'
 		 when preset='Y' then '自有' end as presetName,
-	case when isnull(file.filename) then '' else file.filename end as fileName,
+	CONCAT((case when isnull(file.filename) then '' else file.filename end),'.',file.file_type) as fileName,
 	l.create_time as createTime,
 	l.create_by as createBy,
 	l.update_time as updateTime,
