@@ -189,14 +189,16 @@
 
             <div class="environment-content" id="experimentContent">
                 <div class="environment-content-tab" id="environmentTabID">
-                <div class="environment-content-tab-title  cur_point posi1 selected">
-                   <span class="icon-close"></span>虚拟机1
-               </div>
+                <#list expMirrorList as mirror>
+                    	<div class="environment-content-tab-title  cur_point posi1 <#if mirror_index==0>selected</#if>" id="en${mirror_index+1}">
+                        	<span class="icon-close"></span>虚拟机${mirror_index+1}
+                    	</div>
+                    	</#list>
                 </div>
                 <div class="virtual-container" id="environmentTabContainer">
-                		
+                		<#list expMirrorList as mirror>
                     		<div class="virtual-item" id="em${mirror_index+1}" style="display: <#if mirror_index==0>block<#else>none</#if>;"></div>
-                    	
+                    	</#list>
                 </div>
            	</div>
         </div>
@@ -272,14 +274,14 @@
     
     function openvir(){
       
-      var count
+      /*var count
       $.each(uuid,function(index,value){
         if(index){
           $("#environmentTabContainer").append('<div class="virtual-item" style="display: none;height:0px"></div>')
           count=index+1
           $("#environmentTabID").append('<div class="environment-content-tab-title  cur_point posi1"><span class="icon-close"></span>虚拟机'+count+'</div>')
         }
-      });  
+      });*/  
       
       
       /*虚拟机的选项卡*/
@@ -409,8 +411,9 @@
                 //console.log(res);
               } 
           }); 
-        
+      
         detector=setInterval('check()',5000);
+        
     }
     //断开虚拟机
     var uuidnow;
@@ -419,6 +422,8 @@
       $("#environmentTabID").children().each(function(index,value){
         if($(this).hasClass('selected')){
           guac[index].disconnect()}
+        else 
+        	destroyKey();
       });
       $.ajax({ 
               type:'post', 
