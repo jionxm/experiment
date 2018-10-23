@@ -189,16 +189,14 @@
 
             <div class="environment-content" id="experimentContent">
                 <div class="environment-content-tab" id="environmentTabID">
-                		<#list expMirrorList as mirror>
-                    	<div class="environment-content-tab-title  cur_point posi1 <#if mirror_index==0>selected</#if>" id="en${mirror_index+1}">
-                        	<span class="icon-close"></span>虚拟机${mirror_index+1}
-                    	</div>
-                    	</#list>
+                <div class="environment-content-tab-title  cur_point posi1 selected">
+                   <span class="icon-close"></span>虚拟机1
+               </div>
                 </div>
                 <div class="virtual-container" id="environmentTabContainer">
-                		<#list expMirrorList as mirror>
+                		
                     		<div class="virtual-item" id="em${mirror_index+1}" style="display: <#if mirror_index==0>block<#else>none</#if>;"></div>
-                    	</#list>
+                    	
                 </div>
            	</div>
         </div>
@@ -208,7 +206,7 @@
         <div class="experiment-over-prompt" id="experimentPromptBox">
             <div class="experiment-over-prompt-bg"></div>
             <div class="icon-close-experiment-over" id="closeExperimentPromptBox"></div>
-            <div class="prompt">本次实验即将开启${mirrorSize}个虚拟机</div>
+            <div class="prompt"  id="number">等待获取到虚拟机</div>
             <button class="experiment-over-btnsure button-yellow" id="experimentPromptBtn">确 定</button>
         </div>
 		<!-- 倒计时时间弹框  -->
@@ -254,7 +252,236 @@
         <input id="record" value="${(studentRecord.id?c)!''}" type="hidden"/>
     </div>
     <script>
+    //虚拟机
+    var detector
+    function check(){
+      if(key){
+      $.get("http://39.105.110.193:8080/domain/check?key="+key[0],function(data,status){
+            console.log("Data: " + data + "\nStatus: " + status);
+            data123=data;
+            if(data.data[0][0].length==36){
+              uuid=data.data[0]
+              $("#number").html("本次实验即将开启"+uuid.length+"个虚拟机")
+              
+              clearInterval(detector)
+              openvir()
+            }
+          });
+      }else{clearInterval(detector)}
+    }
+    
+    function openvir(){
+      
+      var count
+      $.each(uuid,function(index,value){
+        if(index){
+          $("#environmentTabContainer").append('<div class="virtual-item" style="display: none;height:0px"></div>')
+          count=index+1
+          $("#environmentTabID").append('<div class="environment-content-tab-title  cur_point posi1"><span class="icon-close"></span>虚拟机'+count+'</div>')
+        }
+      });  
+      
+      
+      /*虚拟机的选项卡*/
+          $("#environmentTabID").children().each(function(index,value){
+              $(value).click(function(){
+                  $(this).siblings().removeClass("selected");
+                  $(this).addClass("selected");
+                  
+                  
+                  var display = $(".virtual-item")[index];
+                  $(display).show();
+                  $(display).siblings().hide();
+                  //获取当前选项卡uuid
+                  $("#environmentTabID").children().each(function(index,value){
+                if($(this).hasClass('selected')){
+                  uuidnow=uuid[index]}
+              });
+              })
+
+          });
+          var tabindexid = 0;
+            	var height=820;
+        		var width = 325;
+        		$("#environmentTabContainer").children().each(function(index,display){
+                    console.log('initial virtual start:' + index);
+                	
+                    //这里填写实现了隧道的servlet的访问地址。也就是服务端隧道的访问地址。
+                    guac[index] = new Guacamole.Client(
+                        //new Guacamole.HTTPTunnel("tunnel")
+                        new Guacamole.HTTPTunnel("http://39.105.110.193:8080/console/tunnel/"+uuid[index]+"_"+width+"_"+height)
+                        //new Guacamole.HTTPTunnel("http://10.7.11.35:8080/my-guacamole/tunnel"+index)
+                    );
+    
+                    // 将显示虚拟机的节点添加到页面上
+                    display.appendChild(guac[index].getDisplay().getElement());
+    
+                    // 错误处理的回调接口
+                    guac[index].onerror = function(error) {
+                        //alert(error);
+                    };
+    
+                    // 上边完毕后，执行连接操作。
+                    guac[index].connect();
+    
+                    // 当关闭后要执行的操作放在这里
+                    window.onunload = function() {
+                    	guac[index].disconnect();
+                    	destroyKey();
+                    }
+    
+                    // 以下是对鼠标的配置，无特殊情况不可更改
+                    var mouse = new Guacamole.Mouse(guac[index].getDisplay().getElement());
+    
+                    mouse.onmousedown = 
+                    mouse.onmouseup   =
+                    mouse.onmousemove = function(mouseState) {
+                    	guac[index].sendMouseState(mouseState);
+                    };
+    
+                    
+                    	
+                 // 以下是对键盘的处理，无特殊情况不可更改
+                    var keyboard = new Guacamole.Keyboard(document);
+    
+                    keyboard.onkeydown = function (keysym) {
+                        //console.log("输入内容:" + keysym);
+                        if(document.activeElement.id=='result'){
+                        	if(index == 0){
+                                keysym = String.fromCharCode(keysym);
+                                var hasVal = $("#result").val();
+                                $("#result").val(hasVal + keysym);
+                            }
+                            return ;
+                        }else {
+                            if(index === tabindexid){
+                            	guac[index].sendKeyEvent(1, keysym);
+                            	console.log(123)
+                            }
+                        } 
+                        
+                    };
+    
+                    keyboard.onkeyup = function (keysym) {
+                        if(index === tabindexid){
+                        	guac[index].sendKeyEvent(0, keysym);
+                        }
+                    };
+                    //console.log('initial virtual end:' + index);
+                })
+    }
+    //申请虚拟资源
+    var key=[];
+    var uuid=[];
+    var data123=null;
+    var serverInformationList ="[";
+    <#list expNodeList as node>
+      serverInformationList+='{"emulator":"${node.emulator}","domainStoragePoolSrc":"${node.domainStoragePoolSrc}","hostname":"${node.ip}","port":"${node.port}","username":"${node.accountNumber}","password":"${node.password}","maxDomains":"${node.maxDomains}","maxMemory":"${node.maxMemory}","minDomains":"${node.minDomains}"}';
+      <#if node_has_next>
+        serverInformationList +=",";
+      </#if>
+    </#list>
+    serverInformationList +="]";
+    //console.log("serverInformationList:"+serverInformationList);
+    var experimentInformationList = "[";
+    <#list expMirrorList as mirror>
+      experimentInformationList+='{"mirror":"${mirror.mirror}","mirrorUsername":"${mirror.mirrorUsername}","mirrorPassword":"${mirror.mirrorPassword}","cpu":"${mirror.cpu}","memory":"${mirror.memory}","hardDisk":"${mirror.hardDisk}"}';
+      <#if mirror_has_next>
+        experimentInformationList +=",";
+      </#if>
+    </#list>
+    experimentInformationList += "]";
+    var uid="${userId}";
+    console.log(uid);
+    var mirrorData='{"user":{"uid":'+uid+'},"serverInformationList":'+serverInformationList+',"experimentInformationList":'+experimentInformationList+'}';
+    //console.log(mirrorData);
+    function applyVir(){
+      $.ajax({ 
+              type:'post', 
+              url: "http://39.105.110.193:8080/domain/data", 
+              data: mirrorData, 
+              dataType:"json", 
+              async:false, 
+              contentType : 'application/json;charset=UTF-8',
+              success: function(res){ 
+                key=res.data;
+                //console.log(res);
+              } 
+          }); 
+        
+        detector=setInterval('check()',5000);
+    }
+    //断开虚拟机
+    var uuidnow;
+    var guac=[];
+    function disConnect(){
+      $("#environmentTabID").children().each(function(index,value){
+        if($(this).hasClass('selected')){
+          guac[index].disconnect()}
+      });
+      $.ajax({ 
+              type:'post', 
+              url: "http://39.105.110.193:8080/domain/disConnect", 
+              data: '{"domainUuid":"'+uuidnow+'"}', 
+              dataType:"json", 
+              async:false, 
+              contentType : 'application/json;charset=UTF-8',
+              success: function(res){ 
+                
+              } 
+          });
+    }
+    //销毁虚拟机
+    function destroyUuid(){
+      $.ajax({ 
+              type:'post', 
+              url: "http://39.105.110.193:8080/domain/undefine/uuid", 
+              data: '{"domainUuid":"'+uuidnow+'"}', 
+              dataType:"json", 
+              async:false, 
+              contentType : 'application/json;charset=UTF-8',
+              success: function(res){ 
+                
+              } 
+          });
+    }
+    function destroyKey(){
+      $.ajax({ 
+              type:'post', 
+              url: "http://39.105.110.193:8080/domain/undefine", 
+              data: '{"key":"'+key[0]+'"}', 
+              dataType:"json", 
+              async:false, 
+              contentType : 'application/json;charset=UTF-8',
+              success: function(res){ 
+                
+              } 
+          });
+    }
+    function reboot(){
+      $.ajax({ 
+              type:'post', 
+              url: "http://39.105.110.193:8080/domain/reboot", 
+              data: '{"domainUuid":"'+uuidnow+'"}', 
+              dataType:"json", 
+              async:false, 
+              contentType : 'application/json;charset=UTF-8',
+              success: function(res){ 
+                
+              } 
+          });
+    }
+    
         $(function(){
+          //$("#closeVirtualBtn").click(function(){disConnect()});
+        
+          $("#restartVirtualBtn").click(function(){
+        	  $("#layoutBox").hide();
+              $("#experimentVirtualBox").hide();
+        	  reboot()
+        	  });
+          
+        
         	 var iframe = document.getElementById("jupyterIframe");
         	 var iframeurl="http://${iframeUrl}/hub/login?username=jupyter"; 
         	if(iframe){
@@ -264,7 +491,7 @@
   					url: iframeurl,
  					 type: 'GET',
   					complete: function(response) {
-  						console.log(response.status);
+  						//console.log(response.status);
    						 if(response.status == 200) {
                         iframe.src = iframeurl; 
                         iframe.onload = function(){ 
@@ -301,85 +528,9 @@
 				var fileId=$('#fileId').val();
 				window.location.href="${ctx}/localDownload?fileId="+fileId;
 			})
-			var tabindexid = 0;
-			$("#environmentTabContainer").children().each(function(index,display){
-                //console.log('initial virtual start:' + index);
+		
             
-                //这里填写实现了隧道的servlet的访问地址。也就是服务端隧道的访问地址。
-                var guac = new Guacamole.Client(
-                    //new Guacamole.HTTPTunnel("tunnel")
-                    new Guacamole.HTTPTunnel("http://aise.tmooc.cn:8080/my-guacamole/tunnel"+index)
-                    //new Guacamole.HTTPTunnel("http://10.7.11.35:8080/my-guacamole/tunnel"+index)
-                );
 
-                // 将显示虚拟机的节点添加到页面上
-                display.appendChild(guac.getDisplay().getElement());
-
-                // 错误处理的回调接口
-                guac.onerror = function(error) {
-                    //alert(error);
-                };
-
-                // 上边完毕后，执行连接操作。
-                guac.connect();
-
-                // 当关闭后要执行的操作放在这里
-                window.onunload = function() {
-                    guac.disconnect();
-                }
-
-                // 以下是对鼠标的配置，无特殊情况不可更改
-                var mouse = new Guacamole.Mouse(guac.getDisplay().getElement());
-
-                mouse.onmousedown = 
-                mouse.onmouseup   =
-                mouse.onmousemove = function(mouseState) {
-                    guac.sendMouseState(mouseState);
-                };
-
-                
-                	
-             // 以下是对键盘的处理，无特殊情况不可更改
-                var keyboard = new Guacamole.Keyboard(document);
-
-                keyboard.onkeydown = function (keysym) {
-                    //console.log("输入内容:" + keysym);
-                    if(document.activeElement.id=='result'){
-                    	if(index == 0){
-                            keysym = String.fromCharCode(keysym);
-                            var hasVal = $("#result").val();
-                            $("#result").val(hasVal + keysym);
-                        }
-                        return ;
-                    }else {
-                        if(index === tabindexid){
-                           guac.sendKeyEvent(1, keysym);
-                        }
-                    } 
-                    
-                };
-
-                keyboard.onkeyup = function (keysym) {
-                    if(index === tabindexid){
-                        guac.sendKeyEvent(0, keysym);
-                    }
-                };
-                //console.log('initial virtual end:' + index);
-            })
-
-            /*虚拟机的选项卡*/
-            $("#environmentTabID").children().each(function(index,value){
-                $(value).click(function(){
-                	tabindexid = index;
-                    $(this).siblings().removeClass("selected");
-                    $(this).addClass("selected");
-                    
-                    var display = $(".virtual-item")[index];
-                    $(display).show();
-                    $(display).siblings().hide();
-                })
-
-            });
             getHeight();
             /*左侧大tab切换*/
             $("#tabTitle1").click(function(){
@@ -424,12 +575,13 @@
             })
 			//运行按钮
             $("#iconRunExperiment").click(function(){
+            applyVir()
              var mirrorSize = '${mirrorSize}';
            		if(mirrorSize>0){
  					$("#layoutBox").show();
                 	$("#experimentPromptBox").show();
 		         }else{
-		         	console.log(mirrorSize);
+		         	//console.log(mirrorSize);
 		         	Exp.showToast("请联系相关课程教师添加虚拟机！");
 		         }
                
@@ -488,7 +640,7 @@
                 $("#experimentVirtualBox").show();
                 
                 var a = $(this).parent().attr("id");
-                xunijiId = a.substring(2, 3);
+                xunijiId = a.substring(2,3);
             })
             //关闭-显示重启或关闭弹窗
             $("#closeExperimentVirtualBox").click(function(){
@@ -499,6 +651,7 @@
             $("#closeVirtualBtn").click(function(){
              $("#layoutBox").hide();
                 $("#experimentVirtualBox").hide();
+                disConnect()
 
                 var i = $("#en"+xunijiId).index();
                 if(surplusNum <= 1){
@@ -550,6 +703,7 @@
             })
             //确定按钮--结束实验
             $("#overTestYesBtn").click(function(){
+            	disConnect()
             	window.location.href="${ctx}/experiment-list";
             })
             //确定按钮--离开实验
@@ -568,7 +722,7 @@
             })
           //显示实验总倒计时时间
             var allTime = "${expScheduleList[0].countDown1}"*60*60*1000;
-            console.log(allTime);
+            //console.log(allTime);
             
             if(allTime >= 0){
                d = Math.floor(allTime/1000/60/60/24);
@@ -585,7 +739,7 @@
         
         function getHeight(){
             var iframeHeight = window.innerHeight;
-            console.log(iframeHeight);
+            //console.log(iframeHeight);
             $("#tabContent1").css("height", iframeHeight-160);
             $("#tabContent2").css("height", iframeHeight-160);
             $(".virtual-item").css("height", iframeHeight-160);
@@ -598,7 +752,7 @@
 $('#save').click(function(){
 		var id=$("#record").val();
 	    var Mode;
-	    console.log(id);
+	    //console.log(id);
 	    if(id==null||id=='undefine'||id==''){
 	    	Mode='Add';
 	    	}else{
@@ -608,9 +762,9 @@ $('#save').click(function(){
 		var studentId="${studentId}";
 		var studentName="mz";
 		var fileName = $("#fileName").html();
-		console.log(fileName);
+		//console.log(fileName);
 		var eq_scheduleId= '${expId}';
-		console.log(eq_scheduleId);
+		//console.log(eq_scheduleId);
 		var fileId=$('#fileId').val();
 		var submit= "0";
 		if(fileName!=''&&stuResult!=''){
@@ -626,7 +780,7 @@ $('#save').click(function(){
 						fileId: fileId,
 						submit: submit
 	    			 }, function(data) {
-    	    			console.log("保存返回数据："+data);
+    	    			//console.log("保存返回数据："+data);
     	    			if(data.code==0){
     	    				$("#record").val(data.data.id);
     	    				Exp.showToast("保存成功!");
@@ -652,9 +806,9 @@ $('#submit').click(function(){
 		var studentId="${studentId}";
 		var studentName="mz";
 		var fileName = $("#fileName").html();
-		console.log("fileName-->"+fileName);
+		//console.log("fileName-->"+fileName);
 		var eq_scheduleId= '${expId}';
-		console.log(eq_scheduleId);
+		//console.log(eq_scheduleId);
 		var fileId=$('#fileId').val();
 		var submit= "1";
 		if(fileName!=''&&stuResult!=''){
@@ -671,7 +825,7 @@ $('#submit').click(function(){
 						submit: submit
 
 	    			 }, function(data) {
-    	    			console.log(data);
+    	    			//console.log(data);
     	    			if(data.code==0){
     	    				$("#record").val(data.data.id);
     	    				Exp.showToast("提交成功");
@@ -693,7 +847,7 @@ setTimeout(function(){
 	            $("#loadingSuccess").hide();
 	            $("#loadingError").hide();
         	  }, 5000);
-	console.log(token);
+	//console.log(token);
 	$.ajaxFileUpload({  
 	    url:'${ctx}/localUpload?token='+token,  
 	    data:{accessType:"public",allowFile:"jpg,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xls",maxSize:"9999999",uploadUrl:""},
@@ -702,8 +856,8 @@ setTimeout(function(){
 	    dataType: 'json',//返回数据的类型   
 	    success: function (data) {
 	    	var fileName = data.data.filename;
-	    	console.log("fileName"+fileName);
-	    	console.log(data.data.fileId);
+	    	//console.log("fileName"+fileName);
+	    	//console.log(data.data.fileId);
 	    		$("#fileName").html(fileName);
 				$("#fileId").val(data.data.fileId);
 				$("#loadingFile").show();
@@ -725,26 +879,26 @@ function uploadFile(file){
 	var tokenKey = 'OnClick_pForm_fileName_frmStudentRecord_fileUpload';
 	var uiName = "frmStudentRecord";
 	var fileid = file.id;
-	console.log(file.id);
+	//console.log(file.id);
 	$.ajax({
 	      type: 'GET',
 	      url:  API_PROXY + '/ui/' + uiName + '/app',
 	      success: function(data) {
-	      	console.log(data);
+	      	//console.log(data);
 	        if (data && data.token && data.token.items) {
 	          var token = data.token.items[tokenKey];
 	          if (token) {
-	            console.log(token);
+	            //console.log(token);
 	            settime(fileid,token);
 	          } else {
-	            console.log('------------------------token的UiName配置错误-------------------');
+	            //console.log('------------------------token的UiName配置错误-------------------');
 	          }
 	        } else {
-	          console.log('------------------------token列表获取失败-----------------------');
+	          //console.log('------------------------token列表获取失败-----------------------');
 	        }
 	      }
 	    });
-	console.log(token);
+	//console.log(token);
 }
  var date = new Date();
  var seperator1 = "-";
@@ -762,7 +916,7 @@ function uploadFile(file){
        //提价时间
  var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +" "+ h + ":" + m + ":" + s; 
  
- console.log(currentdate);
+ //console.log(currentdate);
 
 function readImg(file) {
 	debugger
@@ -780,13 +934,13 @@ function readImg(file) {
 var restTime = "${expScheduleList[0].countDown1}"*60*60*1000;
 /* 倒计时 **/
 function countTime(){
-	console.log(restTime);
+	//console.log(restTime);
         
 	var d, h, m, s;
 	
 	if(Math.floor(restTime/1000) == 300){
 		$("#stopTimeBox").show();
-		console.log("时间弹框");
+		//console.log("时间弹框");
 	}
 	
 	if(Math.floor(restTime/1000) == 0){

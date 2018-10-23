@@ -190,6 +190,8 @@ public class ExpListController {
 		model.addAttribute("faviconPng", faviconPng);
 		model.addAttribute("faviconIco", faviconIco);
 		if (userModel != null) {
+			long userId = userModel.getUserId();
+			model.addAttribute("userId", userId);
 			Map<String, Object> iframe = new HashMap<>();
 			iframe.put("eq_code", "iframe");
 			iframe.put("eq_cataCode", "iframe.url");
