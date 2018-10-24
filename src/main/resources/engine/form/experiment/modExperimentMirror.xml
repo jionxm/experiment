@@ -21,8 +21,6 @@
 				field="" />
 			<property name="hardDisk" type="Long" length="20" initial=""
 				field="" />
-			<property name="serverNum" type="String" length="50"
-				field="mirror_num" />
 			<property name="egId" type="Long" length="10" initial=""
 				field="eg_id" />
 		</object>

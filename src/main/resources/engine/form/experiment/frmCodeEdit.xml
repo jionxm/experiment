@@ -96,6 +96,7 @@
 					<param name="Type" value="jpg,txt,mp4,md,pdf,jpeg,gif,png,bmp"></param>
 					<param name="Bucket" value="public"></param>
 					<param name="Out" value="pForm.ctlfileId"></param>
+					<param name="Module" value="experiment"></param>
 				</procedure>
 			</flow>
 

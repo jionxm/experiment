@@ -7,7 +7,9 @@ function getUiName(key, data, kName) {
       }
       var result = this.getUiName(key, item, k);
       if (result) {
+    	  console.log("result-->result"+result);
         return result;
+        
       }
     }
   }
@@ -41,7 +43,8 @@ function getToken(tokenKey, cb) {
     $.ajax({
       type: 'GET',
       url:  API_PROXY + '/ui/' + uiName + '/app',
-      success: function(data) {;
+      success: function(data) {
+    	  console.log(data);
         if (data && data.token && data.token.items) {
           var token = data.token.items[tokenKey];
           if (token) {
@@ -60,6 +63,7 @@ function getToken(tokenKey, cb) {
 }
 
 function ajaxRequest(type, api, data, success, error) {
+debugger
   var token = '';
   var url = api.url;
  //console.log(url);
@@ -82,7 +86,9 @@ function ajaxRequest(type, api, data, success, error) {
         data: data
         
       }),
-      success: success,
+      success: function(data) {
+    	  console.log(data);
+      },
       error: error || function(e) {
          
       }
@@ -96,6 +102,7 @@ var ajaxPost = function(api,data,success, error) {
 	//console.log(data);
 	//console.log(success);
 	//console.log(error); 
+	debugger
   ajaxRequest('POST', api, data, success, error);
  
 };

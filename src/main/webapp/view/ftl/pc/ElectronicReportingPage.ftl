@@ -128,7 +128,7 @@
 		var studentId="${studentId}";
 		console.log(studentId);
 		var studentName="mz";
-		var fileName = $("#fileName").html();
+		var fileName = '111';
 		var eq_scheduleId= '${expId}';
 		var fileId=$('#fileId').val();
 		var submit= "0";

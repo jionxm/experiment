@@ -38,6 +38,7 @@
 					<param name="Type" value="jpg,txt,mp4,md,pdf,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xlsx,xls,ppt"></param>
 					<param name="Bucket" value="public"></param>
 					<param name="Out" value="pForm.fileId"></param>
+					<param name="Module" value="experiment"></param>
 				</procedure>
 			</flow>
 			

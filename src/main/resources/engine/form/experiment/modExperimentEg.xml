@@ -11,8 +11,6 @@
 			<property name="egId" type="Long" length="10" initial=""
 				field="" />
 			<property name="name" type="String" length="50" field="name" />
-			<property name="serverNum" type="String" length="50"
-				field="server_num" />
 			<property name="demand" type="String" length="500"
 				field="demand" />
 			<property name="target" type="String" length="500"

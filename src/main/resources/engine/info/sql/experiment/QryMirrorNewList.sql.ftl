@@ -8,8 +8,7 @@ SELECT
 	l.mirror_password as mirrorPassword,
 	l.cpu as cpu,
 	l.memory as memory,
-	l.hard_disk as hardDisk,
-	a.mirror_num as serverNum
+	l.hard_disk as hardDisk
 FROM t_experiment_mirror a
 LEFT JOIN t_mirror l ON a.mirror_id = l.id
  ) b

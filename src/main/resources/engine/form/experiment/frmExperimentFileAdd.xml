@@ -43,6 +43,7 @@
 						value="jpg,txt,mp4,md,pdf,jpeg,gif,png,bmp,xls,xlsx,doc,docx,ppt,pptx,py,ipynb"></param>
 					<param name="Bucket" value="public"></param>
 					<param name="Out" value="pnlGroup.fileId"></param>
+					<param name="Module" value="experiment"></param>
 				</procedure>
 			</flow>
 			<!-- 确认 -->
