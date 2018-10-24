@@ -186,8 +186,12 @@
             <div class="experiment-run" id="runExperimentContent">
                 	<div class="icon-run" id="iconRunExperiment"></div>
             </div>
+            <!-- 加载中 -->
+            <div class="other-loading dis_n" id="isXuJiLoadingBox">
+                <div class="loading-bg">正在努力加载中...</div>
+            </div>
 
-            <div class="environment-content" id="experimentContent">
+            <div class="environment-content dis_n" id="experimentContent">
                 <div class="environment-content-tab" id="environmentTabID">
                 <#list expMirrorList as mirror>
                     	<div class="environment-content-tab-title  cur_point posi1 <#if mirror_index==0>selected</#if>" id="en${mirror_index+1}">
@@ -339,11 +343,11 @@
                     // 以下是对鼠标的配置，无特殊情况不可更改
                     var mouse = new Guacamole.Mouse(guac[index].getDisplay().getElement());
     
-                    mouse.onmousedown = 
-                    mouse.onmouseup   =
-                    mouse.onmousemove = function(mouseState) {
-                    	guac[index].sendMouseState(mouseState);
-                    };
+                   // mouse.onmousedown = 
+                    // mouse.onmouseup   =
+                    // mouse.onmousemove = function(mouseState) {
+                    	//guac[index].sendMouseState(mouseState);
+                   // };
     
                     
                     	
@@ -710,7 +714,11 @@
             })
             //确定按钮--结束实验
             $("#overTestYesBtn").click(function(){
-            	disConnect()
+				//<#if expOperateList[0].name =="Juypter">
+					//document.getElementById("logout").click();
+				//<#else>*/
+					disConnect();
+				//</#if>            	
             	window.location.href="${ctx}/experiment-list";
             })
             //确定按钮--离开实验
@@ -756,6 +764,12 @@
             $("#experimentContent").css("height", iframeHeight-160);
             $("#jupyterIframe").css("height", iframeHeight-160);
         }
+        function isNull( str ){
+			if ( str == "" ) return true;
+			var regu = "^[ ]+$";
+			var re = new RegExp(regu);
+			return re.test(str);
+		}
 $('#save').click(function(){
 		var id=$("#record").val();
 	    var Mode;
@@ -774,7 +788,7 @@ $('#save').click(function(){
 		//console.log(eq_scheduleId);
 		var fileId=$('#fileId').val();
 		var submit= "0";
-		if(fileName!=''&&stuResult!=''){
+		if(!isNull(fileName)&&!isNull(stuResult)){
 			ajaxPost(APIS.frmStudentRecord.save, 
 	   				 {
 	   				 	id: id,
@@ -818,7 +832,7 @@ $('#submit').click(function(){
 		//console.log(eq_scheduleId);
 		var fileId=$('#fileId').val();
 		var submit= "1";
-		if(fileName!=''&&stuResult!=''){
+		if(!isNull(fileName)&&!isNull(stuResult)){
 			ajaxPost(APIS.frmStudentRecord.save, 
 	   				 {
 	   				 	id: id,
