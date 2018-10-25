@@ -762,7 +762,7 @@
 				<#else>
 					destroyKey();
 				</#if>     
-				window.setTimeout("window.location.href='${ctx}/experiment-list'",10000);
+				window.setTimeout("window.location.href='${ctx}/experiment-list'",3000);
             })
             //确定按钮--离开实验
             $("#overTimeBtn").click(function(){
