@@ -282,12 +282,7 @@
           });
       }else{clearInterval(detector)}
     }
-  //获取当前选项卡uuid
-  function getUuid(){  $("#environmentTabID").children().each(function(index,value){
-  if($(this).hasClass('selected')){
-    uuidnow=uuid[index]
-    tabindexid=index}
-})};
+  
     function openvir(){
       
       /*var count
@@ -310,7 +305,12 @@
                   var display = $(".virtual-item")[index];
                   $(display).show();
                   $(display).siblings().hide();
-                  getUuid()
+                //获取当前选项卡uuid
+                  $("#environmentTabID").children().each(function(index,value){
+                	  if($(this).hasClass('selected')){
+                	    uuidnow=uuid[index]
+                	    tabindexid=index}
+                	})
               })
 
           });
@@ -348,11 +348,11 @@
                     // 以下是对鼠标的配置，无特殊情况不可更改
                     var mouse = new Guacamole.Mouse(guac[index].getDisplay().getElement());
     
-                   // mouse.onmousedown = 
-                    // mouse.onmouseup   =
-                    // mouse.onmousemove = function(mouseState) {
-                    	//guac[index].sendMouseState(mouseState);
-                   // };
+                    mouse.onmousedown = 
+                     mouse.onmouseup   =
+                     mouse.onmousemove = function(mouseState) {
+                    	guac[index].sendMouseState(mouseState);
+                    };
     
                     
                     	
