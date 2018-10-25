@@ -338,12 +338,10 @@
                     // 上边完毕后，执行连接操作。
                     guac[index].connect();
     
-                    // 当关闭后要执行的操作放在这里
+                   /*  // 当关闭后要执行的操作放在这里
                     window.onunload = function() {
-                    	disConnect();
-                    	
                     	destroyKey();
-                    }
+                    } */
     
                     // 以下是对鼠标的配置，无特殊情况不可更改
                     var mouse = new Guacamole.Mouse(guac[index].getDisplay().getElement());
@@ -444,23 +442,25 @@
     var guac=[];
     var virnum;
     function disConnect(){
-      $("#environmentTabID").children().each(function(index,value){
+/*       $("#environmentTabID").children().each(function(index,value){
         if($(this).hasClass('selected')){
-          guac[index].disconnect()}
+          //guac[index].disconnect()}
       });
       $.ajax({ 
               type:'post', 
               url: "http://39.105.110.193:8080/domain/disConnect", 
               data: '{"domainUuid":"'+uuidnow+'"}', 
               dataType:"json", 
-              async:false, 
+              async:true, 
               contentType : 'application/json;charset=UTF-8',
               success: function(res){ 
                 
               } 
           });
-      virnum--
-      if(virnum==0)window.location.reload()
+      virnum-- 
+      console.log(12)
+      if(virnum==0)window.location.reload()*/
+    	
     }
     //销毁虚拟机
     function destroyUuid(){
@@ -469,7 +469,7 @@
               url: "http://39.105.110.193:8080/domain/undefine/uuid", 
               data: '{"domainUuid":"'+uuidnow+'"}', 
               dataType:"json", 
-              async:false, 
+              async:true, 
               contentType : 'application/json;charset=UTF-8',
               success: function(res){ 
                 
@@ -482,7 +482,7 @@
               url: "http://39.105.110.193:8080/domain/undefine", 
               data: '{"key":"'+key[0]+'"}', 
               dataType:"json", 
-              async:false, 
+              async:true, 
               contentType : 'application/json;charset=UTF-8',
               success: function(res){ 
                 
@@ -495,7 +495,7 @@
               url: "http://39.105.110.193:8080/domain/reboot", 
               data: '{"domainUuid":"'+uuidnow+'"}', 
               dataType:"json", 
-              async:false, 
+              async:true, 
               contentType : 'application/json;charset=UTF-8',
               success: function(res){ 
                 
@@ -760,9 +760,9 @@
 					//}
 					console.log(456);
 				<#else>
-					disConnect();
-				</#if>            	
-            	window.location.href="${ctx}/experiment-list";
+					destroyKey();
+				</#if>     
+				window.setTimeout("window.location.href='${ctx}/experiment-list'",10000);
             })
             //确定按钮--离开实验
             $("#overTimeBtn").click(function(){
@@ -914,7 +914,7 @@ setTimeout(function(){
 	//console.log(token);
 	$.ajaxFileUpload({  
 	    url:'${ctx}/localUpload?token='+token,  
-	    data:{accessType:"public",allowFile:"jpg,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xls",maxSize:"9999999",uploadUrl:""},
+	    data:{accessType:"public",module:"experiment",allowFile:"jpg,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xls",maxSize:"9999999",uploadUrl:""},
 	    secureuri:false,  
 	    fileElementId:fileid,//file标签的id  
 	    dataType: 'json',//返回数据的类型   
@@ -983,7 +983,7 @@ function uploadFile(file){
  //console.log(currentdate);
 
 function readImg(file) {
-	debugger
+	//debugger
 	if(file.files && file.files[0]) {
 		var reader = new FileReader();
 		reader.onload = function(evt) {
