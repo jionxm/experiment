@@ -272,14 +272,22 @@
             if(data.data[0][0].length==36){
               uuid=data.data[0]
               $("#number").html("本次实验即将开启"+uuid.length+"个虚拟机")
-              
+              virnum=uuid.length
               clearInterval(detector)
+              Exp.removeToast()
+              $("#layoutBox").show();
+              $("#experimentPromptBox").show();
               openvir()
             }
           });
       }else{clearInterval(detector)}
     }
-    
+  //获取当前选项卡uuid
+  function getUuid(){  $("#environmentTabID").children().each(function(index,value){
+  if($(this).hasClass('selected')){
+    uuidnow=uuid[index]
+    tabindexid=index}
+})};
     function openvir(){
       
       /*var count
@@ -302,12 +310,7 @@
                   var display = $(".virtual-item")[index];
                   $(display).show();
                   $(display).siblings().hide();
-                  //获取当前选项卡uuid
-                  $("#environmentTabID").children().each(function(index,value){
-                if($(this).hasClass('selected')){
-                  uuidnow=uuid[index]
-                  tabindexid=index}
-              });
+                  getUuid()
               })
 
           });
@@ -337,7 +340,8 @@
     
                     // 当关闭后要执行的操作放在这里
                     window.onunload = function() {
-                    	guac[index].disconnect();
+                    	disConnect();
+                    	
                     	destroyKey();
                     }
     
@@ -415,17 +419,30 @@
               async:false, 
               contentType : 'application/json;charset=UTF-8',
               success: function(res){ 
-                key=res.data;
+            	if(res.code=="200")
+                {key=res.data;
+            	detector=setInterval('check()',5000);}
+            	else{
+            		setTimeout(() => {
+            			Exp.removeToast()
+                        $("#layoutBox").show();
+                        $("#experimentPromptBox").show();
+                  	  	$("#number").html("调用虚拟机失败，请联系管理员")
+                  	  	
+            	    }, 2000);
+            		
+            	}
                 //console.log(res);
-              } 
+              }
           }); 
       
-        detector=setInterval('check()',5000);
+        
         
     }
     //断开虚拟机
     var uuidnow;
     var guac=[];
+    var virnum;
     function disConnect(){
       $("#environmentTabID").children().each(function(index,value){
         if($(this).hasClass('selected')){
@@ -442,6 +459,8 @@
                 
               } 
           });
+      virnum--
+      if(virnum==0)window.location.reload()
     }
     //销毁虚拟机
     function destroyUuid(){
@@ -492,8 +511,9 @@
       			  data:'{"serverInformationList":'+serverInformationList+'}',
       			  dataType:"json", 
                     contentType : 'application/json;charset=UTF-8',
-                    success: function(data){ 
-                    	alert(data.data)
+                    success: function(data){
+                    	if(data.code=="200")
+                    	alert("成功")
                     } 
       			  });
       		 
@@ -603,8 +623,9 @@
             applyVir()
              var mirrorSize = '${mirrorSize}';
            		if(mirrorSize>0){
- 					$("#layoutBox").show();
-                	$("#experimentPromptBox").show();
+ 					//$("#layoutBox").show();
+                	//$("#experimentPromptBox").show();
+           			Exp.showToastAll("请耐心等待，正在获取虚拟机");
 		         }else{
 		         	//console.log(mirrorSize);
 		         	Exp.showToast("请联系相关课程教师添加虚拟机！");
@@ -639,6 +660,9 @@
             $("#experimentPromptBtn").click(function(){
             	/*var overTest = document.getElementById("overTest");
                 overTest.style.display = "block";*/
+                
+                if($("#number").html()=="调用虚拟机失败，请联系管理员")
+                	window.location.reload()
             	countTime();
                 $("#layoutBox").hide();
                 $("#experimentPromptBox").hide();
@@ -728,11 +752,16 @@
             })
             //确定按钮--结束实验
             $("#overTestYesBtn").click(function(){
-				//<#if expOperateList[0].name =="Juypter">
-					//document.getElementById("logout").click();
-				//<#else>*/
+				<#if expOperateList[0].name =="Juypter">
+					//alert($("#jupyterIframe").contents());
+					//alert($("#header", document.frames("jupyterIframe").document).html());
+					//if(a){
+						//a.click();
+					//}
+					console.log(456);
+				<#else>
 					disConnect();
-				//</#if>            	
+				</#if>            	
             	window.location.href="${ctx}/experiment-list";
             })
             //确定按钮--离开实验
