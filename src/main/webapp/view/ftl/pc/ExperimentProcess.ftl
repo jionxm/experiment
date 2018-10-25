@@ -18,6 +18,7 @@
     <header>
         <div class="logo"></div>
         <div class="experiment-title">${expScheduleList[0].name}</div>
+        <button id="b01" type="button">销毁当前宿主机所有虚机</button>
         <#include "pc/common/user.ftl">
         <!-- <div class="user-box">
                 <div class="user-info clearfix">
@@ -484,6 +485,19 @@
     }
     
         $(function(){
+        	$("#b01").click(function(){
+      		  $.ajax({
+      			  type:'post', 
+      			  url:"http://39.105.110.193:8080/domain/undefine/all",
+      			  data:'{"serverInformationList":'+serverInformationList+'}',
+      			  dataType:"json", 
+                    contentType : 'application/json;charset=UTF-8',
+                    success: function(data){ 
+                    	alert(data.data)
+                    } 
+      			  });
+      		 
+      		  });
           //$("#closeVirtualBtn").click(function(){disConnect()});
         
           $("#restartVirtualBtn").click(function(){
