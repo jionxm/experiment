@@ -528,7 +528,7 @@
           
         
         	 var iframe = document.getElementById("jupyterIframe");
-        	 var iframeurl="http://${iframeUrl}/hub/login?username=jupyter"; 
+        	 var iframeurl="http://${iframeUrl}/hub/login?username=${userName}"; 
         	if(iframe){
              //iframe.src = "http://117.50.17.174:8000/hub/login?username=123"; 
               

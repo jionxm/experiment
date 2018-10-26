@@ -192,6 +192,8 @@ public class ExpListController {
 		if (userModel != null) {
 			long userId = userModel.getUserId();
 			model.addAttribute("userId", userId);
+			String userName = userModel.getUserName();
+			model.addAttribute("userName",userName);
 			Map<String, Object> iframe = new HashMap<>();
 			iframe.put("eq_code", "iframe");
 			iframe.put("eq_cataCode", "iframe.url");
