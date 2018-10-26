@@ -2,7 +2,16 @@
 var API_PROXY = '';
 // 后台的接口列表
 var APIS = {
-
+		/**
+	     * 匿名登录
+	     */
+		
+	    loginAn: {
+	        url: '/loginAn'
+	    },
+	    login: {
+	        url: '/login'
+	    },
 	/**
 	 * 保存实验报告
 	 */
