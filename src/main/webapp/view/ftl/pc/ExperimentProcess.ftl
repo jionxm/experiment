@@ -16,9 +16,8 @@
 
 <body>
     <header>
-        <div class="logo"></div>
+        <div class="logo"id="b01"></div>
         <div class="experiment-title">${expScheduleList[0].name}</div>
-        <button id="b01" type="button">销毁当前宿主机所有虚机</button>
         <#include "pc/common/user.ftl">
         <!-- <div class="user-box">
                 <div class="user-info clearfix">
@@ -512,8 +511,9 @@
       			  dataType:"json", 
                     contentType : 'application/json;charset=UTF-8',
                     success: function(data){
-                    	if(data.code=="200")
-                    	alert("成功")
+                    	if(data.code=="200"){
+                    		Exp.showToast("当前用户过多，已销毁无操作虚拟机！");
+                    	}
                     } 
       			  });
       		 

@@ -115,24 +115,19 @@
 	    
 	 	$('#save').click(function(){
 		var id=$("#record").val();
-		console.log(id);
 	    var Mode;
 	    if(id==null||id=='undefine'||id==''){
 	    	Mode='Add';
 	    	}else{
 	    	Mode='Edit';
 	    	}
-	    	console.log(Mode);
 		var stuResult=$("#stuResult").val();
-		console.log(stuResult);
 		var studentId="${studentId}";
-		console.log(studentId);
 		var studentName="mz";
-		var fileName = '111';
+		var fileName = $("#fileName").html();
 		var eq_scheduleId= '${expId}';
 		var fileId=$('#fileId').val();
 		var submit= "0";
-		console.log(stuResult.length);
 		if(!isNull(fileName)&&!isNull(stuResult)){
 			ajaxPost(APIS.frmStudentRecord.save, 
 	   				 {
@@ -146,10 +141,11 @@
 						submit: submit,
 						fileName:fileName
 	    			 }, function(data) {
-    	    			console.log(data);
-    	    			
+	    			 console.log("保存-->"+data);
+	    			 console.log('data.code-->1'+data.code);
     	    			if(data.code==0){
-    	    			$("#record").val(data.data.id);
+    	    				console.log('data.code-->2'+data.code);
+    	    				$("#record").val(data.data.id);
     	    				Exp.showToast("保存成功");
     	    			}
     	    			else{
@@ -179,7 +175,6 @@
 		var studentName="mz";
 		var fileName = $("#fileName").html();
 		var eq_scheduleId= '${expId}';
-		console.log(eq_scheduleId);
 		var fileId=$('#fileId').val();
 		var submit= "1";
 		if(!isNull(fileName)&&!isNull(stuResult)){
@@ -194,9 +189,7 @@
 						fileId: fileId,
 						submit: submit,
 						fileName:fileName
-
 	    			 }, function(data) {
-    	    			console.log(data);
     	    			if(data.code==0){
     	    				$("#record").val(data.data.id);
     	    				Exp.showToast("提交成功");
@@ -228,7 +221,6 @@
 	    fileElementId:fileid,//file标签的id  
 	    dataType: 'json',//返回数据的类型   
 	    success: function (data) {
-	    	console.log(data);
 	    	if(data.status!=0){
 		    	console.log(data);
 		    	var fileName = data.data.filename;
@@ -256,7 +248,6 @@ function uploadFile(file){
 	var tokenKey = 'OnClick_pForm_fileName_frmStudentRecord_fileUpload';
 	var uiName = "frmStudentRecord";
 	var fileid = file.id;
-	console.log(file.id);
 	$.ajax({
 	      type: 'GET',
 	      url:  API_PROXY + '/ui/' + uiName + '/app',
@@ -264,7 +255,6 @@ function uploadFile(file){
 	        if (data && data.token && data.token.items) {
 	          var token = data.token.items[tokenKey];
 	          if (token) {
-	            console.log(token);
 	            settime(fileid,token);
 	          } else {
 	            console.log('------------------------token的UiName配置错误-------------------');
@@ -274,7 +264,6 @@ function uploadFile(file){
 	        }
 	      }
 	    });
-	console.log(token);
 }
  var date = new Date();
         var seperator1 = "-";
@@ -292,13 +281,11 @@ function uploadFile(file){
        //提价时间
      var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +" "+ h + ":" + m + ":" + s; 
  
-	console.log(currentdate);
 
 function readImg(file) {
 	if(file.files && file.files[0]) {
 		var reader = new FileReader();
 		reader.onload = function(evt) {
-		console.log("file"+file);
 		}
 		reader.readAsDataURL(file.files[0]);
 		uploadFile(file);
