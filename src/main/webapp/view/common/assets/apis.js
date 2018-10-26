@@ -22,4 +22,14 @@ var APIS = {
 			tokenKey : 'OnClick_pButton_save_frmStudentRecord_jssave'
 		},
 	},
+	/**
+	 * 获取服务器
+	 */
+	frmServerList:{
+		query:{
+			 url: '/api/query',
+	         needLogin: true,
+	         tokenKey: 'OnLoad__frmServerList_j2'
+		},
+	},		
 };
