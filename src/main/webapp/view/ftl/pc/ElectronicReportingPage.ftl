@@ -41,19 +41,24 @@
             <div class="electronicReporting">
 				<#list expScheduleList as m>
                 <div class="header-title-1">实验内容</div>
-
+				<#if m.reportDemand>
                 <div class="header-title-2">实验的目的及要求</div>
-                <div class="header-title-3">${m.demand}</div>
-
-                <div class="header-title-2">软硬件及环境</div>
-				<#list expSoftwareList as software>
-                <div class="header-title-3">${software.name}</div>
-				</#list>
+                <div class="header-title-3">${m.reportDemand}</div>
+                </#if>
+				<#if expSoftwareList>
+                	<div class="header-title-2">软硬件及环境</div>
+					<#list expSoftwareList as software>
+                	<div class="header-title-3">${software.name}</div>
+					</#list>
+				</#if>
+				<#if m.reportTarget>
                 <div class="header-title-2">实验目标</div>
-                <div class="header-title-3">${m.target}</div>
-
+                <div class="header-title-3">${m.reportTarget}</div>
+				</#if>
+				<#if m.reportContent>
                 <div class="header-title-2">实验内容与步骤</div>
-                <div class="header-title-3">${m.content}</div>
+                <div class="header-title-3">${m.reportContent}</div>
+                </#if>
 				</#list>
                 <div>
                     <div class="header-title-1">实验结果</div>

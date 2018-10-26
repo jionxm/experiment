@@ -73,7 +73,7 @@
 
                         <div class="segment-second-body">
                             <div class="segment-second-content" id="littleTabContent1">
-                                <#if m.reportTarget>
+                                <#if m.reportDemand>
                                 <div class="header-title-2">实验需求</div>
                                 <div class="header-title-3">${m.reportDemand}</div>
                                 </#if>
