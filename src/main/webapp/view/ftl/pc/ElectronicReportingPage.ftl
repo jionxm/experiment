@@ -223,7 +223,7 @@
         	  }, 5000);
 	$.ajaxFileUpload({  
 	    url:'${ctx}/localUpload?token='+token,  
-	    data:{accessType:"public",allowFile:"jpg,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xls",maxSize:"9999999",uploadUrl:""},
+	    data:{accessType:"public",module:"experiment",allowFile:"jpg,jpeg,gif,png,bmp,zip,pptx,py,ipynb,doc,docx,xls",maxSize:"9999999",uploadUrl:""},
 	    secureuri:false,  
 	    fileElementId:fileid,//file标签的id  
 	    dataType: 'json',//返回数据的类型   
